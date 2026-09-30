@@ -3,10 +3,12 @@
 Provides reproducible training routines for two-phase transfer learning on EfficientNetB3,
 including custom callbacks for Quadratic Weighted Kappa (QWK) tracking and overfitting prevention.
 
-Two-Phase Training Protocol (matches diabetic_retinopathy_detection.ipynb):
-  Phase 1: Frozen backbone — train head only at lr=1e-3 for 15 epochs.
-  Phase 2: Top-30 layers unfrozen — fine-tune at lr=1e-5 for 25 epochs.
-  Both phases use label_smoothing=0.1 (AppConfig.LABEL_SMOOTHING) and class_weight dict.
+Optional helpers mirroring the notebook's two-phase baseline
+(notebooks/diabetic_retinopathy_full_retrain_v2.ipynb; the notebook does not import this module):
+  Phase 1: Frozen backbone — train head only with Adam at lr=1e-3 for up to 8 epochs.
+  Phase 2: Top-120 layers unfrozen (BatchNorm frozen) — AdamW at lr=1e-5, weight decay 1e-4,
+           for up to 25 epochs.
+  Both phases use label_smoothing=0.1 (AppConfig.LABEL_SMOOTHING) and early stopping on val_loss.
 """
 
 import os
@@ -23,8 +25,8 @@ def compile_for_phase1(model: keras.Model) -> None:
     """Compile model for Phase 1 (frozen backbone, head-only training).
 
     Uses Adam at AppConfig.PHASE1_LR (1e-3) with CategoricalCrossentropy
-    and label_smoothing=AppConfig.LABEL_SMOOTHING (0.1). Matches notebook
-    compile_model_phase1() exactly.
+    and label_smoothing=AppConfig.LABEL_SMOOTHING (0.1), like the notebook's
+    compile_model_phase1().
     """
     model.compile(
         optimizer=keras.optimizers.Adam(learning_rate=AppConfig.PHASE1_LR),
@@ -36,17 +38,16 @@ def compile_for_phase1(model: keras.Model) -> None:
 
 
 def compile_for_phase2(model: keras.Model) -> None:
-    """Compile model for Phase 2 (top-30 layers unfrozen, domain fine-tuning).
+    """Compile model for Phase 2 (top layers unfrozen, domain fine-tuning).
 
-    Uses Adam at AppConfig.PHASE2_LR (1e-5) with the same label smoothing.
-    Matches notebook Phase 2 recompile step exactly.
+    Uses AdamW at AppConfig.PHASE2_LR (1e-5) with decoupled weight decay
+    AppConfig.L2_WEIGHT_DECAY (1e-4) and the same label smoothing, like the
+    notebook's configure_phase2().
     """
     model.compile(
-        optimizer=keras.optimizers.Adam(
+        optimizer=keras.optimizers.AdamW(
             learning_rate=AppConfig.PHASE2_LR,
-            beta_1=0.9,
-            beta_2=0.999,
-            epsilon=1e-7,
+            weight_decay=AppConfig.L2_WEIGHT_DECAY,
         ),
         loss=keras.losses.CategoricalCrossentropy(
             label_smoothing=AppConfig.LABEL_SMOOTHING
@@ -61,14 +62,14 @@ def unfreeze_top_n_layers(
 ) -> None:
     """Unfreeze the top-N layers of the EfficientNetB3 backbone for Phase 2.
 
-    Freezes all layers except the final ``n`` layers of the base model.
-    Default n=AppConfig.PHASE2_UNFROZEN_LAYERS=30, matching the notebook's
-    ``Config.UNFREEZE_TOP_N = 30`` setting.
+    Freezes all layers except the final ``n`` layers of the base model and keeps
+    every BatchNormalization layer frozen, like the notebook's configure_phase2().
+    Default n=AppConfig.PHASE2_UNFROZEN_LAYERS=120 (notebook Config.UNFREEZE_TOP_N).
     """
     base_model.trainable = True
     freeze_until = len(base_model.layers) - n
     for i, layer in enumerate(base_model.layers):
-        layer.trainable = i >= freeze_until
+        layer.trainable = i >= freeze_until and not isinstance(layer, keras.layers.BatchNormalization)
 
 
 

@@ -31,29 +31,32 @@ class AppConfig:
     EDGE_SHARPEN_STRENGTH: float = 1.2
     EDGE_SHARPEN_SIGMA: float = 3.0
 
-    # ── Centralized Training & Hyperparameter Configuration ─────────
+    # ── Training defaults (mirror the notebook's Config baseline) ─────────
+    # Used by the optional helpers in core/training.py; the notebook has its own
+    # Config and the pilot trials may select different values (Section 6.6).
     # Phase 1: Transfer Learning Feature Extraction (Frozen Backbone)
-    PHASE1_EPOCHS: int = 15
+    PHASE1_EPOCHS: int = 8
     PHASE1_LR: float = 1e-3
-    PHASE1_BATCH_SIZE: int = 32
-    PHASE1_OPTIMIZER: str = "Adam(learning_rate=1e-3, beta_1=0.9, beta_2=0.999, epsilon=1e-7)"
-    PHASE1_FROZEN_LAYERS: int = 384  # Full EfficientNetB3 backbone (verified layer count)
+    PHASE1_BATCH_SIZE: int = 16
+    PHASE1_OPTIMIZER: str = "Adam(learning_rate=1e-3)"
+    PHASE1_FROZEN_LAYERS: str = "all backbone layers (385 on Kaggle's Keras 3.13, 384 on Keras 3.15)"
 
-    # Phase 2: End-to-End Fine-Tuning (Top Stages Unfrozen)
+    # Phase 2: Fine-Tuning (top layers unfrozen, BatchNorm frozen)
     PHASE2_EPOCHS: int = 25
     PHASE2_LR: float = 1e-5
     PHASE2_MIN_LR: float = 1e-7
-    PHASE2_BATCH_SIZE: int = 32
-    PHASE2_OPTIMIZER: str = "Adam(learning_rate=1e-5)"
-    PHASE2_UNFROZEN_LAYERS: int = 30  # Matches the notebook's current fine-tuning policy
+    PHASE2_BATCH_SIZE: int = 16
+    PHASE2_OPTIMIZER: str = "AdamW(learning_rate=1e-5, weight_decay=1e-4)"
+    PHASE2_UNFROZEN_LAYERS: int = 120  # notebook Config.UNFREEZE_TOP_N
 
     # Regularization & Optimization Guardrails
+    # DROPOUT_RATE must match the checkpoint the app loads (0.30 for the earlier
+    # checkpoint; set 0.5 when the APTOS-trained weights are copied in).
     DROPOUT_RATE: float = 0.30
-    # Reserved; the notebook training path currently does not apply weight decay.
-    L2_WEIGHT_DECAY: float = 1e-4
+    L2_WEIGHT_DECAY: float = 1e-4  # AdamW decoupled weight decay in Phase 2
     LABEL_SMOOTHING: float = 0.1
-    EARLY_STOPPING_PATIENCE: int = 5
-    REDUCE_LR_PATIENCE: int = 3
+    EARLY_STOPPING_PATIENCE: int = 4
+    REDUCE_LR_PATIENCE: int = 2
     REDUCE_LR_FACTOR: float = 0.50
 
     WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "best_phase2.weights.h5")
