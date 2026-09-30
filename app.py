@@ -3,7 +3,7 @@ app.py — RetinaTrace AI entry point (Hugging Face Spaces looks for this file).
 Modern, Unique & User-Friendly Gradio Web Application.
 
 BSc (Hons) Computer Science — Computer Vision (BSCCOMP24.2P)
-Repository: https://github.com/ShazzySal/ComputerVision_CW
+Repository: https://github.com/ShaznaSalman/ComputerVision_Coursework_COBSCCOMP24.2P-019
 
 Architecture Features:
 ----------------------

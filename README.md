@@ -184,8 +184,8 @@ All core innovations in this project are directly grounded in and adapted from p
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/ShazzySal/ComputerVision_CW.git
-cd ComputerVision_CW
+git clone https://github.com/ShaznaSalman/ComputerVision_Coursework_COBSCCOMP24.2P-019.git
+cd ComputerVision_Coursework_COBSCCOMP24.2P-019
 
 # 2. Create and activate a clean virtual environment
 python -m venv venv
