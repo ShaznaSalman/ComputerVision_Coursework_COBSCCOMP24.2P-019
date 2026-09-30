@@ -1,0 +1,52 @@
+# Python / Environment
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Kaggle / Secrets
+kaggle.json
+*.zip
+
+# Datasets / Large Artifacts
+dr_data/
+content/
+/data/
+*.tar.gz
+
+# Local split exports contain machine paths and patient/group identifiers.
+/report_images/*_split.csv
+/report_images/experimental_patient_safe/
+/report_images/preprocessing_quality_ablation.csv
+
+# Experimental model outputs; retain only checkpoints intentionally tracked.
+/checkpoints/experimental_patient_safe/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Local spreadsheets
+*.xlsx
+coursework_report_draft.md
+*.docx
+*.pdf
+STUDENT_ACTION_CHECKLIST.md
+SCREENSHOT_AND_EVIDENCE_GUIDE.md
+
+.gradio/
+
+AUDIT_REPORT.md
+
+*audit*.md
+*checklist*.md
+*review*.md
+*todo*.md
+*fix_log*.*

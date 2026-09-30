@@ -1,0 +1,6 @@
+sample,source_image_path_in_data,split
+stage0_no_dr.jpg,val/0/626_right-600.jpg,patient_safe_validation
+stage1_mild.jpg,train/1/35603_left-600.jpg,patient_safe_validation
+stage2_moderate.jpg,test/2/19742_left-600.jpg,patient_safe_validation
+stage3_severe.jpg,train/3/1c9521878baf-GF-600.jpg,patient_safe_validation
+stage4_proliferative.jpg,train/4/7e4019ac7f5a-GF-600-HB.jpg,patient_safe_validation
