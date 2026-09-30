@@ -4,6 +4,7 @@ from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional
 
 from app.reports import describe_reported_metrics
+from core.config import AppConfig
 
 # Loaded once at startup from the notebook's saved test metrics (no hard-coded results).
 _REPORTED_METRICS_TEXT = describe_reported_metrics()
@@ -89,14 +90,18 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
         "reply": (
             "**EfficientNetB3 — Deep Learning Backbone**\n\n"
             "RetinaTrace uses **EfficientNetB3** pre-trained on ImageNet as its convolutional "
-            "backbone. EfficientNet applies **compound scaling** — simultaneously scaling "
-            "depth, width, and resolution using a fixed ratio — achieving superior "
-            "accuracy/parameter efficiency vs ResNet, DenseNet, or VGG.\n\n"
+            "backbone. EfficientNet applies **compound scaling** — scaling depth, width and "
+            "resolution together — which gives strong ImageNet accuracy for its size. The project's "
+            "notebook also trains ResNet-50, MobileNetV2, EfficientNetB0, DenseNet-121, VGG-16 and a "
+            "CNN from scratch on the same data as comparison trials.\n\n"
             "A custom classification head is added:\n"
-            "`GAP → BatchNorm → Dense(256, ReLU) → Dropout(0.3) → Dense(5, Softmax)`\n\n"
-            "Training uses **2-phase transfer learning**:\n"
-            "- Phase 1 (15 epochs, LR=1e-3): Base frozen, head trained.\n"
-            "- Phase 2 (25 epochs, LR=1e-5): Top 30 base layers unfrozen for fine-tuning."
+            "`GAP → BatchNorm → Dense(256, ReLU) → Dropout(0.5) → Dense(5, Softmax)`\n\n"
+            "The notebook trains it in **2 phases** on APTOS 2019:\n"
+            "- Phase 1 (up to 8 epochs, LR 1e-3): backbone frozen, head trained.\n"
+            "- Phase 2 (up to 25 epochs, LR 1e-5, AdamW weight decay 1e-4): top 120 backbone layers "
+            "fine-tuned with BatchNorm frozen.\n"
+            "Both phases stop early on validation loss. Validation-only pilot trials may change some of "
+            "these settings before the final fit."
         ),
     },
     {
@@ -166,7 +171,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "   `I_norm = 4×I − 4×GaussianBlur(I, σ=10) + 128`\n"
             "   This suppresses low-frequency illumination variation and enhances local detail, "
             "but may amplify noise in poor-quality images.\n"
-            "3. **Resize:** All images standardized to 224×224 pixels.\n"
+            f"3. **Resize:** Images are resized to the model input size ({AppConfig.IMG_SIZE}×{AppConfig.IMG_SIZE} in this app).\n"
             "4. **Normalization:** Pixel values scaled to [0, 1] float32."
         ),
     },
@@ -199,18 +204,17 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
         ),
     },
     {
-        "keys": ["dataset", "data", "kaggle", "aptos", "idrid", "messidor", "eyepacs", "38034", "38,034"],
+        "keys": ["dataset", "data", "kaggle", "aptos", "idrid", "messidor", "eyepacs", "3662", "3,662"],
         "reply": (
-            "**Dataset — Combined Fundus Image Records**\n\n"
-            "The project uses the **Combined DR Dataset** package (Harsha, 2020) from Kaggle. "
-            "Its name lists APTOS, IDRiD, Messidor-2 and EyePACS, but every image in the copy used "
-            "here has an **EyePACS- or APTOS-style filename**; no IDRiD or Messidor-2 images were found.\n\n"
-            "The package contains **38,034 image files**. 20,084 of them are augmented copies "
-            "(flips and filters) made by the dataset author, all in stages 1–4, so there are about "
-            "23,786 distinct photographs. The project's patient- and duplicate-safe split keeps each "
-            "photograph and its copies in the same split. The saved checkpoint predates the corrected input-scale "
-            "pipeline and duplicate-safe split; retraining and evaluation are required before "
-            "treating its predictions as validated results."
+            "**Dataset — APTOS 2019 Blindness Detection**\n\n"
+            "The notebook trains on the **APTOS 2019 Blindness Detection** Kaggle competition data: the "
+            "**3,662 labelled images** in `train_images/`, graded 0–4 by clinicians at Aravind Eye Hospital, "
+            "India. The published class counts are 1,805 No DR, 370 Mild, 999 Moderate, 193 Severe and "
+            "295 Proliferative (about 9.4× imbalance).\n\n"
+            "Near-duplicate photographs are grouped with perceptual hashing, and whole groups are assigned "
+            "to a 70/15/15 train/validation/test split. The data comes from a single source and has no "
+            "patient IDs, so results may not transfer to other clinics or cameras. The checkpoint loaded in "
+            "this app may predate the APTOS retraining; treat its predictions as a prototype demonstration."
         ),
     },
 ]

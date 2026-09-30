@@ -29,7 +29,7 @@ def build_classifier():
     x = layers.GlobalAveragePooling2D(name="gap")(x)
     x = layers.BatchNormalization(name="head_bn")(x)
     x = layers.Dense(256, activation="relu", name="head_dense")(x)
-    x = layers.Dropout(0.3, name="head_dropout")(x)
+    x = layers.Dropout(AppConfig.DROPOUT_RATE, name="head_dropout")(x)
     outputs = layers.Dense(AppConfig.NUM_CLASSES, activation="softmax", name="predictions")(x)
     model = keras.Model(inputs=inputs, outputs=outputs, name="RetinaTrace_EfficientNetB3")
 
@@ -58,8 +58,73 @@ def build_gradcam_model(full_model, base_model):
     return keras.Model(inputs=cam_in, outputs=[conv_output, predictions])
 
 
+def build_notebook_unet(input_shape: tuple = None) -> keras.Model:
+    """
+    Exact copy of the notebook's Section 12.2 build_unet() architecture.
+
+    3-level encoder-decoder with Conv-BN-ReLU double blocks, Conv2DTranspose
+    upsampling aligned with Resizing, and the same layer names, so the
+    notebook's unet_pseudomask.weights.h5 loads directly.
+    """
+    input_shape = input_shape or (AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3)
+    inputs = keras.Input(shape=input_shape, name="unet_input")
+
+    def conv_block(x, filters, name_prefix):
+        x = layers.Conv2D(filters, (3, 3), padding="same", name=f"{name_prefix}_conv1")(x)
+        x = layers.BatchNormalization(name=f"{name_prefix}_bn1")(x)
+        x = layers.Activation("relu", name=f"{name_prefix}_relu1")(x)
+        x = layers.Conv2D(filters, (3, 3), padding="same", name=f"{name_prefix}_conv2")(x)
+        x = layers.BatchNormalization(name=f"{name_prefix}_bn2")(x)
+        x = layers.Activation("relu", name=f"{name_prefix}_relu2")(x)
+        return x
+
+    c1 = conv_block(inputs, 32, "enc1")
+    p1 = layers.MaxPooling2D((2, 2), name="pool1")(c1)
+    c2 = conv_block(p1, 64, "enc2")
+    p2 = layers.MaxPooling2D((2, 2), name="pool2")(c2)
+    c3 = conv_block(p2, 128, "enc3")
+    p3 = layers.MaxPooling2D((2, 2), name="pool3")(c3)
+    bottleneck = conv_block(p3, 256, "bottleneck")
+
+    up3 = layers.Conv2DTranspose(128, (2, 2), strides=(2, 2), padding="same", name="up3")(bottleneck)
+    up3 = layers.Resizing(c3.shape[1], c3.shape[2], name="align_up3")(up3)
+    dec3 = conv_block(layers.concatenate([up3, c3], name="concat3"), 128, "dec3")
+
+    up2 = layers.Conv2DTranspose(64, (2, 2), strides=(2, 2), padding="same", name="up2")(dec3)
+    up2 = layers.Resizing(c2.shape[1], c2.shape[2], name="align_up2")(up2)
+    dec2 = conv_block(layers.concatenate([up2, c2], name="concat2"), 64, "dec2")
+
+    up1 = layers.Conv2DTranspose(32, (2, 2), strides=(2, 2), padding="same", name="up1")(dec2)
+    up1 = layers.Resizing(c1.shape[1], c1.shape[2], name="align_up1")(up1)
+    dec1 = conv_block(layers.concatenate([up1, c1], name="concat1"), 32, "dec1")
+
+    outputs = layers.Conv2D(1, (1, 1), activation="sigmoid", name="lesion_mask_output")(dec1)
+    return keras.Model(inputs=inputs, outputs=outputs, name="Retinal_Lesion_UNet")
+
+
 def build_auxiliary_unet():
-    """Construct and load the auxiliary U-Net lesion segmentation model."""
+    """
+    Construct and load the auxiliary U-Net lesion model.
+
+    Prefers the notebook's U-Net (checkpoints/unet_pseudomask.weights.h5, built with
+    build_notebook_unet); falls back to the earlier 2-level U-Net and its checkpoint
+    (AppConfig.UNET_WEIGHTS_PATH) when the notebook file is not present.
+    """
+    if os.path.exists(AppConfig.NOTEBOOK_UNET_WEIGHTS_PATH):
+        model = build_notebook_unet()
+        try:
+            model.load_weights(AppConfig.NOTEBOOK_UNET_WEIGHTS_PATH)
+        except Exception as exc:
+            raise RuntimeError(
+                f"Failed to load notebook U-Net checkpoint '{AppConfig.NOTEBOOK_UNET_WEIGHTS_PATH}'."
+            ) from exc
+        print(f"[U-Net] Notebook pseudo-mask U-Net loaded from {AppConfig.NOTEBOOK_UNET_WEIGHTS_PATH}.")
+        return model
+    return _build_legacy_unet()
+
+
+def _build_legacy_unet():
+    """Earlier 2-level U-Net used with checkpoints/unet_lesion_best.weights.h5."""
     inputs = keras.Input(shape=(AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3))
     c1 = layers.Conv2D(32, (3, 3), padding="same", activation="relu")(inputs)
     p1 = layers.MaxPooling2D((2, 2))(c1)

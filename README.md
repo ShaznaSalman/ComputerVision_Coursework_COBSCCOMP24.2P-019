@@ -15,8 +15,8 @@ short_description: Coursework prototype for diabetic-retinopathy image analysis
 # Diabetic Retinopathy Stage Detection: Coursework Research Prototype
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15%2B-orange.svg)](https://tensorflow.org/)
-[![Gradio](https://img.shields.io/badge/Gradio-4.20%2B-green.svg)](https://gradio.app/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16%2B-orange.svg)](https://tensorflow.org/)
+[![Gradio](https://img.shields.io/badge/Gradio-6.x-green.svg)](https://gradio.app/)
 [![License](https://img.shields.io/badge/License-Academic%20Coursework-lightgrey.svg)]()
 
 > **BSc (Hons) in Computing (Batch 2024.2) — Computer Vision Coursework**  
@@ -39,66 +39,65 @@ This coursework project implements a research prototype for **five-class diabeti
 
 ## 📊 Dataset Specification
 
-* **Dataset:** [Combined DR Dataset](https://www.kaggle.com/datasets/harsha1289/combined-dr-dataset-aptosidridmessidoreyepacs). Although the package is named after APTOS, IDRiD, Messidor-2 and EyePACS, every image in the copy used here has an EyePACS- or APTOS-style filename (no IDRiD or Messidor-2 images were found). Of its 38,034 files, 20,084 are augmented copies made by the dataset author (all in stages 1–4), leaving about 23,786 distinct photographs.
-* **Scale:** **38,034 downloaded image records** (21,000 in `train/`, 8,349 in `val/`, and 8,685 in `test/`). The duplicate-safe model partition is separate: 26,623 train / 5,706 validation / 5,705 test. The Kaggle description says approximately 21,000 images; see the report manifest for the measured folder counts and limitations.
-* **Disease Staging Hierarchy (International Clinical Diabetic Retinopathy Scale):**
-  * `Stage 0`: No DR (12,996 image records)
-  * `Stage 1`: Mild Non-Proliferative DR (NPDR) (5,825)
-  * `Stage 2`: Moderate NPDR (8,262)
-  * `Stage 3`: Severe NPDR (5,373)
-  * `Stage 4`: Proliferative DR (PDR) (5,578)
-* **Class Imbalance Handling:** The locally counted maximum-to-minimum class ratio is approximately 2.4:1. The notebook computes inverse-frequency class weights from training labels; no controlled with/without-weight performance comparison is currently reported.
-* **Label Scope:** The local `labels.csv` provides one record per file with a five-class diagnosis. It does not identify each record's source dataset, so per-source counts for the 38,034 local records cannot be verified from this copy.
+* **Dataset:** [APTOS 2019 Blindness Detection](https://www.kaggle.com/competitions/aptos2019-blindness-detection) (Kaggle competition). Only the **3,662 labelled images** in `train_images/` are used (`train.csv`: `id_code`, `diagnosis`); the competition's `test_images/` have no public labels and are not used.
+* **Disease staging (International Clinical Diabetic Retinopathy scale), published class counts** — the notebook recomputes them in Section 1.9:
+  * `Stage 0`: No DR (1,805)
+  * `Stage 1`: Mild Non-Proliferative DR (NPDR) (370)
+  * `Stage 2`: Moderate NPDR (999)
+  * `Stage 3`: Severe NPDR (193)
+  * `Stage 4`: Proliferative DR (PDR) (295)
+* **Class imbalance:** about **9.4×** between the largest (No DR) and smallest (Severe) class. Class weights are computed from the training split only: `balanced` (default), `sqrt` (softer) or `none`. On-the-fly oversampling is compared as a separate pilot trial and is never combined with class weights.
+* **Duplicate-aware split:** every image gets a perceptual hash; near-duplicates (Hamming distance ≤ 4) are grouped with union-find, and `StratifiedGroupKFold` (seed 42) assigns whole groups to a **70 / 15 / 15** train / validation / test split. The notebook asserts that no image or duplicate group appears in two splits; groups with conflicting grades are kept together and listed in `duplicate_groups.csv`. The split files are saved to `splits/`.
+* **Limitations:** single source (Aravind Eye Hospital, India), so results may not transfer to other cameras or populations and there is no external test set; **no patient IDs**, so two photographs of the same patient that are not near-duplicates can land in different splits; a small test set (about 550 images, only about 29 Severe), so per-class test metrics have wide uncertainty.
 
 ---
 
 ## 🏗️ Repository Architecture & File Structure
 
 ```
-Computer-Vision-CW/
-├── diabetic_retinopathy_detection.ipynb  # Primary end-to-end research notebook (Sections 1-11)
+ComputerVision_Coursework_COBSCCOMP24.2P-019/
+├── notebooks/
+│   └── diabetic_retinopathy_full_retrain_v2.ipynb   # End-to-end research notebook (Sections 1-13)
 ├── app.py                                # Tiny entry point: imports app.main and launches it
 ├── app/                                  # Gradio application package
 │   ├── main.py                           # Builds the tabs, wires buttons to handlers, launches
 │   ├── analysis.py                       # analyze_fundus(), image quality checks, longitudinal comparison
 │   ├── chatbot.py                        # Clinical knowledge base + router/knowledge/governance chat agents
-│   ├── reports.py                        # JSON report, PDF generation, EHR note, referral ticket
+│   ├── reports.py                        # JSON report, PDF generation, EHR note, referral summary
 │   ├── triage.py                         # Risk simulator (illustrative, not validated)
 │   ├── ui_style.py                       # CSS, head JavaScript, sidebar/header HTML
-│   ├── samples/                          # 5 real fundus images (one per stage) from the validation split
-│   └── cbr_reference/                    # 250 reference images (50 per stage) for similar-case retrieval
-├── core/                                  # Reusable backend modules
-│   ├── __init__.py
-│   ├── config.py                          # Shared application settings and checkpoint paths
-│   ├── preprocessing.py                   # Fundus cropping, resizing, and Ben Graham enhancement
-│   ├── models.py                          # EfficientNetB3, U-Net, Grad-CAM, and embeddings
-│   ├── explainability.py                  # Grad-CAM, retrieval, segmentation, and classical CV
-│   ├── advanced_cv.py                      # Research overlap, biomarkers, consistency, and longitudinal analysis
-│   ├── research_evidence.py                # Ablation, ordinal error analysis, and reproducibility artifacts
-│   └── agents.py                           # Diagnosis, advisory, explainability, and governance
-├── requirements.txt                      # Complete pinned Python environment dependencies
-├── README.md                             # Comprehensive technical documentation & reproduction guide
-├── checkpoints/                          # Saved model weight checkpoints
-│   ├── best_phase1.weights.h5            # Historical frozen-base checkpoint
-│   └── best_phase2.weights.h5            # Historical fine-tuned checkpoint
-└── report_images/                        # Saved project figures, metrics, and logs
-    ├── class_distribution.png            # Imbalance breakdown visualization
-    ├── preprocessing_class*.png          # Ben Graham & border-crop comparison grids
-    ├── augmentation_examples.png         # Stochastic transform validation panels
-    ├── curves_Phase_1_Frozen_Base.png    # Phase 1 loss/accuracy learning curves
-    ├── curves_Phase_2_Fine_Tuning.png    # Phase 2 fine-tuning loss/accuracy curves
-    ├── classification_report.csv         # Per-stage precision, recall, F1-scores
-    ├── confusion_matrix.png              # Raw count & normalized recall heatmaps
-    ├── gradcam_multiclass_overlays.png   # 5-stage Grad-CAM overlays & quadrant analysis
-    └── similar_cases_demo.png            # Query image vs top-3 retrieved historical cases
+│   ├── samples/                          # 5 real fundus images (one per stage) for the sample buttons
+│   └── cbr_reference/                    # Reference images (50 per stage) for similar-case retrieval
+├── core/                                 # Reusable backend modules (the notebook clones this repo to import them)
+│   ├── config.py                         # App settings and checkpoint paths
+│   ├── preprocessing.py                  # Border crop, resize, Ben Graham, optional CLAHE/denoise/edges
+│   ├── augmentation.py                   # Augmentation helpers
+│   ├── models.py                         # EfficientNetB3 classifier, U-Net, Grad-CAM model, embeddings
+│   ├── training.py                       # Training helpers and QWK
+│   ├── explainability.py                 # Grad-CAM, retrieval, segmentation, classical CV
+│   ├── advanced_cv.py                    # Overlap, biomarkers, consistency, longitudinal analysis
+│   ├── research_evidence.py              # Error analysis and reproducibility artifacts
+│   └── agents.py                         # Diagnosis, explainability, advisory and governance agents
+├── scripts/
+│   └── build_reference_set.py            # After training: rebuild app samples, CBR images and embeddings.npz
+├── tests/                                # Unit tests (preprocessing and app logic)
+├── splits/                               # train/validation/test split CSVs (written by the notebook)
+├── checkpoints/                          # Trained weights used by the app (add after a training run)
+├── report_images/                        # Figures and metrics copied from a run (add after a training run)
+├── requirements.txt
+└── README.md
+```
+
+Each notebook run writes its outputs to a run folder (`retinatrace_runs/run_<timestamp>/` locally, `/kaggle/working/retinatrace_runs/...` on Kaggle): `report_images/` (split files, duplicate audit, per-trial pilot evidence under `pilots/<trial_id>/`, learning curves, evaluation metrics, Grad-CAM figures) and `checkpoints/`. The notebook's *Notebook Artifact Guide* lists every file. Copy the ones you keep into the repository's `checkpoints/` and `report_images/` folders.
+
 ```
 
 ### 🏛️ Software Engineering & Architectural Design Rationale
 
 To align with clean-architecture principles and deployment requirements:
 1. **Decoupled Backend Package (`core/`):** All domain business logic is modularized into testable units:
-   - `core/preprocessing.py`: Unified, single source of truth for optical standardization and Ben Graham enhancement shared identically across the research notebook (`diabetic_retinopathy_detection.ipynb`), standalone GPU training (`train_retinatrace_gpu.py`), and the deployment application.
-   - `core/models.py` & `core/training.py`: Model architecture definitions, input-rescaling adapters, and two-phase optimization routines.
+   - `core/preprocessing.py`: single source of truth for border cropping and Ben Graham enhancement, shared by the research notebook (which clones this repository on Kaggle to import it) and the Gradio application.
+   - `core/models.py` & `core/training.py`: model architecture definitions, the input-rescaling adapter, and training helpers.
    - `core/explainability.py` & `core/advanced_cv.py`: Mathematical Grad-CAM formulation, U-Net inference, and Case-Based Reasoning (CBR) embedding similarity.
    - `core/agents.py`: Decoupled 4-agent clinical governance architecture with typed error recovery.
 2. **Presentation Layer (`app/` package + root `app.py`):**
@@ -106,13 +105,15 @@ To align with clean-architecture principles and deployment requirements:
    - **Module split:** `app/main.py` only builds the layout and wires events; analysis, chatbot, reports, triage and styling each live in their own module.
    - **Separation of Concerns:** the `app/` package contains *no* raw neural network layer definitions or image-processing mathematics; it delegates domain processing to `core/`.
 3. **Automated Unit Testing (`tests/`):**
-   - The test suite in `tests/test_preprocessing.py` verifies tensor dimensionality, range $[0.0, 1.0]$, border cropping, ablation flags, and corrupted input error handling via `python -m unittest discover tests`.
+   - `tests/test_preprocessing.py` verifies tensor dimensionality, range $[0.0, 1.0]$, border cropping, ablation flags, and corrupted-input handling; `tests/test_app_logic.py` covers the chatbot, triage labels, reports and the metrics loader. Run them with `python -m pytest tests` (or `python -m unittest discover tests`).
 
-> **Checkpoint status:** The saved checkpoints predate the corrected EfficientNet
-> input-scale adapter and do not use the current duplicate-safe split, so earlier
-> metrics are no longer quoted. Retrain and evaluate before treating predictions from
-> the application as validated model results. The app shows test metrics only when
-> the notebook's `test_loss_and_metrics.csv` has been copied into `report_images/`.
+> **Checkpoint status:** The notebook trains on APTOS 2019 (300×300 by default; the pilot
+> trials may select 224 or 380). The app (`core/config.py`, 224×224) still runs an earlier
+> checkpoint trained on a different dataset, so no model results are quoted. After retraining,
+> copy the new weights into `checkpoints/`, set `core/config.py` to the notebook's final
+> configuration and run `scripts/build_reference_set.py` before treating app predictions as model
+> results. The app shows test metrics only when the notebook's `test_loss_and_metrics.csv` has been
+> copied into `report_images/`.
 
 ---
 
@@ -148,11 +149,11 @@ All core innovations in this project are directly grounded in and adapted from p
 * **The 3-Layer Explainability Hierarchy:**
   1. **Layer 1 (Global Classification):** EfficientNetB3 outputs the 5-stage ICDR disease grade ($0-4$) and confidence score.
   2. **Layer 2 (Regional Attention):** Grad-CAM visualizes class-discriminative heatmap activations and maps peak pathology quadrants (*Superior-Temporal, Inferior-Nasal*, etc.).
-  3. **Layer 3 (Pixel Segmentation):** An auxiliary U-Net with skip connections delineates microaneurysms, dot-and-blot hemorrhages, and hard exudates at the individual pixel level.
+  3. **Layer 3 (Pixel-level candidate regions):** An auxiliary U-Net with skip connections outputs a pixel-level map of candidate lesion regions. It is trained on synthetic pseudo-masks (below), so its output is a visual aid, not a validated lesion segmentation.
 * **Hybrid Soft Dice Loss:** Because retinal lesions occupy $< 1-3\%$ of total pixels, standard binary cross-entropy collapses to predicting background. The network optimizes a **hybrid Soft Dice + BCE loss**:
   $$\mathcal{L} = 0.5\,\mathcal{L}_{\text{BCE}} + 0.5\left(1 - \frac{2\sum y_i\hat{y}_i + \epsilon}{\sum y_i + \sum \hat{y}_i + \epsilon}\right)$$
   ensuring stable gradient propagation while penalizing boundary overlap errors on tiny microvascular lesions.
-* **Mask Synthesis Methodology (Semi-Supervised Self-Distillation):** Manually-annotated pixel-level lesion segmentation masks do not exist for the APTOS/EyePACS datasets at the 38,034-image scale used in this project. Rather than abandoning pixel-level explainability entirely, we employ a legitimate **semi-supervised self-distillation** technique: the trained EfficientNetB3 classifier's Grad-CAM attention maps are thresholded and combined with green-channel morphological analysis (top-hat transform + adaptive Otsu) to synthesize pseudo-masks that approximate the spatial extent of DR lesions. These synthesized masks are used exclusively to train the auxiliary U-Net for qualitative visual explainability -- they are not presented as clinical-grade annotations, and the U-Net's role is to generate interpretable overlays for the clinician, not to produce quantitative lesion measurements for diagnostic decisions.
+* **Mask Synthesis Methodology (pseudo-masks):** APTOS 2019 has no pixel-level lesion annotations. Pseudo-masks are therefore synthesized: green-channel top-hat and black-hat morphology (fixed threshold) marks bright and dark candidate structures, and only those inside the classifier's Grad-CAM attention (saliency > 0.35) are kept. These masks train the auxiliary U-Net for qualitative visual explanation only; any Dice score measures agreement with these synthetic targets, not with expert masks.
 
 ## 🌟 Bonus Features Implemented
 
@@ -164,21 +165,22 @@ All core innovations in this project are directly grounded in and adapted from p
 
 ## 🚀 Step-by-Step Reproduction Guide
 
-### Option 1: Running in Google Colab (Recommended for Training)
+### Option 1: Training on Kaggle (recommended)
 
-1. Open [Google Colab](https://colab.research.google.com/) and upload `diabetic_retinopathy_detection.ipynb`.
-2. Enable GPU acceleration: **Runtime** $\rightarrow$ **Change runtime type** $\rightarrow$ **T4 GPU** (or A100).
-3. Upload your Kaggle API token (`kaggle.json`) when prompted in **Section 1.5** to download and extract the 38,034 labelled fundus images.
-4. Select **Runtime** $\rightarrow$ **Run all** to execute the pipeline end-to-end:
-   - Data verification & integrity audit
-   - Ben Graham contrast enhancement & border cropping
-   - Stratified 70/15/15 split
-   - Two-phase EfficientNetB3 training (frozen feature extraction $\rightarrow$ top-30 layer fine-tuning)
-   - Evaluation (Accuracy, Quadratic Weighted Kappa, Confusion Matrix)
-   - Grad-CAM heatmap generation & automated quadrant descriptions
-   - Embedding extraction & Similar-Case Retrieval
-   - Multi-agent decision pipeline execution
-   - Building the optional Gradio web UI (launch is commented out in the notebook)
+1. On Kaggle, open the [APTOS 2019 competition](https://www.kaggle.com/competitions/aptos2019-blindness-detection), **join it and accept the rules**.
+2. Create a notebook, import `notebooks/diabetic_retinopathy_full_retrain_v2.ipynb`, and use **Add Input → Competitions → APTOS 2019 Blindness Detection**.
+3. Turn on a **GPU** and **Internet** (for ImageNet weights and cloning this repository's `core/`).
+4. Use **Save Version → Save & Run All**. The pipeline runs end to end:
+   - Data loading, corrupt-image and resolution audits
+   - Border cropping and Ben Graham enhancement
+   - Duplicate-aware stratified 70/15/15 split with leakage assertions
+   - **22 pilot trials** on the full train/validation splits: 12 selectable (dropout, fine-tuning depth, Phase 2 learning rate, plateau vs warm-up + cosine schedule, weight decay, 224/300/380 px, balanced vs sqrt vs no class weights, oversampling) and 10 for comparison (preprocessing and augmentation ablations, EfficientNetB0 / ResNet-50 / MobileNetV2 / DenseNet-121 / VGG-16, and a CNN trained from scratch). The winner is the selectable trial with the highest validation QWK. Set `RUN_COMPARISON_TRIALS=False` to run only the 12 selectable trials.
+   - Two-phase EfficientNetB3 training of the selected configuration (frozen backbone, then top-120 fine-tuning), with early stopping on validation loss; curves show augmented-train, clean-train-subset and validation lines plus validation QWK
+   - Evaluation on the held-out test split, used once (accuracy, QWK, macro-F1 for both the argmax and validation-QWK-threshold rules, per-class reports, confusion matrix, ROC, screening metrics)
+   - Grad-CAM, similar-case retrieval, multi-agent pipeline, U-Net demo, error analysis
+   - Building the optional Gradio UI (launch is commented out in the notebook)
+
+On **Google Colab** or locally, the notebook instead downloads the competition data in Section 1.5 with `kaggle competitions download -c aptos2019-blindness-detection` (upload `kaggle.json` when asked; you must have accepted the competition rules). You can also set `APTOS_DATA_DIR` to an existing copy containing `train.csv` and `train_images/`.
 
 ### Option 2: Local Execution
 
@@ -201,7 +203,7 @@ python app.py
 ### Option 3: Deploying to Hugging Face Spaces
 
 1. Create a new Space on [Hugging Face Spaces](https://huggingface.co/spaces) selecting the **Gradio SDK**.
-2. Push `app.py`, the `app/` and `core/` folders, `requirements.txt`, `README.md`, `embeddings.npz`, `assets/`, and your trained checkpoints in `checkpoints/` to the Space repository.
+2. Push `app.py`, the `app/` and `core/` folders, `requirements.txt`, `README.md`, your trained checkpoints in `checkpoints/`, and `embeddings.npz` (optional; enables similar-case retrieval) to the Space repository. An optional `assets/retinatrace_icon.png` replaces the built-in logo.
 3. Hugging Face Spaces will automatically build the environment and host your clinical AI app at a permanent public URL.
 
 ---

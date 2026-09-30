@@ -6,7 +6,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 class AppConfig:
-    """Centralized configuration parameters for RetinaTrace AI."""
+    """Centralized configuration parameters for RetinaTrace AI.
+
+    IMG_SIZE and DROPOUT_RATE must match the notebook's final configuration
+    (Section 6.6 prints it) and the checkpoint in checkpoints/. The current
+    values match the earlier checkpoint; after the APTOS retraining set
+    IMG_SIZE to the selected image size (300 by default) and DROPOUT_RATE to 0.5.
+    """
 
     IMG_SIZE: int = 224
     NUM_CLASSES: int = 5
@@ -51,5 +57,7 @@ class AppConfig:
     REDUCE_LR_FACTOR: float = 0.50
 
     WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "best_phase2.weights.h5")
-    UNET_WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "unet_lesion_best.weights.h5")
+    UNET_WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "unet_lesion_best.weights.h5")  # earlier 2-level U-Net
+    # Notebook Section 12.4 output; used (with its own 3-level architecture) whenever it exists.
+    NOTEBOOK_UNET_WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "unet_pseudomask.weights.h5")
     EMBEDDINGS_PATH: str = str(PROJECT_ROOT / "embeddings.npz")
