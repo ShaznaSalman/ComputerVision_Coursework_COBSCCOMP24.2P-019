@@ -1,0 +1,16 @@
+class_id,class_name,method,recall,support
+0,No DR,Majority baseline,1.0,271
+1,Mild,Majority baseline,0.0,56
+2,Moderate,Majority baseline,0.0,150
+3,Severe,Majority baseline,0.0,29
+4,Proliferative DR,Majority baseline,0.0,44
+0,No DR,EfficientNet argmax,0.988929889298893,271
+1,Mild,EfficientNet argmax,0.6964285714285714,56
+2,Moderate,EfficientNet argmax,0.5466666666666666,150
+3,Severe,EfficientNet argmax,0.5862068965517241,29
+4,Proliferative DR,EfficientNet argmax,0.2727272727272727,44
+0,No DR,Validation-calibrated,0.985239852398524,271
+1,Mild,Validation-calibrated,0.2857142857142857,56
+2,Moderate,Validation-calibrated,0.88,150
+3,Severe,Validation-calibrated,0.41379310344827586,29
+4,Proliferative DR,Validation-calibrated,0.20454545454545456,44

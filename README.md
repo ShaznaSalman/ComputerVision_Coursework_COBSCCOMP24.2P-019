@@ -107,13 +107,13 @@ To align with clean-architecture principles and deployment requirements:
 3. **Automated Unit Testing (`tests/`):**
    - `tests/test_preprocessing.py` verifies tensor dimensionality, range $[0.0, 1.0]$, border cropping, ablation flags, and corrupted-input handling; `tests/test_app_logic.py` covers the chatbot, triage labels, reports and the metrics loader. Run them with `python -m pytest tests` (or `python -m unittest discover tests`).
 
-> **Checkpoint status:** The notebook trains on APTOS 2019 (300×300 by default; the pilot
-> trials may select 224 or 380). The app (`core/config.py`, 224×224) still runs an earlier
-> checkpoint trained on a different dataset, so no model results are quoted. After retraining,
-> copy the new weights into `checkpoints/`, set `core/config.py` to the notebook's final
-> configuration and run `scripts/build_reference_set.py` before treating app predictions as model
-> results. The app shows test metrics only when the notebook's `test_loss_and_metrics.csv` has been
-> copied into `report_images/`.
+> **Checkpoint status:** `core/config.py` matches the APTOS 2019 final model from Kaggle run
+> `run_20260930_155003` (300×300, dropout 0.5). The weights are not in git (`best_phase2.weights.h5`
+> is 187 MB, over GitHub's 100 MB limit): copy `best_phase2.weights.h5` and `unet_pseudomask.weights.h5`
+> from the run's `checkpoints/` into `checkpoints/`, then run `scripts/build_reference_set.py`
+> (it needs the run's `train_split.csv` and `validation_split.csv` in `splits/` and the APTOS images)
+> to rebuild `embeddings.npz` and the reference images. The app shows test metrics only when the
+> notebook's `test_loss_and_metrics.csv` has been copied into `report_images/`.
 
 ---
 
@@ -174,9 +174,9 @@ All core innovations in this project are directly grounded in and adapted from p
    - Data loading, corrupt-image and resolution audits
    - Border cropping and Ben Graham enhancement
    - Duplicate-aware stratified 70/15/15 split with leakage assertions
-   - **22 pilot trials** on the full train/validation splits: 12 selectable (dropout, fine-tuning depth, Phase 2 learning rate, plateau vs warm-up + cosine schedule, weight decay, 224/300/380 px, balanced vs sqrt vs no class weights, oversampling) and 10 for comparison (preprocessing and augmentation ablations, EfficientNetB0 / ResNet-50 / MobileNetV2 / DenseNet-121 / VGG-16, and a CNN trained from scratch). The winner is the selectable trial with the highest validation QWK. Set `RUN_COMPARISON_TRIALS=False` to run only the 12 selectable trials.
-   - Two-phase EfficientNetB3 training of the selected configuration (frozen backbone, then top-120 fine-tuning), with early stopping on validation loss; curves show augmented-train, clean-train-subset and validation lines plus validation QWK
-   - Evaluation on the held-out test split, used once (accuracy, QWK, macro-F1 for both the argmax and validation-QWK-threshold rules, per-class reports, confusion matrix, ROC, screening metrics)
+   - **17 pilot trials** on the full train/validation splits (22 defined; `Config.PILOT_SKIP_TRIALS` skips five): 9 selectable (fine-tuning depth, plateau vs warm-up + cosine schedule, weight decay, 224/300/380 px, balanced vs sqrt vs no class weights, oversampling) and 8 for comparison (preprocessing and augmentation ablations, EfficientNetB0 / ResNet-50 / MobileNetV2 / DenseNet-121, and a CNN trained from scratch). The winner is the selectable trial with the highest validation QWK. Set `RUN_COMPARISON_TRIALS=False` to run only the selectable trials. `Config.PILOT_TIME_BUDGET_HOURS` (5 h) and `Config.RESUME_RUN_ID` protect long runs; the 17 pilots took about 2.5 h of training time on 2× T4 (sum of `training_time_seconds`).
+   - Two-phase EfficientNetB3 training of the selected configuration (frozen backbone, then top-120 fine-tuning), with early stopping and checkpointing on validation QWK (patience 6); curves show augmented-train, clean-train-subset and validation lines plus validation QWK
+   - Evaluation on the held-out test split, once per run (accuracy, QWK, macro-F1 for both the argmax and validation-QWK-threshold rules, per-class reports, confusion matrix, ROC, screening metrics)
    - Grad-CAM, similar-case retrieval, multi-agent pipeline, U-Net demo, error analysis
    - Building the optional Gradio UI (launch is commented out in the notebook)
 
@@ -215,6 +215,21 @@ Standard classification accuracy treats a Mild vs. Severe error identically to a
 The model is evaluated using **Quadratic Weighted Kappa (QWK)** via `cohen_kappa_score(weights='quadratic')`:
 $$\kappa = 1 - \frac{\sum_{i,j} w_{ij} O_{ij}}{\sum_{i,j} w_{ij} E_{ij}}, \quad w_{ij} = \frac{(i - j)^2}{(N - 1)^2}$$
 Quadratic penalties ($|i - j|^2$) heavily penalize distant staging mistakes, reflecting true clinical safety requirements.
+
+## 📊 Results (Kaggle run `run_20260930_155003`)
+
+The selected pilot trial was `weight_decay_1e3` (EfficientNetB3, 300×300, dropout 0.5, top-120 fine-tuning, AdamW weight decay 1e-3, balanced class weights; validation QWK 0.856). Test split: 550 images (29 Severe NPDR).
+
+| Decision rule | Accuracy | QWK | Macro-F1 |
+| :--- | ---: | ---: | ---: |
+| Argmax (used by the app) | 0.760 | 0.828 | 0.597 |
+| Validation-selected QWK thresholds | 0.793 | 0.892 | 0.556 |
+| Majority class (always No DR) | 0.493 | 0.000 | 0.132 |
+
+* **Per-stage recall (argmax):** No DR 0.99, Mild 0.70, Moderate 0.55, Severe 0.59, Proliferative 0.27. Macro one-vs-rest ROC-AUC 0.929.
+* **Screening:** any DR vs No DR sensitivity 0.975 / specificity 0.989 (argmax); referable DR (stage ≥ 2) sensitivity 0.987 / specificity 0.881 with the thresholds.
+* **Pilots:** ImageNet pretraining mattered most (validation QWK 0.773 for the EfficientNetB3 baseline vs 0.088 for a CNN from scratch); CLAHE instead of Ben Graham (0.852) and no augmentation (0.845) scored above the baseline in these single-seed pilots.
+* **Caveats:** the test split was evaluated twice during the project (an earlier final fit stopped on validation loss; the stopping rule was then changed to validation QWK and the model retrained), so these figures may be slightly optimistic. The data come from one source with no external test set, and No DR images are mostly lower-resolution than diseased ones, which may make "any DR" detection look easier than it is.
 
 ---
 

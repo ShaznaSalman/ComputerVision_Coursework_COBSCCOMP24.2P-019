@@ -1,0 +1,16 @@
+split,label_index,class_name,image_count,percent_of_split,folder_checked,folder_mismatches
+train,0,No DR,1263,49.316673174541194,0,0
+train,1,Mild,258,10.074189769621242,0,0
+train,2,Moderate,699,27.294025771183133,0,0
+train,3,Severe,135,5.2713783678250685,0,0
+train,4,Proliferative DR,206,8.043732916829363,0,0
+validation,0,No DR,271,49.18330308529946,0,0
+validation,1,Mild,56,10.163339382940109,0,0
+validation,2,Moderate,150,27.223230490018146,0,0
+validation,3,Severe,29,5.263157894736842,0,0
+validation,4,Proliferative DR,45,8.166969147005444,0,0
+test,0,No DR,271,49.27272727272727,0,0
+test,1,Mild,56,10.181818181818182,0,0
+test,2,Moderate,150,27.27272727272727,0,0
+test,3,Severe,29,5.2727272727272725,0,0
+test,4,Proliferative DR,44,8.0,0,0

@@ -1,0 +1,6 @@
+class_name,Train,Validation,Test
+No DR,1263,271,271
+Mild,258,56,56
+Moderate,699,150,150
+Severe,135,29,29
+Proliferative DR,206,45,44

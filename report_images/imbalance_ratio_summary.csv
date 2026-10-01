@@ -1,0 +1,5 @@
+stage,imbalance_ratio,class_weight_mode_in_training
+Full dataset (image counts),9.352331606217616,balanced
+Training split (image counts),9.355555555555556,balanced
+Training split with balanced class weights (effective loss mass),1.0000000000000002,balanced
+Training split with sqrt class weights (effective loss mass),3.0586852658545234,balanced

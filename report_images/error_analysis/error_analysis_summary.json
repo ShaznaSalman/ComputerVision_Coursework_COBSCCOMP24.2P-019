@@ -1,0 +1,47 @@
+{
+  "confusion_matrix": [
+    [
+      267,
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      16,
+      38,
+      1,
+      0
+    ],
+    [
+      0,
+      2,
+      132,
+      14,
+      2
+    ],
+    [
+      0,
+      0,
+      10,
+      12,
+      7
+    ],
+    [
+      0,
+      1,
+      18,
+      16,
+      9
+    ]
+  ],
+  "exact_accuracy": 0.7927272727272727,
+  "adjacent_error_rate": 0.16727272727272727,
+  "distant_error_rate": 0.04,
+  "mean_absolute_stage_error": 0.24909090909090909,
+  "mild_to_moderate_errors": 38,
+  "moderate_to_severe_errors": 14,
+  "high_confidence_error_count": 5,
+  "low_confidence_case_count": 236
+}

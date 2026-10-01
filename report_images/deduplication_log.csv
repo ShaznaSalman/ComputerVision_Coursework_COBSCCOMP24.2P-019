@@ -1,0 +1,17 @@
+metric,value
+total_images_evaluated,3662
+phash_hamming_threshold,4
+largest_duplicate_group_size,185
+groups_forced_into_train,3
+images_forced_into_train,481
+split_search_method,"greedy whole-group placement, largest first, seeded tie order"
+split_search_seeds_tried,200
+split_search_chosen_seed,42
+split_search_distance,0.003847
+near_duplicate_pairs,2200
+duplicate_groups_with_more_than_one_image,262
+images_in_duplicate_groups,1271
+groups_with_conflicting_labels,91
+images_in_conflicting_groups,818
+cross_split_group_leaks,0
+leakage_status,ZERO_LEAKAGE_CONFIRMED

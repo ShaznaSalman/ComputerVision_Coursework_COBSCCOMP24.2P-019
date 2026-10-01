@@ -29,6 +29,12 @@ content/
 # Experimental model outputs; retain only checkpoints intentionally tracked.
 /checkpoints/experimental_patient_safe/
 
+# Weights, reference embeddings and split files copied from the Kaggle run (too large for
+# GitHub, or containing machine paths); see README "Checkpoint status".
+/checkpoints/*.h5
+/embeddings.npz
+/splits/
+
 # OS
 Thumbs.db
 .DS_Store
@@ -50,3 +56,7 @@ AUDIT_REPORT.md
 *review*.md
 *todo*.md
 *fix_log*.*
+
+# Local AI-tool worktrees and test cache
+.kilo/
+.pytest_cache/

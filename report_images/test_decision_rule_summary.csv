@@ -1,0 +1,3 @@
+decision_rule,accuracy,qwk,macro_f1,headline_for
+Argmax (plain),0.76,0.8284881274291671,0.5966668348690021,accuracy
+Validation-QWK thresholds,0.7927272727272727,0.8921557197214597,0.5556126913850082,QWK

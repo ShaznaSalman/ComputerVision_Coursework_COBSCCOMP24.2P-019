@@ -1,0 +1,994 @@
+filepath,label,class_name,width,height,megapixels,aspect_ratio
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ef5155990874.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0a85a1e8f9e9.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6a2642131e4a.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8a8a251770cd.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ac1667fac512.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/78937523f7a8.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/42af7282349b.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ff4832d55461.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/41345cec5957.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5077cdb88aed.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/369229040a34.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e4c799738a19.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4eabad7948cf.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1d29cb2f4296.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4c60f6fcea75.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7f39c36469b5.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/afc744fad65e.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fa7fa797c650.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e59c5f345bb0.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dee1031a76ae.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/15e24b73d4a7.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eedae6b28f96.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5db2e3a4594a.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/beeca5f14618.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2cdcc910778d.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b66f23ffa730.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8660e1864665.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cff262ed8f4c.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b200c23b299b.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ce6f33a81ad5.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a30a143a53a3.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9be0683649ff.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d6b109c82067.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4134b290f5f3.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e2ec22b3d07e.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b1c4cefeb24.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bb85097857fa.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/976082127e2a.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5de4615a5161.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4205e9deb058.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/10bf25731c08.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b46b09a45f39.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/10f10fd30718.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2dc647e00ad3.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f9d8ff3e6592.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1b398c0494d1.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2ef955d6d9ff.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51af8a689511.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b7bd4a6627b6.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f42b693a9414.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a4cb731f91a.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3dec415b188a.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/96ea316ed0ab.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8af50c9d0a86.png,0,No DR,1476,1117,1.648692,1.3213965980304387
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4409965eb2a4.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7ce671f952be.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d93b61dc8f64.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ed3ce1674761.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fcc32dffd24d.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f6d760566a51.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0551676cc2aa.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eabf421f94d0.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/901a3552fe26.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d911dd40c63b.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f298b7d05958.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8ab3faa3701f.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3601dac9bed7.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a96ff96bbae5.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a188c60b93fb.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f09cfc6a4dbd.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f633c474e8b8.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b759cbef90c5.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0b00f8a77510.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/59928f999ae7.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/50f5201fd18a.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9ce46d400cd6.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/721214151233.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/50915e2329a1.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b32ece9c627.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a1afe4044f4.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/96b5474ae604.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d16e39b9d6f0.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6e0f78e188ff.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7e980424868e.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b9519abce0c1.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/58f07741ee3b.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b7f0bc7d399e.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/04efb1a284cc.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/668a319c2d23.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/493d99f030e2.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b43440c6ebe4.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2a4520f1f9a3.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f4e68b61f480.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e966850247f4.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7eeb191ad06b.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9ab18a4a957f.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f85fd4fac887.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/29a13e666266.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c1819db0aece.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a9a3225cf4b5.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8191ae701985.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/addf66a50f42.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8ceff4c4c860.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d74ccc796517.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6f689fced922.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1f9ccda4ddf2.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aeab0a63bcaf.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f71bea807c96.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8010c931321f.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1f4fb37e0854.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/58059e73d2d4.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/357f02a779d7.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b8e20c076b03.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f71aca5a7dc3.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d7bc00091cfc.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/266fbefa58fb.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7f6690fa390a.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6504b703c429.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/53c874dbc594.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f8f5942b690e.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/405085b53d7b.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5a27b9b2a9c1.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/12058bbb8299.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fce73678f650.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b64e1eef3d63.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/720b5f62ce80.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e6a5e4718873.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/93421787f520.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/58af2c054ced.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/af6166d57f13.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/da6bbb76d562.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/26d9576e8043.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9e99ae6ee7af.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/24f3e70f0419.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5889a0c75cac.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/898f0bc8acfa.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/da0a83f074f3.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f56ff0440ed1.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d667af5742f6.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eeaea2c5ff34.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/13d411c85ffd.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c7d0deb71576.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4c389d033cb0.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/08bef347f40d.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9a159d4674cd.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f36cb007a1ef.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6af071b0ac6e.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/34acae864963.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5995321563b7.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c334f8688b77.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a96c28f3f07.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2db0cd3e30da.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/328d141ed3aa.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/39fd8ef3a45c.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2f7fbdcc9a4b.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fb1b8771c70a.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/916915f01e17.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0cae727cf119.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/24de56d433cd.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5c817060c0ed.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dd90c321d7bc.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0b64a0a06f9a.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/35df2bc6ae95.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0afbeeef0ff7.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/190a309f2cc5.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51cd8d2057fa.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d18f6431ebce.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dfc7ec7db0e0.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/906d02fb822d.png,0,No DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f5733f77273d.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d2d523e9f669.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2408799a09b2.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e16af45285e5.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/42985aa2e32f.png,0,No DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/52ddde91a349.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9095d43fb132.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0c38940e1f80.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d865997a6280.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7a6495a39d87.png,0,No DR,1476,1117,1.648692,1.3213965980304387
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/384e6c915722.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5baed382f062.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/33d72035c27a.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eae70f527755.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4318b6adeb97.png,0,No DR,2048,1536,3.145728,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1e8c31e29dd3.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7526c59c36d3.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a9bc2f892cb3.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f531232ecb55.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/66393d8c60ba.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/05b1bb2bdb81.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a73c3d516c59.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a6356a3c5d11.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bacfa2b8e706.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a3bd2e034614.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a44345b27804.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/97d02a9b94f7.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e47770a2e5d1.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cb2201c226d6.png,0,No DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0f364b7d4384.png,0,No DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f0e1201b5c1f.png,0,No DR,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d801c0a66738.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/172df1330a60.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0a3202889f4d.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cf0575534cec.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/278aa860dffd.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a01024054596.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3461dc601cc2.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4fa26d065ad3.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ca6842bfcbc9.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/531b39880c32.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/99132193eaa0.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1a03a7970337.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/613bacb35c05.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/25e9fd872182.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/61bbe8db6f3a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bb11db08584a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0024cdab0c1e.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9782c0489eca.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dd19428c3d29.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/494fc9c745a3.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0684311afdfc.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7335a2d43ada.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/31cb39681f6a.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9ed666e982cd.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a95858e052d6.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/578109578b46.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/94372043d55b.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7ccb267fd394.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7bf981d9c7fe.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fe2df69676cf.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/107aea0d9289.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4cae247d9909.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1c0cf251b426.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f5650eb52640.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c0e15e8e2b46.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4e6071b73120.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2a8a9e957a6c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0f495d87656a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6028a575dc27.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7005be54cab1.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a75bab2463d4.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c7b622ec8104.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/12e3f5f2cb17.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8fc09fecd22f.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4d7d6928534a.png,1,Mild,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/523b3f0fc646.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3dbc90c7ee7d.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/274f5029189b.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/03e25101e8e8.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1d674e2e32e0.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eed4afc8ec83.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5a091e8cd95c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c027e5482e8c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8f2996b8d855.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a77dbec966d4.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e9286ddf6ffe.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3f73c91b7e32.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/01b3aed3ed4c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ee78ce914066.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/358d2224de73.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/55eac26bd383.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cc12453ea915.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/35aa7f5c2ec0.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1df3e03a8f5f.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8ff863f8874f.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/33105f9b3a04.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/96a9706b8534.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d6e26fe51dce.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8714d17bb6da.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/36677b70b1ef.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4029d70e9d8a.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7ea756985353.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cc9270f06b65.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c1ebe785503a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ea15a290eb96.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7b20210d9120.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/33ffddea8c6e.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/384631079d1e.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f6f7dba7104d.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0a61bddab956.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2ecbc2e3f239.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bd269a1f0e4d.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/059bc89df7f4.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4e0656629d02.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4ecd1fdd1435.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d85588ff2ebd.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d5b4705ac2ee.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b8ebedd382de.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/65e51e18242b.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4da2961e62fe.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fea14b3d44b0.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2994f17f58a5.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/63363410389a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d4f32b9c07df.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/92d9e9f08709.png,1,Mild,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/94b1d8ad35ec.png,1,Mild,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5879285f9d8d.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0ad7f631dedb.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a443c4fd489c.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/101b9ebfc720.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8273fdb4405e.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d66ccb75ada1.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f7fec8935126.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ad1f7445b1a8.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/587146a55885.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eba3acc42197.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/99ecdb41d5e7.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fdd18ccbbdc5.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ca1036496659.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dbd062558b81.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b6a0e348a01e.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6c6efb6b1358.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7ef5ff774a48.png,1,Mild,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0dc031c94225.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f47a2a4a0411.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/35d6c4c50072.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/677f087cd697.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0d310aba6373.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/80a02014b418.png,1,Mild,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a213b405ee4.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bf18ff30a8f6.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4f7755e74a9e.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eeb231c3ef1f.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/13ab8db8c700.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/194814669fee.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6377e23928f6.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7427dedafccf.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/67f5d89da548.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ca25745942b0.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/582115961a3d.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e25ccfe38e44.png,1,Mild,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6ea07d19b4ce.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/28f98cfe3858.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4dd5d5ccddcf.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b72ff04333d.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/04ac765f91a1.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b71428739d4e.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a8c54e2a4b79.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/06b71823f9cd.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a00b4cb250a7.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/49c5e7f6b8d2.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/365f8c01d994.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/73881f55a3ec.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b22354b5f94b.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/93be637084a2.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c739ff9580d3.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ef8109305128.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d0d59ed675b5.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b0e53f53ef3.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/82ac8463fadd.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3ee17aa12e46.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3044022c6969.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e9ff9352ccb3.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4393c5bc576a.png,1,Mild,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/595446774178.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bb9a3d835a94.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/45e4b7eada54.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cfd1bd0fcbb4.png,1,Mild,819,614,0.502866,1.3338762214983713
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2f4e81787d9b.png,1,Mild,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0fb1053285cf.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/19722bff5a09.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/59e5212f7139.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51131b48f9d4.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2f2e1949ad56.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/66cd9c28e636.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f0c13be90519.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c4a8f2fcf6e8.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6cdd0f985270.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/52ae917fcea4.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b068765e846.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/89ed6a0dd53f.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/38e0e28d35d3.png,1,Mild,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cd45bfa07d41.png,1,Mild,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7347f5133a6a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ead23cc922ed.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7116128c65ab.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bb783d8e496f.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fd62bd0db4f1.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b07bc463b718.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c102db7634d8.png,1,Mild,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/af133a85ea0c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/53f6c1c65c04.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/19e350c7c83c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/07929d32b5b3.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a3d2a0c4cd17.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/76be29bb30b2.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ca63fe4f4b52.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4dd9d29eae5d.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/71f6a6e4620a.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a3ad6c2db6f1.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/98fbe56dcc2c.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4ef7144e24ff.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e580676516b0.png,1,Mild,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f55e1d2a19e4.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b4f41b5bf0ef.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e07045d7c5f7.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/665ce639a331.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/94111ed3d276.png,1,Mild,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5777ef74c9ec.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6165081b9021.png,1,Mild,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6f0463c1ff18.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c6e1e9fbf39b.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/310c27067ac0.png,2,Moderate,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/48fda42bd5d4.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b8ac328009e0.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/91e2c2890c9f.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e1418d28d668.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/89b725411cee.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6987804eb464.png,2,Moderate,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a879c3569552.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ea05c22d92e9.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a0267206d51e.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d95959798b57.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/999115d9386b.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b2748ac28fc1.png,2,Moderate,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/135575dc57c9.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cd4e7f9fa1a9.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7550966ef777.png,2,Moderate,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/59f3f70abddd.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/308f7fce6f0d.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8ff2733f6aef.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/58529a8638d0.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e17507a4a1f5.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/df8365d6ac33.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e229aca862c7.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/10eefba568dd.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/27b68863349f.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3dbfbc11e105.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ca9c912ebad7.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51cfeccaf40d.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/97a5ad7548b7.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4b1001050f1d.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9df31421cdd2.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8871e6a26596.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9d9bfefa809c.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ab50123abadb.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2608e1dac5b1.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2d552318eb07.png,2,Moderate,474,358,0.169692,1.324022346368715
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a505981d1cab.png,2,Moderate,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/98104c8c67eb.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c5ad60521f8c.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/599b89048034.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ea4dcb055139.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/66bae1ba227f.png,2,Moderate,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2d870833c0c9.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/91a88d3b0358.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/419406328dcd.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b82d5f1f1145.png,2,Moderate,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/144a1a426137.png,2,Moderate,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d9a475dfe59a.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a01c590c444f.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/857002ed4e49.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f0800723bc63.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/06024377d573.png,2,Moderate,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/08752092140d.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4da6e2089d57.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/026dcd9af143.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/87b1938994b5.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8860c7b11530.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b762c29cf2f3.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0fcfc6301f3d.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a86c6283fd78.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/da0a1043abf7.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/82910bba4753.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aef9016557ca.png,2,Moderate,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/57469423a012.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/803120c5d287.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/af8aa32beee4.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3fd7df6099e3.png,2,Moderate,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/de50dfa745f8.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/19113e5f45ec.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1bea04b2bb2d.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a3475dc3ac80.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/28f93cad89c5.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/842d697884f6.png,2,Moderate,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e540d2e35d15.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0ac436400db4.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b0d6417bad3e.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8446826853d0.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f8372e80f731.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1269ab57c2e6.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8cb6b5b2f19c.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/12a82fc7d73e.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dd110d2b8c21.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/524f240e0c90.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/686ed1dbae20.png,2,Moderate,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a2d349f567a6.png,2,Moderate,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/81bc03e2ff2b.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6dcde47060f9.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/79059d0592c4.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/54dc6e8107cd.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6d454444f17c.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cd3fd04d72f5.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/82f2784ead76.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c7e827fc7f41.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/17eb5d4ad740.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1177d583c807.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cd9e2190c73f.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9d74428188bb.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d2c6b99ef62c.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/98e8adcf085c.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/681c3c115684.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/349f3c0ac83e.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f80118bbda18.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/855f0a5442b6.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f23902998c21.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c3e02d4a1798.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/89fc080f7e83.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ef7a4ed8d5d1.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aa5ce75edcf5.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fba493e17448.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/217dad18a5ed.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/17188c13e635.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/44f4ae58990e.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/48afe8c47454.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/48c49f662f7d.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/86e7f98f73f1.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4dbce359d0e1.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b3c0c3330278.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/39b5b05d6cd9.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3d3e288d490e.png,2,Moderate,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3fc219927a97.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d18aea8238a0.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e10190a9d52f.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c87493ed320c.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e83d315d8f98.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/207a580de0ea.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/453d553b0a94.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5327f88a1919.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d473f6fafba0.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/62e6f814c8f5.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ff52392372d3.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/85fce24084da.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0fd16b64697e.png,2,Moderate,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1dd9adcbfff4.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c05b7b4c22fe.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/07083738b75e.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1411c8ab7161.png,2,Moderate,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0c76fd494af6.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ee059945b08a.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9568eb7e9c08.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/43ddd0ab0cc4.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/45c39ab9e797.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3402124408ea.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2a47e5b21791.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cc839823755b.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/523ff163211b.png,2,Moderate,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d18b1d8ac4de.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/46923eea9a4e.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bf1b7e21e774.png,2,Moderate,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/46c1548d730e.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/eadfc8809ec8.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/49d69c4c6290.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c1c8550508e0.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/465c618f7b23.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1120f6d08d95.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a15652b22ab8.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9785805af1b8.png,2,Moderate,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6ba5ed791444.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5e52c9fe676f.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b89938407ee6.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/96c3e3db68bc.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/86fbac86ed3e.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/abf0f56c6f12.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4c52922f3bfd.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e5d56f4f359b.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/975252e325e3.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4b422b48d0d4.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3128eb593012.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1c578b72d7b3.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7356dd08b0ae.png,2,Moderate,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e1e490773462.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a87f53bc984a.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e756495c11cb.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aa31bc6b8f4d.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c561bcd519e9.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e34fa07bd64d.png,2,Moderate,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/668e853258cd.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bdb98063fe84.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/70ed3ec68b94.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/31b5d6fb0256.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/20c883d3bd38.png,2,Moderate,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c80f79579fed.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/54bbe3da103e.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/32a3eb37ff40.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/db49cdf1ea64.png,2,Moderate,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/43fb6eda9b97.png,2,Moderate,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8b26d3cd61e8.png,2,Moderate,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e724866f5084.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d18e5b68f6d2.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e4151feb8443.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cb602182cde3.png,2,Moderate,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4ed31cc07366.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3a1d3ce00f0c.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51d574513bcb.png,2,Moderate,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/14515b8f19b6.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/07d8db76b301.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/437900a99871.png,2,Moderate,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3ffa14d60b24.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6666c4f18396.png,2,Moderate,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3e3a3955b9c5.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b191ba0a2b12.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/697538183db5.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b960142a8de7.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9878db94d9f3.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c3cd0200df79.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/15bed5adde74.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/166068a24416.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/15f440753916.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0cb14014117d.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6b128e648646.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/91cf56d3d1af.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51da6aebba8f.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51269b77d312.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c5ba9e455d5e.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2b48daf24be0.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bb7e0a2544cd.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5f13e8a07344.png,3,Severe,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/91b6ebaa3678.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b3e7197ac1c.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ce207b69ff37.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/af3b0115aad1.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9bf060db8376.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/810d3779abd9.png,3,Severe,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/537e50fdf22e.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9a94e0316ee3.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/237c078d00fc.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d0079cc188e9.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4df6a81b476e.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b6bfe9db60e5.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/996f57c86ba5.png,3,Severe,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dbfd238b3468.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/191a711852bd.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/788ddb0b70b7.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e1900014dabf.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/070f67572d03.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c67117c6ab3b.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b7e0f95353f2.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dbb2c63f6f08.png,3,Severe,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6efa36d59ada.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/913490237ad4.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d2ffe9287dc7.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3218a6d8eb2c.png,3,Severe,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b019a49787c1.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/383e72af1955.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f576e45d1da2.png,3,Severe,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/86d6808f0609.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4c570172778b.png,3,Severe,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/687759336b0d.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a763661f98a5.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/299086c6d1b5.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e19936582c61.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4c60b10a3a6a.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4360a112db10.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d3e884109b45.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/352e4a939242.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2bb063318cf1.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c76664770c07.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0f882877bf13.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/38055d8b9f08.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dd3dad6ca78f.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fcc6aa6755e6.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f64214bed40e.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/80e7cc0a0649.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/25b0e72705a8.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a14fcf84bfe1.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/72595230840c.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7e160c8b611e.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/042470a92154.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3f49f8d100e9.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8688f3d0fcaf.png,3,Severe,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7b49041cbf17.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a8e88d4891c4.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/33778d136069.png,3,Severe,1476,1117,1.648692,1.3213965980304387
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f080a22008be.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1b495ac025b7.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f5a8c6426a71.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9bafbbd152d2.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a80dab8eddf4.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0edadb2aa127.png,3,Severe,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9c52b87d01f1.png,3,Severe,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c5a9ebef1517.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/07a0e34c8d20.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2665f72e2dd3.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8a9bef2fbd4e.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/069f43616fab.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2bbd1f99ecc3.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a4b8de38eac1.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b310bd564329.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a14bbd9a583e.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b2ffa3e18559.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0dc8d25b3f69.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4fecf87184e6.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/80ca40196225.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b3d135bd3bb5.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0104b032c141.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e1fb532f55df.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bec0acd539b2.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6061f5b7378d.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f9156aeffc5e.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/50a2aef380c8.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3b018e8b7303.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9f37c98b8187.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/269b44e628eb.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/36b5b3c9fb32.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e52ed5c29c5e.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c31651ea04c6.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/24b87f744598.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1c9521878baf.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bb5083fae98f.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b5834ee64541.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6e92b1c5ac8e.png,3,Severe,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/910bfd38e2f5.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6baafa56895c.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/71a39c660432.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/36865bbc64d6.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a4d4b69f7404.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/74eee788edee.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6a244e855d0e.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f901d460517c.png,3,Severe,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d16398c971e9.png,3,Severe,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3fa4f4d77177.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7d3835e4e63a.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bf8092e4001d.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ed6704e3b72e.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4f0866b90c27.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6253f23229b1.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2f42e20db938.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/39aa3cd93c50.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ad2f0b9d059c.png,3,Severe,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/05cd0178ccfe.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8b76c3c5cb3e.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/498f143c0374.png,3,Severe,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/adb56cecafaf.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e32a359be36d.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e8d1c6c07cf2.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fda39982a810.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4294a14c656a.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6d0c0531083f.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/31616ff6b53b.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/093a42649c29.png,3,Severe,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/916ec976ff30.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7a6e384a0846.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6fb656d506b2.png,3,Severe,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e13412678eff.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e4210e7fe587.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/772af553b8b7.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0c917c372572.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0f96c358a250.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4d9fc85a8259.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d868acdccb5b.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aba3063c5413.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1623e8e3adc4.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6181aa9f75f4.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e0b5a982a018.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aea59ebec445.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d0ffa0425ef1.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e76a9cbb2a8c.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4fef9ed8a4c5.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4b618537d52f.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/90b8bf342032.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/42cc993f23a9.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fb61230b99dd.png,3,Severe,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4d47300e3ddb.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/405b4f78658f.png,3,Severe,2146,1764,3.785544,1.2165532879818595
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/762d6e5d5068.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1ab3f1c71a5f.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4c9f0fdaaef7.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d035c2bd9104.png,3,Severe,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f6f433f3306f.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a9e984b57556.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3435fd8675a2.png,3,Severe,1476,1117,1.648692,1.3213965980304387
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c9ea9d5eab65.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f092febbf5c0.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/03c85870824c.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/457c7c927e27.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c0a0828e01b4.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aae8f9f3ef8c.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c3a82acb7d7a.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8a234d68b27e.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8201cab8322d.png,3,Severe,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9b093fe95d6b.png,3,Severe,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7525ebb3434d.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6735931000ec.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9fefe2b44795.png,3,Severe,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fe0fc67c7980.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/19244004583f.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6089fa333013.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8c0d05233238.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/14e3f84445f7.png,3,Severe,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7b29e3783919.png,3,Severe,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e93394175a19.png,3,Severe,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8958a4d17b7e.png,3,Severe,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ed3a0fc5b546.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/838c87c63422.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a7dc013e802.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a3da369b227.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e4730ddde408.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/080ee76c958c.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/247e98aba610.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f03d3c4ce7fb.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f2d2a0c92034.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/51af8c112682.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7cc4b7aabe04.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ba4d2c4b3039.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/378963f9df22.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bdff5d8bddf8.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e4f12411fd85.png,4,Proliferative DR,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/262ad704319c.png,4,Proliferative DR,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2628305cbb29.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cf1b9d26d38d.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c6a145742708.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6fe67482bfae.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7a238a1d3cf3.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8af6a4e5396f.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7efc91af4ae6.png,4,Proliferative DR,474,358,0.169692,1.324022346368715
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/55eb405ec71e.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/64bad93fde3f.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0318598cfd16.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d10ef306996b.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/df4913ca3712.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8c7c26c52a6c.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a0cd7bffdaa0.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a6d45de20e4d.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1fd5d860d4d7.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c0e509786f7f.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bd5013540a13.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ab1c20a94f3f.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3ee4841936ef.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9c72ed6befa0.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/664b1f9a2087.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f5e6226bd2e0.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b49b2fac2514.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b70cb31b9abb.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/97da093947e8.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/94ef1d14597f.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/62318d514160.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/374535e0adb8.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c5e238aa18be.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/19ef4d292196.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/44ecf3f4efa5.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/034cb07a550f.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8fd7ad26e691.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/887c26fc0e1f.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/789434d095d1.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1c4f3aa4df06.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/165cd2070ebd.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d659d7fd5ccf.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/187f6ccda87a.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2fe06bedb2c4.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7b211d8bd249.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6cd606dc52e9.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b5b80a3edee.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3810040096cb.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0e82bcacc475.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bcd503c726ba.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bfdee9be1f1d.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9cc6b1f9bcbd.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/64fedbf97473.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4462fba1d2a1.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f58d37d48e42.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3ac3fbfca7d4.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/95e732e043a1.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/82bb8a01935f.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/408ea9d5e082.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/11242a67122d.png,4,Proliferative DR,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/61bbc11fe503.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/46cdc8b685bd.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/66375b3c64db.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3ccf96c1dd6d.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0ceb222f6629.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/080f66eedfb9.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5d74f98d62be.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3b232b394e4f.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6cfb7b44ef6f.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/21abd36095a1.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0e0fc1d9810c.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fce93caa4758.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/785777558f05.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e821c1b6417a.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3b185ac445d0.png,4,Proliferative DR,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/518e880613de.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3b4a5fcbe5e0.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f72adcac5638.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8ac0c44bbf24.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6d259b5b4c76.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c01eae4b4939.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8eeac97f02f0.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/10fca1abf338.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8db2ce991101.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/59fee5bc3479.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7c629b491d1a.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4bd941611343.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d0b132d2c7ec.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/72d98188648f.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/905cc86bf100.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/61e301bd3c25.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d803598dabda.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/aa6673241154.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2fde69f20585.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/de16416220de.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8596a24a14bd.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d2c2f02bb313.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/21d18b022429.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9fab29e69a6b.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f0f89314e860.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/312694ea8e6a.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/65e120143825.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6e73acb2cf60.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/63b4d030b016.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f025f33b2c9b.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/60f15dd68d30.png,4,Proliferative DR,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cb547e723a16.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/85cbb84ac8e0.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1e9224ccca95.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6630f8675a97.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ed246ae1ed08.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4689b739d240.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/bba38f2294a3.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b96b518596b3.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d1a24527a15d.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e9ab8413e771.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7c90ab025331.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ebe0175e530c.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0243404e8a00.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/65c958379680.png,4,Proliferative DR,2144,1424,3.053056,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a81b06f50612.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/8bad12d70368.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/66a0bf258013.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b37aae3c8fe1.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e23add229074.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6d7d26025122.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3f752fcccec0.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1bf30c84bbad.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4a693dd3921a.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cc3d2e961768.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6194e0fff071.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cd93a472e5cd.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/857230f64a2e.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e39b627cf648.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9859e2a6cc24.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b87f9c59748b.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3a6e9730b298.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fa59221cf464.png,4,Proliferative DR,2896,1944,5.629824,1.4897119341563787
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4abca30b676b.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b55d2ddb3e75.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/0981195eb9fb.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/20d5fdd450ae.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1b32e1d775ea.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/79d44db3da2d.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9a496b1e20f9.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e7d2c2c3b30f.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/9e3510963315.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/2bbcfdc477db.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/58b866484a05.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/df84e7113003.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ba08cee68c71.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/247ac63e5510.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/4dd71fc7f22b.png,4,Proliferative DR,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cd54d022e37d.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7270367410a1.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1a7e3356b39c.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/f850cb51fdba.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/78b3f819dcc5.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ee1ec90b980f.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/001639a390f0.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e740af6ac6ea.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5c7ab966a3ee.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/dad71ba27a9b.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d51b3fe0fa1b.png,4,Proliferative DR,1504,1000,1.504,1.504
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/ef26625121b3.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/5b76117c4bcb.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/211518c46162.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/3796af4d987a.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/7e0598cc88a0.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c3d12a23f451.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a5c9a8c726b2.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/cbd0870aa933.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/08a3875063c3.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/fb696a8e055a.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/e62490b7d0e9.png,4,Proliferative DR,3216,2136,6.869376,1.5056179775280898
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1a90fad9ffa2.png,4,Proliferative DR,3388,2588,8.768144,1.3091190108191655
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/b99afe7137fb.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/02dda30d3acf.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/6c250a30593b.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/1efa5d443707.png,4,Proliferative DR,1844,1226,2.260744,1.504078303425775
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/a76b69e443ce.png,4,Proliferative DR,2588,1958,5.067304,1.3217568947906027
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/87774aafe068.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/c1799a6f5c65.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/d85ea1220a03.png,4,Proliferative DR,1050,1050,1.1025,1.0
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/753b14c27c83.png,4,Proliferative DR,2416,1736,4.194176,1.391705069124424
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/37c4dfe03aba.png,4,Proliferative DR,640,480,0.3072,1.3333333333333333
+/kaggle/input/competitions/aptos2019-blindness-detection/train_images/710b05a96e0f.png,4,Proliferative DR,4288,2848,12.212224,1.5056179775280898

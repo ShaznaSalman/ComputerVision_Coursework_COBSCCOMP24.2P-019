@@ -9,12 +9,12 @@ class AppConfig:
     """Centralized configuration parameters for RetinaTrace AI.
 
     IMG_SIZE and DROPOUT_RATE must match the notebook's final configuration
-    (Section 6.6 prints it) and the checkpoint in checkpoints/. The current
-    values match the earlier checkpoint; after the APTOS retraining set
-    IMG_SIZE to the selected image size (300 by default) and DROPOUT_RATE to 0.5.
+    (Section 6.6 prints it) and the checkpoint in checkpoints/. They match the
+    APTOS 2019 final model of Kaggle run run_20260930_155003 (selected pilot
+    trial weight_decay_1e3: 300 px, dropout 0.5).
     """
 
-    IMG_SIZE: int = 224
+    IMG_SIZE: int = 300
     NUM_CLASSES: int = 5
     CLASS_NAMES: list = ["No DR", "Mild", "Moderate", "Severe", "Proliferative DR"]
 
@@ -31,9 +31,9 @@ class AppConfig:
     EDGE_SHARPEN_STRENGTH: float = 1.2
     EDGE_SHARPEN_SIGMA: float = 3.0
 
-    # ── Training defaults (mirror the notebook's Config baseline) ─────────
-    # Used by the optional helpers in core/training.py; the notebook has its own
-    # Config and the pilot trials may select different values (Section 6.6).
+    # ── Training settings of the final notebook model (run_20260930_155003) ─────────
+    # Used by the optional helpers in core/training.py; the notebook has its own Config.
+    # The selected pilot trial (weight_decay_1e3) differs from the baseline only in weight decay.
     # Phase 1: Transfer Learning Feature Extraction (Frozen Backbone)
     PHASE1_EPOCHS: int = 8
     PHASE1_LR: float = 1e-3
@@ -46,16 +46,15 @@ class AppConfig:
     PHASE2_LR: float = 1e-5
     PHASE2_MIN_LR: float = 1e-7
     PHASE2_BATCH_SIZE: int = 16
-    PHASE2_OPTIMIZER: str = "AdamW(learning_rate=1e-5, weight_decay=1e-4)"
+    PHASE2_OPTIMIZER: str = "AdamW(learning_rate=1e-5, weight_decay=1e-3)"
     PHASE2_UNFROZEN_LAYERS: int = 120  # notebook Config.UNFREEZE_TOP_N
 
     # Regularization & Optimization Guardrails
-    # DROPOUT_RATE must match the checkpoint the app loads (0.30 for the earlier
-    # checkpoint; set 0.5 when the APTOS-trained weights are copied in).
-    DROPOUT_RATE: float = 0.30
-    L2_WEIGHT_DECAY: float = 1e-4  # AdamW decoupled weight decay in Phase 2
+    # DROPOUT_RATE must match the checkpoint the app loads.
+    DROPOUT_RATE: float = 0.5
+    L2_WEIGHT_DECAY: float = 1e-3  # AdamW decoupled weight decay in Phase 2 (selected pilot weight_decay_1e3)
     LABEL_SMOOTHING: float = 0.1
-    EARLY_STOPPING_PATIENCE: int = 4
+    EARLY_STOPPING_PATIENCE: int = 6  # final fit stops and checkpoints on val_qwk (mode max)
     REDUCE_LR_PATIENCE: int = 2
     REDUCE_LR_FACTOR: float = 0.50
 

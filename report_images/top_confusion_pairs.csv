@@ -1,0 +1,13 @@
+rank,true_label,true_class,predicted_label,predicted_class,count,percent_of_true_class,percent_of_all_errors,stage_distance,error_type
+1,1,Mild,2,Moderate,38,67.85714285714286,33.33333333333333,1,adjacent
+2,4,Proliferative DR,2,Moderate,18,40.909090909090914,15.789473684210526,2,distant (high clinical risk)
+3,4,Proliferative DR,3,Severe,16,36.36363636363637,14.035087719298245,1,adjacent
+4,2,Moderate,3,Severe,14,9.333333333333334,12.280701754385964,1,adjacent
+5,3,Severe,2,Moderate,10,34.48275862068966,8.771929824561402,1,adjacent
+6,3,Severe,4,Proliferative DR,7,24.137931034482758,6.140350877192982,1,adjacent
+7,0,No DR,1,Mild,4,1.4760147601476015,3.508771929824561,1,adjacent
+8,2,Moderate,1,Mild,2,1.3333333333333335,1.7543859649122806,1,adjacent
+9,2,Moderate,4,Proliferative DR,2,1.3333333333333335,1.7543859649122806,2,distant (high clinical risk)
+10,1,Mild,0,No DR,1,1.7857142857142856,0.8771929824561403,1,adjacent
+11,1,Mild,3,Severe,1,1.7857142857142856,0.8771929824561403,2,distant (high clinical risk)
+12,4,Proliferative DR,1,Mild,1,2.272727272727273,0.8771929824561403,3,distant (high clinical risk)

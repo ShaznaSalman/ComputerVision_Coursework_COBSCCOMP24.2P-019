@@ -1,0 +1,3 @@
+method,queries,top1_dataset_label_agreement,top3_dataset_label_hit_rate,top3_best_absolute_grade_error,random_repeat_sd
+Embedding nearest neighbors,330,0.6696969696969697,0.8212121212121212,0.24545454545454545,
+Random references (mean of 20 repeats),330,0.26015151515151513,0.5422727272727272,0.691969696969697,0.022856622870145973

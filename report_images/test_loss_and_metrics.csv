@@ -1,0 +1,2 @@
+test_loss,test_cross_entropy_unsmoothed,label_smoothing,use_tta,test_samples,argmax_accuracy,argmax_qwk,thresholded_accuracy,thresholded_qwk
+0.9360807538032532,0.5648764967918396,0.1,False,550,0.76,0.8284881274291671,0.7927272727272727,0.8921557197214597

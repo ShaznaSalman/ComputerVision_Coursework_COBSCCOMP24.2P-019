@@ -1,0 +1,5 @@
+phase,learning_rate,batch_size,epochs_planned,epochs_run,val_accuracy,val_loss,val_auc,val_qwk,notes
+Phase 1 - Final Full-Data Fit,0.001,16,8,5,0.677,1.0951,0.9284,0.8144,Selected pilot trial=weight_decay_1e3; image_size=300; dropout=0.5; class weights enabled=True; class weight mode=balanced; oversampling=False; batch=16
+Phase 2 - Final Full-Data Fine-Tuning,1e-05,16,25,7,0.7042,1.1777,0.93,0.7989,Top 120 layers trainable except BatchNorm; dropout=0.5; class weights=True; oversampling=False; class weight mode=balanced; lr schedule=plateau; weight decay=0.001; batch=16; image_size=300; selected pilot trial=weight_decay_1e3
+Phase 1 - Final Full-Data Fit,0.001,16,8,8,0.735,1.0245,0.9451,0.8163,Selected pilot trial=weight_decay_1e3; image_size=300; dropout=0.5; class weights enabled=True; class weight mode=balanced; oversampling=False; batch=16
+Phase 2 - Final Full-Data Fine-Tuning,1e-05,16,25,17,0.7695,0.958,0.9534,0.8467,Top 120 layers trainable except BatchNorm; dropout=0.5; class weights=True; oversampling=False; class weight mode=balanced; lr schedule=plateau; weight decay=0.001; batch=16; image_size=300; selected pilot trial=weight_decay_1e3

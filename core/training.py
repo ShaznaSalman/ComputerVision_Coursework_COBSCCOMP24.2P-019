@@ -41,7 +41,7 @@ def compile_for_phase2(model: keras.Model) -> None:
     """Compile model for Phase 2 (top layers unfrozen, domain fine-tuning).
 
     Uses AdamW at AppConfig.PHASE2_LR (1e-5) with decoupled weight decay
-    AppConfig.L2_WEIGHT_DECAY (1e-4) and the same label smoothing, like the
+    AppConfig.L2_WEIGHT_DECAY (1e-3) and the same label smoothing, like the
     notebook's configure_phase2().
     """
     model.compile(

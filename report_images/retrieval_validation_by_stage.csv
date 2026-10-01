@@ -1,0 +1,11 @@
+class_id,class_name,method,queries,top3_dataset_label_hit_rate
+0,No DR,Embedding nearest neighbors,100,0.97
+0,No DR,Random references,100,0.8759999999999998
+1,Mild,Embedding nearest neighbors,56,0.7857142857142857
+1,Mild,Random references,56,0.2794642857142857
+2,Moderate,Embedding nearest neighbors,100,0.92
+2,Moderate,Random references,100,0.6054999999999999
+3,Severe,Embedding nearest neighbors,29,0.41379310344827586
+3,Severe,Random references,29,0.15
+4,Proliferative DR,Embedding nearest neighbors,45,0.5777777777777777
+4,Proliferative DR,Random references,45,0.24

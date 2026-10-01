@@ -22,7 +22,7 @@ class TestReportedMetricsLoader(unittest.TestCase):
         self.assertIsNone(reports.load_reported_test_metrics("does_not_exist.csv"))
 
     def test_valid_file_is_read(self):
-        path = self._write("thresholded_qwk,thresholded_accuracy\n0.8123,0.6789\n")
+        path = self._write("argmax_qwk,argmax_accuracy\n0.8123,0.6789\n")
         self.assertEqual(reports.load_reported_test_metrics(path), {"qwk": 0.8123, "accuracy": 0.6789})
 
     def test_malformed_file_is_ignored(self):

@@ -18,8 +18,8 @@ METRICS_CSV_PATH = PROJECT_ROOT / "report_images" / "test_loss_and_metrics.csv"
 def load_reported_test_metrics(path=METRICS_CSV_PATH) -> Optional[Dict[str, float]]:
     """Read the final test-set QWK and accuracy saved by the notebook, if the file exists.
 
-    Uses the validation-calibrated (thresholded) decision rule, which is the notebook's
-    primary reported result. Returns None when the file is missing or malformed, so the
+    Uses the argmax decision rule, because that is how this app turns probabilities into a
+    stage (core/agents.py). Returns None when the file is missing or malformed, so the
     app never shows a number that is not backed by a saved run.
     """
     import csv
@@ -27,8 +27,8 @@ def load_reported_test_metrics(path=METRICS_CSV_PATH) -> Optional[Dict[str, floa
         with open(path, newline="", encoding="utf-8") as handle:
             row = next(csv.DictReader(handle))
         return {
-            "qwk": float(row["thresholded_qwk"]),
-            "accuracy": float(row["thresholded_accuracy"]),
+            "qwk": float(row["argmax_qwk"]),
+            "accuracy": float(row["argmax_accuracy"]),
         }
     except (OSError, StopIteration, KeyError, ValueError):
         return None
@@ -41,7 +41,8 @@ def describe_reported_metrics(metrics: Optional[Dict[str, float]] = None) -> str
         return "Test-set QWK and accuracy are reported in the project report."
     return (
         f"On the held-out test set the model reached a QWK of {metrics['qwk']:.3f} "
-        f"and accuracy of {metrics['accuracy'] * 100:.1f}% (saved notebook results)."
+        f"and accuracy of {metrics['accuracy'] * 100:.1f}% with the argmax decision this app uses "
+        "(saved notebook results)."
     )
 
 

@@ -1,0 +1,7 @@
+,contrast_std,contrast_std,edge_density,edge_density,brightness_variation,brightness_variation,signal_noise_proxy,signal_noise_proxy,sharpness_laplacian_variance,sharpness_laplacian_variance
+,mean,std,mean,std,mean,std,mean,std,mean,std
+variant,,,,,,,,,,
+crop_resize,0.128516,0.033275,0.017179,0.008833,0.102595,0.02821,12.434858,2.613354,89.752212,49.647618
+crop_resize_ben_graham,0.144727,0.027535,0.121597,0.03933,0.027486,0.007372,4.480946,0.383249,955.351711,360.954488
+crop_resize_ben_graham_denoise,0.142116,0.027961,0.058185,0.019948,0.027516,0.00738,4.912346,0.323481,779.566328,296.921533
+raw_resize,0.143203,0.039193,0.016586,0.008177,0.117549,0.034148,14.128355,2.361359,84.60585,46.219154
