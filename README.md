@@ -80,11 +80,14 @@ ComputerVision_Coursework_COBSCCOMP24.2P-019/
 │   └── agents.py                         # Diagnosis, explainability, advisory and governance agents
 ├── scripts/
 │   └── build_reference_set.py            # After training: rebuild app samples, CBR images and embeddings.npz
-├── tests/                                # Unit tests (preprocessing and app logic)
+├── tests/                                # 57 unit and pipeline tests (preprocessing, app logic, red flags, PDFs)
 ├── splits/                               # train/validation/test split CSVs (written by the notebook)
 ├── checkpoints/                          # Trained weights used by the app (add after a training run)
 ├── report_images/                        # Figures and metrics copied from a run (add after a training run)
-├── requirements.txt
+├── requirements.txt                      # Local / training dependencies
+├── requirements-deploy.txt               # Same, with tensorflow-cpu (used by the Dockerfile)
+├── Dockerfile, .dockerignore             # Container image for hosting (not yet deployed)
+├── render.yaml, HF_SPACE_README.md       # Render blueprint and Hugging Face Space README
 └── README.md
 ```
 
@@ -145,7 +148,7 @@ All core innovations in this project are directly grounded in and adapted from p
 
 ---
 
-### Innovation Feature C (Stretch Goal): Lesion-Level U-Net Segmentation (3-Layer Explainability Hierarchy)
+### Innovation Feature C (Stretch Goal): U-Net Pseudo-Mask Demonstration, not lesion segmentation (3-Layer Explainability Hierarchy)
 
 * **Theoretical Translation:** Adapts the classical **U-Net** architecture (Ronneberger et al., 2015), originally designed for biomedical microscopy and brain tumor segmentation, to the domain of retinal microvascular lesions.
 * **The 3-Layer Explainability Hierarchy:**
@@ -159,8 +162,8 @@ All core innovations in this project are directly grounded in and adapted from p
 
 ## 🌟 Bonus Features Implemented
 
-* **Bonus C: Interactive Gradio UI**: Complete clinical web dashboard featuring image drag-and-drop, adjustable governance threshold sliders, live Grad-CAM heatmaps, and case retrieval galleries; runs locally at `http://localhost:7860` (set `GRADIO_SERVER_PORT` to change the port).
-* **Bonus D: Cloud Hosting & Hugging Face Spaces Readiness**: Standalone `app.py` and `requirements.txt` structured specifically for zero-configuration deployment to Hugging Face Spaces using the Gradio SDK.
+* **Bonus C: Interactive Gradio UI**: Complete clinical web dashboard featuring image drag-and-drop, adjustable governance threshold sliders, live Grad-CAM heatmaps, and case retrieval galleries; runs locally at `http://localhost:7860` (set `PORT` or `GRADIO_SERVER_PORT` to change the port).
+* **Hosting readiness (Docker; Render or Hugging Face Spaces — not yet deployed)**: a `Dockerfile` (python:3.11-slim, CPU-only TensorFlow from `requirements-deploy.txt`), `.dockerignore`, a Render blueprint (`render.yaml`) and a Space README (`HF_SPACE_README.md`). The app listens on `0.0.0.0` and takes its port from `PORT`, then `GRADIO_SERVER_PORT`, then 7860, with public sharing disabled. It peaks at about 1.5 GB of RAM, so it needs a host with at least 2 GB (Render's free 512 MB plan is too small). See Option 3 below.
 * **Bonus E: Multi-Stage Classification Verification**: The network strictly performs 5-class ordinal disease staging across all ICDR grades (`No DR`, `Mild`, `Moderate`, `Severe`, `Proliferative DR`), rejecting binary (DR present/absent) simplification.
 * **Red-flag symptoms (second governance rule) — illustrative, not clinically validated**: four patient-reported symptoms (sudden loss of vision; a curtain or shadow; a sudden shower of floaters or flashes; eye pain with redness) turn any result into *URGENT — seek same-day eye care*, withhold the automated plan and list the symptoms. They never change the predicted stage and do nothing for images rejected as non-fundus.
 * **Patient ID / MRN and eye — illustrative, not clinically validated**: optional, sanitised ID (letters, digits, `-`, `_`, max 40 characters; blank = *Not provided*) and eye (OD / OS / not specified) printed with the date/time and result source at the top of all three PDFs, in the history and in the longitudinal comparison. Do not enter real patient data.
@@ -203,13 +206,29 @@ pip install -r requirements.txt
 
 # 4. Launch the interactive Gradio clinical application (http://localhost:7860)
 python app.py
+
+# 5. Run the test suite (57 tests)
+python -m pytest tests -q
 ```
 
-### Option 3: Deploying to Hugging Face Spaces
+### Option 3: Docker (prepared for Render or Hugging Face Spaces; not yet deployed)
 
-1. Create a new Space on [Hugging Face Spaces](https://huggingface.co/spaces) selecting the **Gradio SDK**.
-2. Push `app.py`, the `app/` and `core/` folders, `requirements.txt`, `README.md`, your trained checkpoints in `checkpoints/`, and `embeddings.npz` (optional; enables similar-case retrieval) to the Space repository. An optional `assets/retinatrace_icon.png` replaces the built-in logo.
-3. Hugging Face Spaces will automatically build the environment and host your clinical AI app at a permanent public URL.
+```bash
+# Build the image (CPU-only TensorFlow; copies the code, the two app weight files,
+# app/samples/, app/cbr_reference/, embeddings.npz and the saved test metrics)
+docker build -t retinatrace .
+
+# Run it and open http://localhost:7860
+docker run --rm -p 7860:7860 retinatrace
+
+# Hosts that set PORT (such as Render) are handled automatically, e.g.
+docker run --rm -e PORT=8080 -p 8080:8080 retinatrace
+```
+
+**Memory:** the app peaks at about 1.5 GB while it loads the models and analyses an image, so give the container or host at least 2 GB of RAM. Render's free 512 MB plan is too small.
+
+* **Render:** `render.yaml` defines a Docker web service with health check `/` on a 2 GB plan.
+* **Hugging Face Spaces:** create a Docker Space and follow `HF_SPACE_README.md` (YAML header with `sdk: docker`, `app_port: 7860`; the weight files are over 10 MB, so push them with Git LFS).
 
 ---
 

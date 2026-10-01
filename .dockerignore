@@ -1,0 +1,22 @@
+.git
+.gitignore
+.kilo
+**/__pycache__
+**/*.py[cod]
+**/.ipynb_checkpoints
+*.ipynb
+notebooks/
+data/
+report/
+video_demo_images/
+retinatrace_runs/
+kaggle test runs/
+splits/
+docs/
+scripts/
+tests/
+# report_images/ is excluded except the saved test metrics the app displays.
+report_images/*
+!report_images/test_loss_and_metrics.csv
+kaggle.json
+*.zip

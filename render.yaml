@@ -1,0 +1,13 @@
+# Render blueprint for the RetinaTrace prototype (prepared for hosting; not yet deployed).
+# Render sets PORT; app/main.py listens on it (PORT, then GRADIO_SERVER_PORT, then 7860).
+#
+# Memory: the free plan (512 MB) is too small. The app peaks at about 1.5 GB while it loads
+# EfficientNetB3 and the U-Net and analyses an image, so choose a plan with at least 2 GB of RAM.
+services:
+  - type: web
+    name: retinatrace
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: standard  # 2 GB RAM; do not use the free plan
+    healthCheckPath: /
+    autoDeploy: false

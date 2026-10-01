@@ -574,16 +574,18 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
 def launch() -> None:
     """Launch the RetinaTrace interface.
 
-    Host and port come from GRADIO_SERVER_NAME / GRADIO_SERVER_PORT (the variables Gradio
-    and Hugging Face Spaces use), defaulting to 0.0.0.0:7860. No public share link is created.
+    The port comes from PORT (set by Render and similar hosts), then GRADIO_SERVER_PORT
+    (Gradio / Hugging Face Spaces), then 7860. The app listens on 0.0.0.0 unless
+    GRADIO_SERVER_NAME says otherwise. No public share link is created.
     """
+    port = os.environ.get("PORT") or os.environ.get("GRADIO_SERVER_PORT") or "7860"
     demo.launch(
         head=HEAD_SCRIPT,
         theme=theme,
         css=LAYOUT_CSS,
         share=False,
         server_name=os.environ.get("GRADIO_SERVER_NAME", "0.0.0.0"),
-        server_port=int(os.environ.get("GRADIO_SERVER_PORT", "7860")),
+        server_port=int(port),
     )
 
 
