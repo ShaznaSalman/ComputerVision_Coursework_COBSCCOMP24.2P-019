@@ -105,7 +105,7 @@ To align with clean-architecture principles and deployment requirements:
    - **Module split:** `app/main.py` only builds the layout and wires events; analysis, chatbot, reports, triage and styling each live in their own module.
    - **Separation of Concerns:** the `app/` package contains *no* raw neural network layer definitions or image-processing mathematics; it delegates domain processing to `core/`.
 3. **Automated Unit Testing (`tests/`):**
-   - `tests/test_preprocessing.py` verifies tensor dimensionality, range $[0.0, 1.0]$, border cropping, ablation flags, and corrupted-input handling; `tests/test_app_logic.py` covers the chatbot, triage labels, reports and the metrics loader. Run them with `python -m pytest tests` (or `python -m unittest discover tests`).
+   - `tests/test_preprocessing.py` verifies tensor dimensionality, range $[0.0, 1.0]$, border cropping, ablation flags, and corrupted-input handling; `tests/test_app_logic.py` covers the chatbot (including refusal of treatment and dosing questions), triage labels, reports and the metrics loader; `tests/test_app_pipeline.py` loads the model and checks that uploads always use real predictions (presets only from the preset buttons), the governance reason text, the fundus-validity gate, and that the `weights=None` backbone gives the same probabilities. 43 tests in total; run them with `python -m pytest tests` (or `python -m unittest discover tests`). A full end-to-end UI test with screenshots is in `report_images/app_test/README.md`.
 
 > **Checkpoint status:** `core/config.py` matches the APTOS 2019 final model from Kaggle run
 > `run_20260930_155003` (300×300, dropout 0.5). The repository includes everything the app needs:

@@ -44,6 +44,18 @@ class TestChatbot(unittest.TestCase):
         reply = chatbot.run_chat_pipeline("should I start treatment")
         self.assertIn("cannot recommend", reply)
 
+    def test_medicine_dose_questions_are_refused(self):
+        for question in ("What dose of insulin should I take?", "how much metformin should I take"):
+            self.assertIn("cannot recommend", chatbot.run_chat_pipeline(question), question)
+
+    def test_long_question_is_not_fuzzy_matched_to_a_definition(self):
+        reply = chatbot.run_chat_pipeline("What is the 4-2-1 rule in diabetic retinopathy?")
+        self.assertIn("4-2-1 rule", reply)
+
+    def test_definition_still_matches_with_a_typo(self):
+        reply = chatbot.run_chat_pipeline("what is diabetic retinopaty")
+        self.assertIn("damage to the retinal blood vessels", reply)
+
     def test_dataset_answer_describes_aptos(self):
         reply = chatbot.run_chat_pipeline("tell me about the dataset in detail")
         self.assertIn("APTOS 2019", reply)

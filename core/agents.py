@@ -29,14 +29,16 @@ from core.models import full_model, unet_model
 class DiagnosisAgent:
     def process(self, preproc_img: np.ndarray, preset_stage: Optional[int] = None) -> Dict[str, Any]:
         if preset_stage is not None and 0 <= preset_stage < 5:
-            calibrated_distributions = {
+            # Fixed illustrative values for the preset demo buttons only. They are NOT model
+            # output and are never used for uploaded images (see app/analysis.py).
+            demo_preset_distributions = {
                 0: [0.938, 0.042, 0.012, 0.005, 0.003],
                 1: [0.081, 0.865, 0.041, 0.008, 0.005],
                 2: [0.015, 0.062, 0.885, 0.026, 0.012],
                 3: [0.005, 0.018, 0.082, 0.871, 0.024],
                 4: [0.002, 0.008, 0.016, 0.053, 0.921],
             }
-            probs = calibrated_distributions[preset_stage]
+            probs = demo_preset_distributions[preset_stage]
             stage = preset_stage
             return {
                 "stage": stage,
@@ -149,6 +151,30 @@ class AdvisoryAgent:
         return {"urgency": urgency, "plan": plan, "followup": followup, "disclaimer": self.DISCLAIMER}
 
 
+REASON_TEXT = {
+    "quality": "the image-quality check failed",
+    "evidence": "the exploratory visual-evidence check did not support the predicted stage",
+}
+
+
+def governance_message(reasons, confidence: float, threshold: float) -> str:
+    """One sentence naming the real reason(s) a case was flagged, or confirming it passed."""
+    if not reasons:
+        return (f"Safety Verified: Model confidence ({confidence*100:.1f}%) satisfies the clinical safety "
+                f"threshold ({threshold*100:.0f}%) and the image-quality check passed.")
+    parts = []
+    for reason in reasons:
+        if reason == "confidence":
+            parts.append(f"model confidence ({confidence*100:.1f}%) is below the threshold ({threshold*100:.0f}%)")
+        else:
+            parts.append(REASON_TEXT[reason])
+    joined = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
+    if "confidence" in reasons or "quality" in reasons:
+        return (f"Flagged for human review because {joined}. Automated treatment guidance has been withheld "
+                "to avoid acting on an uncertain result.")
+    return f"Clinician review recommended because {joined}."
+
+
 class GovernanceAgent:
     def __init__(self, threshold: float = AppConfig.DEFAULT_CONFIDENCE_THRESHOLD):
         self.threshold = threshold
@@ -161,7 +187,7 @@ class GovernanceAgent:
         qc: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         confidence = diagnosis["confidence"]
-        flagged = confidence < self.threshold
+        qc = qc or {"passed": True}
 
         # Feature 4: Prediction-Evidence Consistency Analysis
         consistency_analysis = evaluate_prediction_evidence_consistency(
@@ -169,30 +195,32 @@ class GovernanceAgent:
             lesion_pct=explanation.get("lesion_pct", 0.0),
             affected_quadrants=explanation.get("affected_quadrants_count", 0),
             overlap_data=explanation.get("overlap_analysis", {}),
-            qc=qc or {"passed": True},
+            qc=qc,
         )
 
-        # Flag for review if confidence is low OR if evidence is potentially inconsistent
-        recommend_manual_review = flagged or (consistency_analysis.get("status") in ("POTENTIALLY INCONSISTENT", "INSUFFICIENT EVIDENCE"))
+        # The actual reason(s) for flagging, so every message states what really happened.
+        reasons = []
+        if confidence < self.threshold:
+            reasons.append("confidence")
+        if not qc.get("passed", True):
+            reasons.append("quality")
+        if consistency_analysis.get("status") == "POTENTIALLY INCONSISTENT":
+            reasons.append("evidence")
+        # Advice is withheld when the result itself is not usable: low confidence or a failed quality check.
+        flagged = "confidence" in reasons or "quality" in reasons
+        message = governance_message(reasons, confidence, self.threshold)
 
         if flagged:
-            message = (f"SAFETY INTERCEPTION ACTIVATED: Model confidence ({confidence*100:.1f}%) is BELOW the clinical safety threshold "
-                       f"({self.threshold*100:.0f}%). Automated treatment recommendations have been WITHHELD to eliminate hallucination risks. "
-                       "The patient case has been flagged for mandatory specialist review.")
             controlled_advisory = {"urgency": "HUMAN SPECIALIST TRIAGE MANDATORY", "plan": message,
                                    "followup": "Withheld — Manual Slit-Lamp Examination Required Immediately",
                                    "disclaimer": advisory["disclaimer"]}
         else:
-            if consistency_analysis.get("status") == "POTENTIALLY INCONSISTENT":
-                message = (f"Safety Verified with Review Recommendation: Model confidence ({confidence*100:.1f}%) satisfies threshold ({self.threshold*100:.0f}%), "
-                           "but independent visual evidence divergence was noted. Clinician review recommended.")
-            else:
-                message = f"Safety Verified: Model confidence ({confidence*100:.1f}%) satisfies the clinical safety threshold ({self.threshold*100:.0f}%)."
             controlled_advisory = advisory
 
         return {
             "flagged": flagged,
-            "flagged_for_review": recommend_manual_review,
+            "flagged_for_review": bool(reasons),
+            "flag_reasons": reasons,
             "confidence": confidence,
             "message": message,
             "diagnosis": diagnosis,

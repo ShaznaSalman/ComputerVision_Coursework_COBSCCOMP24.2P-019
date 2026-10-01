@@ -13,11 +13,32 @@ from core.config import AppConfig, PROJECT_ROOT
 CBR_REFERENCE_DIR = PROJECT_ROOT / "app" / "cbr_reference"
 
 
+# Keras' ImageNet per-channel standard deviations. With weights="imagenet", Keras inserts a
+# weight-free Rescaling(1/sqrt(std)) layer after the stem Normalization; with weights=None it does not.
+IMAGENET_STDDEV_RGB = (0.229, 0.224, 0.225)
+
+
+def _fold_imagenet_stem_scaling(backbone) -> None:
+    """Reproduce the ImageNet-only stem rescaling inside the Normalization layer.
+
+    (x - mean) / sqrt(var) / sqrt(std) == (x - mean) / sqrt(var * std), so multiplying the loaded
+    variance by std gives exactly the network that was trained, without the extra layer.
+    """
+    norm = backbone.get_layer("normalization")
+    scale = np.asarray(IMAGENET_STDDEV_RGB, dtype="float32").reshape(tuple(norm.adapt_variance.shape))
+    norm.adapt_variance.assign(np.asarray(norm.adapt_variance) * scale)
+    norm.finalize_state()  # rebuild the cached mean/variance tensors from the updated variable
+
+
 def build_classifier():
-    """Construct and load the EfficientNetB3 DR classifier."""
+    """Construct and load the EfficientNetB3 DR classifier.
+
+    The backbone is built with weights=None: the fine-tuned checkpoint overwrites every weight, so
+    the ImageNet download (which needs internet access at start-up) is not needed.
+    """
     base_m = EfficientNetB3(
         include_top=False,
-        weights="imagenet",
+        weights=None,
         input_shape=(AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3),
     )
     inputs = keras.Input(shape=(AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3))
@@ -39,6 +60,7 @@ def build_classifier():
         model.load_weights(AppConfig.WEIGHTS_PATH)
     except Exception as exc:
         raise RuntimeError(f"Failed to load required classifier checkpoint '{AppConfig.WEIGHTS_PATH}'.") from exc
+    _fold_imagenet_stem_scaling(base_m)
     print(f"[Model] Fine-tuned checkpoint loaded successfully from {AppConfig.WEIGHTS_PATH}.")
     return model, base_m
 

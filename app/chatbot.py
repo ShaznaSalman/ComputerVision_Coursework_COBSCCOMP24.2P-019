@@ -144,7 +144,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "- `flagged_for_review: True` is set.\n"
             "- The case is rerouted to **mandatory human ophthalmologist triage**.\n\n"
             "This mirrors clinical safety governance patterns in defense medical AI systems "
-            "and prevents hallucination-driven misdiagnosis on ambiguous or out-of-distribution images."
+            "so that the system does not act on an uncertain result for ambiguous or out-of-distribution images."
         ),
     },
     {
@@ -283,8 +283,12 @@ class ChatRouterAgent:
 
     @staticmethod
     def _close_match(query_key: str, phrases: set) -> bool:
+        # Fuzzy matching is for typos only: a much longer question (e.g. "what is the 4-2-1 rule in
+        # diabetic retinopathy") must not be mistaken for a short phrase it happens to contain.
         return any(
-            query_key == phrase or SequenceMatcher(None, query_key, phrase).ratio() >= 0.78
+            query_key == phrase
+            or (abs(len(query_key) - len(phrase)) <= 3
+                and SequenceMatcher(None, query_key, phrase).ratio() >= 0.78)
             for phrase in phrases
         )
 
@@ -302,6 +306,8 @@ class ChatRouterAgent:
         high_risk_terms = [
             "should i start treatment", "should i take medicine", "what medication should i take",
             "can i start treatment", "should i inject", "prescribe", "dosage", "treat myself",
+            # medicine and dosing questions, e.g. "What dose of insulin should I take?"
+            "dose", "insulin", "metformin", "how much should i take", "should i take", "should i stop taking",
         ]
         if any(term in query for term in high_risk_terms):
             return {"intent": "high_risk", "entry": None}

@@ -63,11 +63,11 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
                 submit_btn = gr.Button("🚀 Run Diagnostic Analysis", variant="primary", size="lg", scale=3, elem_classes=["action-btn"])
                 btn_clear = gr.Button("🔄 Reset", variant="secondary", size="lg", scale=1)
 
-            gr.Markdown("<div style='font-size:11px; font-weight:700; color:#64748b; margin:3px 0 1px 0;'>⚡ QUICK-LOAD SAMPLES:</div>")
+            gr.Markdown("<div style='font-size:11px; font-weight:700; color:#64748b; margin:3px 0 1px 0;'>⚡ PRESET DEMOS (fixed illustrative values, not model output)</div>")
             with gr.Row(elem_classes=["quick-samples-row"]):
-                btn_normal = gr.Button("🟢 Normal", size="sm")
-                btn_moderate = gr.Button("🟡 Moderate", size="sm")
-                btn_prolif = gr.Button("🔴 Proliferative", size="sm")
+                btn_normal = gr.Button("🟢 Normal — preset demo", size="sm")
+                btn_moderate = gr.Button("🟡 Moderate — preset demo", size="sm")
+                btn_prolif = gr.Button("🔴 Proliferative — preset demo", size="sm")
 
             with gr.Accordion("🛡️ Safety gate & patient context", open=False):
                 threshold_slider = gr.Slider(
@@ -350,7 +350,7 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
 
     def reset_workspace():
         empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
-        initial_banner = "<div class='card'><em>Upload a retinal fundus photograph or click a quick-load sample to begin.</em></div>"
+        initial_banner = "<div class='card'><em>Upload a retinal fundus photograph, or click a preset demo button to see fixed example values.</em></div>"
         default_risk_html, default_ticket_text = calculate_multimodal_risk(0, 7.0, 5.0, 50.0, 120.0, "Type 2")
         return (
             None,

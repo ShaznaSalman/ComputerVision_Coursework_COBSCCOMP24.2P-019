@@ -227,6 +227,41 @@ gradio-app.dark .gradio-container,
     color: #fef3c7;
 }
 
+/* Governance, image-quality and confidence banners. Every text/background pair below is at
+   least 6.9:1 (WCAG AA needs 4.5:1) in both light and dark mode. */
+.rt-banner {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border-left: 5px solid;
+    margin-bottom: 10px;
+}
+.rt-banner-compact { padding: 8px 14px; }
+.rt-banner-title { font-weight: 800; font-size: 14px; letter-spacing: 0.3px; margin-bottom: 4px; }
+.rt-banner-text { font-size: 13px; margin: 2px 0 0 0; }
+ul.rt-banner-text { padding-left: 18px; }
+.rt-banner-meta { font-size: 11.5px; margin-top: 4px; }
+.rt-banner-note { margin-top: 8px; padding: 8px 12px; border-radius: 6px; font-size: 13px; border-left: 4px solid; }
+.rt-banner-ok { background: #f0fdf4 !important; border-color: #16a34a !important; }
+.rt-banner-ok .rt-banner-title, .rt-banner-ok .rt-banner-text, .rt-banner-ok li { color: #14532d !important; }
+.rt-banner-warn { background: #fffbeb !important; border-color: #d97706 !important; }
+.rt-banner-warn .rt-banner-title, .rt-banner-warn .rt-banner-text, .rt-banner-warn li { color: #78350f !important; }
+.rt-banner-alert { background: #fef2f2 !important; border-color: #dc2626 !important; }
+.rt-banner-alert .rt-banner-title, .rt-banner-alert .rt-banner-text, .rt-banner-alert li { color: #7f1d1d !important; }
+.rt-banner .rt-banner-meta { color: #475569 !important; }
+.rt-banner-note { background: #ffffff !important; color: #7f1d1d !important; border-color: #dc2626 !important; }
+.dark .rt-banner-ok { background: #052e16 !important; border-color: #22c55e !important; }
+.dark .rt-banner-ok .rt-banner-title { color: #bbf7d0 !important; }
+.dark .rt-banner-ok .rt-banner-text, .dark .rt-banner-ok li { color: #dcfce7 !important; }
+.dark .rt-banner-warn { background: #451a03 !important; border-color: #f59e0b !important; }
+.dark .rt-banner-warn .rt-banner-title { color: #fde68a !important; }
+.dark .rt-banner-warn .rt-banner-text, .dark .rt-banner-warn li { color: #fef3c7 !important; }
+.dark .rt-banner-alert { background: #450a0a !important; border-color: #ef4444 !important; }
+.dark .rt-banner-alert .rt-banner-title { color: #fecaca !important; }
+.dark .rt-banner-alert .rt-banner-text, .dark .rt-banner-alert li { color: #fee2e2 !important; }
+.dark .rt-banner .rt-banner-meta { color: #cbd5e1 !important; }
+.dark .rt-banner-note { background: #2a0606 !important; color: #fecaca !important; border-color: #ef4444 !important; }
+.rt-banner strong { color: inherit !important; }
+
 /* Hero Diagnostic Card */
 .hero-card {
     background: #ffffff;

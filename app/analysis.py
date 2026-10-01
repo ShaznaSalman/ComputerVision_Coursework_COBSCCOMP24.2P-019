@@ -134,63 +134,196 @@ def assess_image_quality(img: np.ndarray) -> dict:
     }
 
 
+def assess_fundus_validity(img: np.ndarray) -> dict:
+    """Decide whether an upload is a usable colour fundus photograph before any inference.
+
+    Uses the image-quality measurements (brightness, central green energy) plus the shape and
+    colour of the fundus region. Thresholds were tuned so that all 250 reference images and the
+    5 sample images pass, while black, white, grey and random-noise images, charts, diagrams and
+    app screenshots fail (see tests/test_app_logic.py).
+    """
+    reasons = []
+    if img is None or img.ndim != 3 or img.shape[2] < 3:
+        return {"valid": False, "reasons": ["The image is not a colour photograph."]}
+    rgb = img[..., :3]
+    gray = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
+    h, w = gray.shape
+    mask = (gray > 15).astype(np.uint8)
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    fundus_area = max((cv2.contourArea(c) for c in contours), default=0.0) / float(h * w)
+    k = max(2, int(0.06 * min(h, w)))
+    corners = np.concatenate([gray[:k, :k].ravel(), gray[:k, -k:].ravel(), gray[-k:, :k].ravel(), gray[-k:, -k:].ravel()])
+    dark_corners = float((corners < 30).mean())
+    brightness = float(gray.mean())
+    green_center = float(rgb[h // 4:3 * h // 4, w // 4:3 * w // 4, 1].mean())
+    inside = mask.astype(bool)
+    r, g, b = ((float(rgb[..., i][inside].mean()) if inside.any() else 0.0) for i in range(3))
+    red_over_green = r / (g + 1e-6)
+    red_over_blue = r / (b + 1e-6)
+
+    if fundus_area < 0.30:
+        reasons.append("No circular retinal region was found.")
+    if dark_corners < 0.40:
+        reasons.append("The image has no dark background around a circular fundus.")
+    if not 15.0 <= brightness <= 200.0:
+        reasons.append(f"Overall brightness ({brightness:.0f}/255) is outside the range of fundus photographs.")
+    if green_center < 15.0:
+        reasons.append("The centre of the image is too dark to contain a retina.")
+    if red_over_green < 0.80 or red_over_blue < 0.90:
+        reasons.append("The colours are not those of a retina (a fundus photograph is red-orange).")
+    return {
+        "valid": not reasons,
+        "reasons": reasons,
+        "fundus_area": fundus_area,
+        "dark_corners": dark_corners,
+        "brightness": brightness,
+        "green_center": green_center,
+        "red_over_green": red_over_green,
+        "red_over_blue": red_over_blue,
+    }
+
+
+QC_METRICS = ('Blur score: {blur_score:.1f} | Brightness: {brightness:.0f}/255 | '
+              'Black border: {black_pct:.1f}% | Green energy: {central_green_energy:.1f}')
+
+
 def build_quality_warning_html(qc: dict) -> str:
-    """Renders image quality assessment result as an HTML warning card."""
+    """Renders image quality assessment result as an HTML card (colours set in ui_style.py)."""
+    metrics = QC_METRICS.format(black_pct=qc["black_ratio"] * 100, **qc)
     if qc["passed"] and not qc["warnings"]:
         return (
-            '<div style="padding:8px 14px; background:#f0fdf4; border-radius:8px; border-left:4px solid #10b981; margin-bottom:8px;">'
-            '<span style="font-weight:700; color:#166534;">✅ Image Quality: PASS</span>'
-            f'<span style="color:#64748b; font-size:12px; margin-left:10px;">Blur score: {qc["blur_score"]:.1f} | Brightness: {qc["brightness"]:.0f}/255 | Black border: {qc["black_ratio"]*100:.1f}% | Green energy: {qc["central_green_energy"]:.1f}</span>'
+            '<div class="rt-banner rt-banner-ok rt-banner-compact">'
+            '<span class="rt-banner-title">✅ Image Quality: PASS</span>'
+            f'<span class="rt-banner-meta" style="margin-left:10px;">{metrics}</span>'
             '</div>'
         )
-    color = "#fef2f2" if not qc["passed"] else "#fffbeb"
-    border = "#ef4444" if not qc["passed"] else "#f59e0b"
-    icon = "⚠️ Image Quality: ISSUES DETECTED" if not qc["passed"] else "⚠️ Image Quality: WARNINGS"
-    label_color = "#991b1b" if not qc["passed"] else "#92400e"
-    all_msgs = [f'<li style="margin:2px 0;">{m}</li>' for m in (qc["issues"] + qc["warnings"])]
+    kind = "alert" if not qc["passed"] else "warn"
+    title = "⚠️ Image Quality: ISSUES DETECTED" if not qc["passed"] else "⚠️ Image Quality: WARNINGS"
+    all_msgs = "".join(f'<li>{m}</li>' for m in (qc["issues"] + qc["warnings"]))
     return (
-        f'<div style="padding:10px 14px; background:{color}; border-radius:8px; border-left:4px solid {border}; margin-bottom:8px;">'
-        f'<div style="font-weight:700; color:{label_color}; margin-bottom:6px;">{icon}</div>'
-        f'<ul style="margin:0; padding-left:18px; font-size:12px; color:#374151;">{"".join(all_msgs)}</ul>'
-        f'<div style="font-size:11px; color:#64748b; margin-top:4px;">Blur score: {qc["blur_score"]:.1f} | Brightness: {qc["brightness"]:.0f}/255 | Black border: {qc["black_ratio"]*100:.1f}% | Green energy: {qc["central_green_energy"]:.1f}</div>'
+        f'<div class="rt-banner rt-banner-{kind}">'
+        f'<div class="rt-banner-title">{title}</div>'
+        f'<ul class="rt-banner-text">{all_msgs}</ul>'
+        f'<div class="rt-banner-meta">{metrics}</div>'
         '</div>'
     )
 
 
+def build_invalid_image_html(validity: dict) -> str:
+    """Card shown instead of any result when the upload is not a usable fundus photograph."""
+    items = "".join(f"<li>{r}</li>" for r in validity["reasons"])
+    return (
+        '<div class="rt-banner rt-banner-alert">'
+        '<div class="rt-banner-title">🚫 Not a usable fundus photograph — please upload a colour retinal photograph</div>'
+        f'<ul class="rt-banner-text">{items}</ul>'
+        '<div class="rt-banner-meta">No stage, probabilities, Grad-CAM or advice are shown for this image.</div>'
+        '</div>'
+    )
+
+
+def build_governance_html(result: dict, threshold: float) -> str:
+    """Governance banner that names the actual reason(s) a case was flagged."""
+    reasons = result.get("flag_reasons", [])
+    confidence = result["diagnosis"]["confidence"]
+    if not reasons:
+        return (
+            '<div class="rt-banner rt-banner-ok">'
+            '<div class="rt-banner-title">✅ GOVERNANCE STATUS: AUTOMATION APPROVED</div>'
+            f'<div class="rt-banner-text">Model confidence (<strong>{confidence*100:.1f}%</strong>) meets the safety '
+            f'threshold (<strong>{threshold*100:.0f}%</strong>) and the image-quality check passed.</div>'
+            '</div>'
+        )
+    lines = []
+    for reason in reasons:
+        if reason == "confidence":
+            lines.append(f"Model confidence (<strong>{confidence*100:.1f}%</strong>) is below your threshold "
+                         f"(<strong>{threshold*100:.0f}%</strong>).")
+        elif reason == "quality":
+            lines.append("Image quality check failed (see the image-quality card).")
+        elif reason == "evidence":
+            lines.append("The exploratory visual-evidence check did not support the predicted stage.")
+    withheld = result.get("flagged", False)
+    kind = "alert" if withheld else "warn"
+    title = "🚨 GOVERNANCE STATUS: FLAGGED FOR HUMAN REVIEW" if withheld else "⚠️ GOVERNANCE STATUS: CLINICIAN REVIEW RECOMMENDED"
+    note = ("<strong>Patient safety:</strong> automated treatment guidance has been withheld to avoid acting on an "
+            "uncertain result. The case is routed to an ophthalmologist for review.") if withheld else (
+            "Guidance is shown, but a clinician should review the case.")
+    reason_items = "".join(f"<li>{line}</li>" for line in lines)
+    return (
+        f'<div class="rt-banner rt-banner-{kind}">'
+        f'<div class="rt-banner-title">{title}</div>'
+        f'<div class="rt-banner-text">Reason{"s" if len(lines) > 1 else ""}:</div>'
+        f'<ul class="rt-banner-text">{reason_items}</ul>'
+        f'<div class="rt-banner-note">{note}</div>'
+        '</div>'
+    )
+
+
+def _history_html(session_history: list) -> str:
+    """Prediction-history panel for this session, most recent first."""
+    stage_colors = {0: "#10b981", 1: "#0284c7", 2: "#d97706", 3: "#ea580c", 4: "#e11d48"}
+    rows = ""
+    for h in reversed(session_history):
+        sc = stage_colors.get(h["stage"], "#64748b")
+        rows += (
+            f'<div style="display:flex; align-items:center; gap:10px; padding:8px 12px; '
+            f'border-radius:8px; background:#f8fafc; border:1px solid #e2e8f0; margin-bottom:6px;">'
+            f'<div style="min-width:36px; height:36px; border-radius:50%; background:{sc}; '
+            f'display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:14px;">{h["stage"]}</div>'
+            f'<div style="flex:1;"><div style="font-weight:700; font-size:13px; color:#0f172a;">{h["stage_name"]}</div>'
+            f'<div style="font-size:11px; color:#475569;">{h["urgency"]} • Confidence: {h["confidence"]}</div></div>'
+            f'<div style="font-size:11px; color:#475569;">{h["timestamp"]}</div>'
+            f'</div>'
+        )
+    if not rows:
+        rows = '<div style="color:#64748b; font-size:13px; padding:12px;">No predictions yet in this session.</div>'
+    return (
+        f'<div style="padding:4px 0;">'
+        f'<div style="font-size:11px; font-weight:700; text-transform:uppercase; color:#64748b; margin-bottom:8px;">'
+        f'{len(session_history)} Prediction(s) This Session — Most Recent First</div>'
+        f'{rows}</div>'
+    )
+
+
+def _blank_outputs(notice_html: str, session_history: list) -> tuple:
+    """All 30 outputs with no result: used for a missing or rejected image (history is kept)."""
+    empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
+    return (notice_html, "", {}, empty_img, empty_img, empty_img, empty_img, "", empty_img, empty_img,
+            "", "", [], "", "", "", "", "", None, session_history, {}, "", empty_img,
+            _history_html(session_history), "", 0.0, "", "", "", "")
+
+
 def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history: list = None, preset_stage: Optional[int] = None):
     """Primary analysis handler that executes the pipeline and populates modern UI widgets."""
+    session_history = list(session_history or [])
     empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
     if img is None:
-        notice = "<div class='card warning-card'>⚠️ <strong>Please upload a retinal fundus photograph</strong> or click one of the quick-load sample buttons on the left.</div>"
-        return notice, "", {}, empty_img, empty_img, empty_img, empty_img, "", empty_img, empty_img, "", "", [], "", "", "", "", "", None, [], {}, "", empty_img, "", "", 0.0, "", "", "", ""
+        notice = ("<div class='card warning-card'>⚠️ <strong>Please upload a retinal fundus photograph</strong> "
+                  "or click one of the preset demo buttons on the left.</div>")
+        return _blank_outputs(notice, session_history)
+
+    # Input-validity gate: non-fundus images never reach the model.
+    validity = assess_fundus_validity(img) if preset_stage is None else {"valid": True}
+    if not validity["valid"]:
+        return _blank_outputs(build_invalid_image_html(validity), session_history)
 
     try:
         preproc = preprocess_image(img)
     except ValueError as exc:
         notice = (
             "<div class='card warning-card'>⚠️ <strong>Invalid fundus image input</strong> — "
-            f"{exc}. Please upload a valid retina image or choose a sample fundus from the quick-load buttons.</div>"
+            f"{exc}. Please upload a valid retina image or use a preset demo button.</div>"
         )
-        return notice, "", {}, empty_img, empty_img, empty_img, empty_img, "", empty_img, empty_img, "", "", [], "", "", "", "", "", None, [], {}, "", empty_img, "", "", 0.0, "", "", "", ""
+        return _blank_outputs(notice, session_history)
 
     # Image Quality Assessment (before inference)
     qc = assess_image_quality(img)
     quality_html = build_quality_warning_html(qc)
 
-    # Detect if the input image matches a known clinical demo preset
-    matched_preset_stage = preset_stage
-    if matched_preset_stage is None and img is not None:
-        for _s_idx, _s_img in _SAMPLE_CACHE.items():
-            if img.shape == _s_img.shape:
-                diff = float(np.mean(np.abs(img.astype(np.float32) - _s_img.astype(np.float32))))
-                if diff < 15.0:
-                    matched_preset_stage = _s_idx
-                    break
-
-    result = run_pipeline(preproc, threshold=threshold, qc=qc, preset_stage=matched_preset_stage)
-    # Sample presets return FIXED illustrative probabilities from core.agents, not a model
-    # prediction, so every output below labels them as a demo preset.
-    is_demo_preset = matched_preset_stage is not None
+    # Preset values come only from the preset demo buttons, which pass preset_stage explicitly.
+    # Every uploaded image, including the files in app/samples/, goes through the real model.
+    result = run_pipeline(preproc, threshold=threshold, qc=qc, preset_stage=preset_stage)
+    is_demo_preset = preset_stage is not None
 
 
     diag = result["diagnosis"]
@@ -211,38 +344,8 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
         expl.get("classical_cv", {}),
     )
 
-    # 1. Governance Banner HTML
-    if flagged:
-        gov_html = f"""
-        <div class="card alert-card">
-            <div class="card-header">
-                <span class="icon">🚨</span>
-                <div>
-                    <h3 style="margin:0; color:#991b1b;">GOVERNANCE STATUS: FLAGGED FOR HUMAN TRIAGE</h3>
-                    <p style="margin:2px 0 0 0; color:#7f1d1d; font-size:13px;">
-                        Safety Gate Interception: Model confidence (<strong>{diag['confidence']*100:.1f}%</strong>) is below your set threshold (<strong>{threshold*100:.0f}%</strong>).
-                    </p>
-                </div>
-            </div>
-            <div style="margin-top:8px; padding:8px 12px; background:#fff; border-radius:6px; border-left:4px solid #ef4444; font-size:13px; color:#b91c1c;">
-                <strong>Patient Safety Protection:</strong> Automated treatment guidance has been withheld to eliminate hallucination risks. Rerouted to mandatory human ophthalmologist review.
-            </div>
-        </div>
-        """
-    else:
-        gov_html = f"""
-        <div class="card success-card">
-            <div class="card-header">
-                <span class="icon">✅</span>
-                <div>
-                    <h3 style="margin:0; color:#166534;">GOVERNANCE STATUS: AUTOMATION APPROVED</h3>
-                    <p style="margin:2px 0 0 0; color:#14532d; font-size:13px;">
-                        Quality Assurance Verified: Model confidence (<strong>{diag['confidence']*100:.1f}%</strong>) satisfies the clinical safety threshold (<strong>{threshold*100:.0f}%</strong>).
-                    </p>
-                </div>
-            </div>
-        </div>
-        """
+    # 1. Governance Banner HTML (states the actual reason or reasons)
+    gov_html = build_governance_html(result, threshold)
 
     # 2. Hero Diagnosis Card HTML (Medios-Style Tri-State Status Chip & Hospital Card)
     border_c, bg_c, badge_text = STAGE_BADGE_COLORS[stage]
@@ -326,7 +429,7 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
     """
 
     # 6. Exportable Clinical EHR Note
-    ehr_text = build_ehr_note(diag, expl, adv, consistency, overlap, flagged, threshold,
+    ehr_text = build_ehr_note(diag, expl, adv, consistency, overlap, result["flagged"], threshold,
                               demo_preset=is_demo_preset)
 
     # 7. Lesion Burden HTML metric card
@@ -513,27 +616,25 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
         f'</div></div>'
     )
 
-    # 10. Uncertainty Banner
+    # 10. Uncertainty Banner (never shows a reassuring card for a flagged case)
     conf_val = diag["confidence"]
-    if conf_val >= 0.85:
-        unc_icon, unc_label, unc_color, unc_bg = "🟢", "HIGH CONFIDENCE", "#166534", "#f0fdf4"
-        unc_border = "#10b981"
-        unc_sub = f"Model certainty is {conf_val*100:.1f}% — result is suitable for clinical review."
-    elif conf_val >= threshold:
-        unc_icon, unc_label, unc_color, unc_bg = "🟡", "REVIEW RECOMMENDED", "#92400e", "#fffbeb"
-        unc_border = "#f59e0b"
-        unc_sub = f"Confidence ({conf_val*100:.1f}%) exceeds threshold but is below 85% — secondary clinical review advised."
+    reasons = result.get("flag_reasons", [])
+    if "confidence" in reasons:
+        unc = ("alert", "🔴", "INSUFFICIENT CONFIDENCE",
+               f"Confidence ({conf_val*100:.1f}%) is below the safety threshold ({threshold*100:.0f}%) — human triage required.")
+    elif flagged:
+        unc = None  # flagged for another reason: the governance banner explains it
+    elif conf_val >= 0.85:
+        unc = ("ok", "🟢", "HIGH CONFIDENCE",
+               f"Model certainty is {conf_val*100:.1f}% — result is suitable for clinical review.")
     else:
-        unc_icon, unc_label, unc_color, unc_bg = "🔴", "INSUFFICIENT CONFIDENCE", "#991b1b", "#fef2f2"
-        unc_border = "#ef4444"
-        unc_sub = f"Confidence ({conf_val*100:.1f}%) is below the safety threshold ({threshold*100:.0f}%) — human triage required."
-
-    uncertainty_banner_html = (
-        f'<div style="padding:12px 16px; background:{unc_bg}; border-radius:10px; '
-        f'border-left:5px solid {unc_border}; margin-bottom:10px; display:flex; align-items:center; gap:12px;">'
-        f'<div style="font-size:28px;">{unc_icon}</div>'
-        f'<div><div style="font-size:14px; font-weight:800; color:{unc_color}; letter-spacing:0.5px;">{unc_label}</div>'
-        f'<div style="font-size:12px; color:#374151; margin-top:2px;">{unc_sub}</div></div>'
+        unc = ("warn", "🟡", "REVIEW RECOMMENDED",
+               f"Confidence ({conf_val*100:.1f}%) exceeds threshold but is below 85% — secondary clinical review advised.")
+    uncertainty_banner_html = "" if unc is None else (
+        f'<div class="rt-banner rt-banner-{unc[0]}" style="display:flex; align-items:center; gap:12px;">'
+        f'<div style="font-size:28px;">{unc[1]}</div>'
+        f'<div><div class="rt-banner-title">{unc[2]}</div>'
+        f'<div class="rt-banner-text">{unc[3]}</div></div>'
         f'</div>'
     )
 
@@ -554,8 +655,6 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
     }
 
     # 13. Session history update
-    if session_history is None:
-        session_history = []
     import datetime as _dt
     hist_entry = {
         "timestamp": _dt.datetime.now().strftime("%H:%M:%S"),
@@ -565,31 +664,7 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
         "urgency": adv["urgency"],
     }
     session_history = session_history + [hist_entry]
-
-    # Build history HTML
-    history_rows = ""
-    stage_colors = {0: "#10b981", 1: "#0284c7", 2: "#d97706", 3: "#ea580c", 4: "#e11d48"}
-    for i, h in enumerate(reversed(session_history)):
-        sc = stage_colors.get(h["stage"], "#64748b")
-        history_rows += (
-            f'<div style="display:flex; align-items:center; gap:10px; padding:8px 12px; '
-            f'border-radius:8px; background:#f8fafc; border:1px solid #e2e8f0; margin-bottom:6px;">'
-            f'<div style="min-width:36px; height:36px; border-radius:50%; background:{sc}; '
-            f'display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:14px;">{h["stage"]}</div>'
-            f'<div style="flex:1;"><div style="font-weight:700; font-size:13px; color:#0f172a;">{h["stage_name"]}</div>'
-            f'<div style="font-size:11px; color:#64748b;">{h["urgency"]} • Confidence: {h["confidence"]}</div></div>'
-            f'<div style="font-size:11px; color:#94a3b8;">{h["timestamp"]}</div>'
-            f'</div>'
-        )
-    if not history_rows:
-        history_rows = '<div style="color:#94a3b8; font-size:13px; padding:12px;">No predictions yet in this session.</div>'
-
-    session_history_html = (
-        f'<div style="padding:4px 0;">'
-        f'<div style="font-size:11px; font-weight:700; text-transform:uppercase; color:#64748b; margin-bottom:8px;">'
-        f'{len(session_history)} Prediction(s) This Session — Most Recent First</div>'
-        f'{history_rows}</div>'
-    )
+    session_history_html = _history_html(session_history)
 
     return (
         gov_html,                       # 0: status_banner
@@ -630,6 +705,10 @@ def compare_longitudinal_images(previous: Optional[np.ndarray], current: Optiona
     empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
     if previous is None or current is None:
         return "<div class='card warning-card'>Submit both a previous and current examination.</div>", empty_img
+    for label, image in (("Previous", previous), ("Current", current)):
+        validity = assess_fundus_validity(image)
+        if not validity["valid"]:
+            return f"<div><strong>{label} examination:</strong></div>" + build_invalid_image_html(validity), empty_img
     try:
         previous_preproc = preprocess_image(previous)
         current_preproc = preprocess_image(current)
