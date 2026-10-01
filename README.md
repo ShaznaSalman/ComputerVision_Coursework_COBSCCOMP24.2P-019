@@ -108,11 +108,13 @@ To align with clean-architecture principles and deployment requirements:
    - `tests/test_preprocessing.py` verifies tensor dimensionality, range $[0.0, 1.0]$, border cropping, ablation flags, and corrupted-input handling; `tests/test_app_logic.py` covers the chatbot, triage labels, reports and the metrics loader. Run them with `python -m pytest tests` (or `python -m unittest discover tests`).
 
 > **Checkpoint status:** `core/config.py` matches the APTOS 2019 final model from Kaggle run
-> `run_20260930_155003` (300×300, dropout 0.5). The weights are not in git (`best_phase2.weights.h5`
-> is 187 MB, over GitHub's 100 MB limit): copy `best_phase2.weights.h5` and `unet_pseudomask.weights.h5`
-> from the run's `checkpoints/` into `checkpoints/`, then run `scripts/build_reference_set.py`
-> (it needs the run's `train_split.csv` and `validation_split.csv` in `splits/` and the APTOS images)
-> to rebuild `embeddings.npz` and the reference images. The app shows test metrics only when the
+> `run_20260930_155003` (300×300, dropout 0.5). The repository includes everything the app needs:
+> `checkpoints/final_model.weights.h5` (a 46 MB weights-only copy of the run's `best_phase2.weights.h5`,
+> saved with `model.save_weights` and giving identical predictions), `checkpoints/unet_pseudomask.weights.h5`,
+> `embeddings.npz` and the reference images in `app/cbr_reference/`. The run's own `best_phase1` and
+> 187 MB `best_phase2` files are not in git. To rebuild the reference set, run
+> `scripts/build_reference_set.py` (it needs the run's `train_split.csv` and `validation_split.csv` in
+> `splits/` and the APTOS images). The app shows test metrics only when the
 > notebook's `test_loss_and_metrics.csv` has been copied into `report_images/`.
 
 ---

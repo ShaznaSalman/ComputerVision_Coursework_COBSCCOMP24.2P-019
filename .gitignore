@@ -29,10 +29,11 @@ content/
 # Experimental model outputs; retain only checkpoints intentionally tracked.
 /checkpoints/experimental_patient_safe/
 
-# Weights, reference embeddings and split files copied from the Kaggle run (too large for
-# GitHub, or containing machine paths); see README "Checkpoint status".
+# Kaggle-run checkpoints stay local (best_phase2 is 187 MB, over GitHub's 100 MB limit); only the
+# app's weights-only copy and the U-Net are tracked. Split files contain machine paths.
 /checkpoints/*.h5
-/embeddings.npz
+!/checkpoints/final_model.weights.h5
+!/checkpoints/unet_pseudomask.weights.h5
 /splits/
 
 # OS

@@ -58,7 +58,9 @@ class AppConfig:
     REDUCE_LR_PATIENCE: int = 2
     REDUCE_LR_FACTOR: float = 0.50
 
-    WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "best_phase2.weights.h5")
+    # Weights-only copy of the run's best_phase2.weights.h5 (identical predictions, 46 MB instead
+    # of 187 MB, so it fits in normal git); saved with model.save_weights from the app's own model.
+    WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "final_model.weights.h5")
     UNET_WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "unet_lesion_best.weights.h5")  # earlier 2-level U-Net
     # Notebook Section 12.4 output; used (with its own 3-level architecture) whenever it exists.
     NOTEBOOK_UNET_WEIGHTS_PATH: str = str(PROJECT_ROOT / "checkpoints" / "unet_pseudomask.weights.h5")
