@@ -61,3 +61,6 @@ AUDIT_REPORT.md
 # Local AI-tool worktrees and test cache
 .kilo/
 .pytest_cache/
+
+# Report drafts and plan stay local (never pushed)
+report/
