@@ -33,7 +33,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "**Stage 0 — No Diabetic Retinopathy (No DR)**\n\n"
             "The fundus appears normal with no microvascular abnormalities. "
             "No retinal lesions, hemorrhages, or exudates are detected.\n\n"
-            "**Management (AAO PPP 2022):** Annual dilated fundoscopy screening. "
+            "**Management (AAO PPP (Flaxel et al., 2020)):** Annual dilated fundoscopy screening. "
             "Reinforce glycemic control (HbA1c < 7%), blood pressure < 130/80 mmHg, "
             "and lipid optimization. No treatment intervention required."
         ),
@@ -44,7 +44,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "**Stage 1 — Mild Non-Proliferative Diabetic Retinopathy (Mild NPDR)**\n\n"
             "Characterized by the presence of **microaneurysms only** — outpouchings "
             "in fragile retinal capillary walls caused by pericyte degeneration.\n\n"
-            "**Management (AAO PPP 2022):** Annual dilated fundoscopy. Intensify "
+            "**Management (AAO PPP (Flaxel et al., 2020)):** Annual dilated fundoscopy. Intensify "
             "systemic risk factor control. No intraocular treatment is indicated at this stage."
         ),
     },
@@ -55,7 +55,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "More than microaneurysms present: dot-and-blot hemorrhages, hard exudates "
             "(lipid leakage), and cotton-wool spots (nerve fiber layer infarcts) visible. "
             "Does not meet the criteria for Severe NPDR.\n\n"
-            "**Management (AAO PPP 2022):** 6–12 month follow-up. Ophthalmologist referral "
+            "**Management (AAO PPP (Flaxel et al., 2020)):** 6–12 month follow-up. Ophthalmologist referral "
             "recommended. Evaluate for clinically significant diabetic macular edema (CSME)."
         ),
     },
@@ -66,7 +66,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "Defined by the **4-2-1 rule**: >20 intraretinal hemorrhages in all 4 quadrants, "
             "venous beading in ≥2 quadrants, or prominent intraretinal microvascular "
             "abnormalities (IRMA) in ≥1 quadrant.\n\n"
-            "**Management (AAO PPP 2022):** 3–4 month follow-up with retinal specialist. "
+            "**Management (AAO PPP (Flaxel et al., 2020)):** 3–4 month follow-up with retinal specialist. "
             "High risk of progression to proliferative disease. Consider panretinal "
             "photocoagulation (PRP) prophylactically in high-risk patients."
         ),
@@ -79,7 +79,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
             "internal limiting membrane producing fragile new vessels on the disc (NVD) "
             "or retina (NVE). Untreated, this leads to vitreous hemorrhage, fibrovascular "
             "proliferation, tractional retinal detachment, and irreversible blindness.\n\n"
-            "**Management (AAO PPP 2022):** Urgent ophthalmologist referral within 1–2 weeks. "
+            "**Management (AAO PPP (Flaxel et al., 2020)):** Urgent ophthalmologist referral within 1–2 weeks. "
             "Panretinal photocoagulation (PRP) or intravitreal anti-VEGF injections "
             "(ranibizumab, bevacizumab) are first-line treatments."
         ),
@@ -191,7 +191,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
     {
         "keys": ["refer", "referral", "when to refer", "specialist", "urgency"],
         "reply": (
-            "**Clinical Referral Guidelines (AAO PPP 2022)**\n\n"
+            "**Clinical Referral Guidelines (AAO PPP (Flaxel et al., 2020))**\n\n"
             "| DR Stage | Referral Urgency | Recall Interval |\n"
             "|---|---|---|\n"
             "| Stage 0 — No DR | No referral needed | 12 months |\n"
@@ -222,7 +222,7 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
 _CHATBOT_FALLBACK = (
     "I don't have a specific answer for that query in my clinical knowledge base. "
     "For questions about diabetic retinopathy management, please consult the "
-    "**AAO Preferred Practice Patterns (2022)** or a qualified ophthalmologist.\n\n"
+    "**AAO Preferred Practice Pattern (Flaxel et al., 2020)** or a qualified ophthalmologist.\n\n"
     "You can ask me about: DR stages (0–4), Grad-CAM, the U-Net segmentation, "
     "the Governance Agent, Case-Based Reasoning, the preprocessing pipeline, "
     "Quadratic Weighted Kappa, referral guidelines, or the training dataset."
@@ -313,6 +313,9 @@ class ChatRouterAgent:
             return {"intent": "high_risk", "entry": None}
 
         if pred_context and pred_context.get("stage_name"):
+            urgent_words = ["urgent", "urgency", "red flag", "red-flag", "emergency", "same-day", "same day", "symptom"]
+            if pred_context.get("urgent") and any(word in query for word in urgent_words):
+                return {"intent": "prediction_context", "entry": None, "topic": "red_flag"}
             if query_key in {"why", "whythis", "explain", "more", "moreinfo", "whataboutthat"}:
                 return {"intent": "prediction_context", "entry": None, "topic": "classification"}
             triggers = ["why", "classified", "this image", "current", "result", "prediction", "explain this",
@@ -369,6 +372,16 @@ class ChatKnowledgeAgent:
             stage_name = pred_context.get("stage_name", "Unknown")
             conf = pred_context.get("confidence", 0.0)
             topic = route.get("topic", "classification")
+            if topic == "red_flag":
+                symptoms = "\n".join(f"- {flag}" for flag in pred_context.get("red_flags", []))
+                return (
+                    f"**Why this result is marked {pred_context.get('outcome', 'URGENT')}**\n\n"
+                    f"The patient reported these red-flag symptoms:\n{symptoms}\n\n"
+                    "These symptoms can signal retinal detachment, vitreous haemorrhage or another emergency "
+                    "that a photograph cannot rule out, so the case needs same-day eye care whatever the image shows. "
+                    f"The image itself was graded **{stage_name}** ({conf*100:.1f}% confidence); the red flags do not "
+                    "change that grade, they only raise the urgency. Automated treatment advice is withheld."
+                )
             if topic == "lesions":
                 return (
                     f"**Lesions in the current analysis**\n\n"
@@ -381,11 +394,11 @@ class ChatKnowledgeAgent:
                 urgency = pred_context.get("urgency", "N/A")
                 followup = pred_context.get("followup", "N/A")
                 plan = pred_context.get("plan", "")
-                if "HUMAN SPECIALIST TRIAGE" in urgency:
+                if pred_context.get("urgent") or "HUMAN SPECIALIST TRIAGE" in urgency:
                     return (
-                        "This result should be reviewed **urgently by an ophthalmologist**. "
-                        f"The safety gate requires specialist triage because the model confidence is **{conf*100:.1f}%**, "
-                        f"below the **70%** threshold. Automated treatment advice should not be followed without clinical confirmation."
+                        "This result should be reviewed by an ophthalmologist before any action. "
+                        f"{pred_context.get('governance_message', '')} "
+                        "Automated treatment advice should not be followed without clinical confirmation."
                     )
                 return (
                     f"**Current clinical routing**\n\n"

@@ -75,3 +75,60 @@ The Severe sample is predicted Proliferative DR (53.4%): an honest model error, 
 - The out-of-scope question 'What dose of insulin should I take?' was not refused before this round (it got a generic fallback answer); dosing and medicine questions are now refused.
 - Screenshot 31 (Reset) shows the cleared result area; screenshot 32 shows that a new upload after Reset runs normally.
 - The sidebar appears twice in some full-page screenshots (for example 14): this is how the fixed-position sidebar renders in a full-page capture, not a layout bug in the browser window.
+
+## Red flags, patient ID/eye, Patient view and video-demo uploads (second run, 1 October 2026)
+
+Same set-up (local app, Playwright with Chromium-based Edge, 1600×1000). Red flags, patient ID/eye and Patient view are illustrative, not clinically validated.
+
+| File | What was done | What the app showed | Result |
+|---|---|---|---|
+| - | Switched back to Clinician view | probabilities and explainability panels restored = True | PASS |
+| - | app_06: uploaded 2_81.8_891392c9683c.png, asked 'What is the 4-2-1 rule?' | Full answer shown = True; reply ends: s is AI-assisted information. Confirm clinical decisions with a qualified ophthalmologist. | PASS |
+| 33_red_flag_high_confidence.png | Uploaded 0_100.0_165634a6167e.png (No DR, 100.0%) and ticked 'Sudden loss or major drop in vision' | Stage still 0: No DR 100.0%; banner: 🚨 URGENT — seek same-day eye care Reason: Patient-reported red-flag symptoms: Sudden loss or major drop in vision These symptoms can signal retinal detachment, vitreous h | PASS |
+| 34_red_flag_plus_confidence_gate.png | Uploaded 2_81.8_891392c9683c.png with the red flag ticked and the threshold at 95% | Stage 2: Moderate 81.8%; both reasons listed = True; banner: 🚨 URGENT — seek same-day eye care Reasons: Patient-reported red-flag symptoms: Sudden loss or major drop in vision Model confidence (81.8%) is below your threshold (95%). | PASS |
+| 35_patient_id_eye_filled.png | Filled Patient ID 'DEMO-0001' and chose 'Right eye (OD)' in the safety-gate accordion | ID box = DEMO-0001; eye = Right eye (OD); red-flag checkboxes visible | PASS |
+| 36_pdf_full_report_id_eye_red_flag_page1.png | Generated the full-report PDF for case 34 | Page 1 header has ID DEMO-0001, Right eye (OD), date/time, 'model prediction', URGENT outcome and the red-flag symptom = True | PASS |
+| 37_patient_view_not_flagged.png | Uploaded 2_81.8_891392c9683c.png (threshold 70%, no red flags) and switched to Patient view | Card: 💬 What this means for you Your photo shows some damage to the tiny blood vessels at the back of your eye. Your sight may still be fine, but an eye spe; probabilities/Grad-CAM hidden = True | PASS |
+| 38_patient_view_flagged.png | Same image with the red flag ticked, still in Patient view | Card: 💬 What this means for you You told us about symptoms that can be an emergency. Please get eye care today. Do not wait because of this result. This is a research prototype | PASS |
+| 39_video_demo_0_no_dr.png | Uploaded video_demo_images/0_no_dr/0_100.0_165634a6167e.png (true grade 0: No DR) | App: Stage 0: No DR, 100.0% (file name says 0, 100.0%) — match = True | PASS |
+| 40_video_demo_1_mild.png | Uploaded video_demo_images/1_mild/1_90.7_384631079d1e.png (true grade 1: Mild) | App: Stage 1: Mild, 90.7% (file name says 1, 90.7%) — match = True | PASS |
+| 41_video_demo_2_moderate.png | Uploaded video_demo_images/2_moderate/2_81.8_891392c9683c.png (true grade 2: Moderate) | App: Stage 2: Moderate, 81.8% (file name says 2, 81.8%) — match = True | PASS |
+| 42_video_demo_3_severe.png | Uploaded video_demo_images/3_severe/3_96.3_f64214bed40e.png (true grade 3: Severe) | App: Stage 3: Severe, 96.3% (file name says 3, 96.3%) — match = True | PASS |
+| 43_video_demo_4_proliferative.png | Uploaded video_demo_images/4_proliferative/4_95.1_b90bc89ce8d8.png (true grade 4: Proliferative DR) | App: Stage 4: Proliferative DR, 95.1% (file name says 4, 95.1%) — match = True | PASS |
+| 44_video_demo_misclassified.png | Uploaded video_demo_images/misclassified/true-1_pred-2_57.0_6298468d7d75.png (true grade 1: Mild) | App: Stage 2: Moderate, 57.0% (file name says 2, 57.0%) — match = True | PASS |
+
+### Video-demo uploads: app result vs file name
+
+| File | File name says | App showed | Match |
+|---|---|---|---|
+| video_demo_images/0_no_dr/0_100.0_165634a6167e.png | 0 100.0% | 0 100.0% | yes |
+| video_demo_images/1_mild/1_90.7_384631079d1e.png | 1 90.7% | 1 90.7% | yes |
+| video_demo_images/2_moderate/2_81.8_891392c9683c.png | 2 81.8% | 2 81.8% | yes |
+| video_demo_images/3_severe/3_96.3_f64214bed40e.png | 3 96.3% | 3 96.3% | yes |
+| video_demo_images/4_proliferative/4_95.1_b90bc89ce8d8.png | 4 95.1% | 4 95.1% | yes |
+| video_demo_images/misclassified/true-1_pred-2_57.0_6298468d7d75.png | 2 57.0% | 2 57.0% | yes |
+
+Browser console errors in this run: 0. Python tracebacks in the server log: 0.
+
+## App vs notebook on all 550 test images (`app_vs_notebook_check.csv`)
+
+Each test image was run through the app's real path (`preprocess_image` → `DiagnosisAgent.process`, no preset) and compared with `report_images/test_predictions.npz`.
+
+| Metric | App | Notebook |
+|---|---|---|
+| images | 550 | 550 |
+| app prediction equals notebook y_pred_argmax | 549/550 |  |
+| largest absolute probability difference vs notebook softmax | 0.006609 |  |
+| mean absolute probability difference (max per image) | 0.000873 |  |
+| accuracy vs y_true | 0.762 | 0.760 |
+| stage 0 No DR: correct / total (recall) | 268/271 (0.989) | 268/271 (0.989) |
+| stage 1 Mild: correct / total (recall) | 39/56 (0.696) | 39/56 (0.696) |
+| stage 2 Moderate: correct / total (recall) | 83/150 (0.553) | 82/150 (0.547) |
+| stage 3 Severe: correct / total (recall) | 17/29 (0.586) | 17/29 (0.586) |
+| stage 4 Proliferative DR: correct / total (recall) | 12/44 (0.273) | 12/44 (0.273) |
+| images passing the validity gate | 550/550 |  |
+| images passing the image-quality check | 402/550 |  |
+| disagreement 91e8af9ceee9 | app 2 (0.425) | notebook 1 (0.425) |
+
+The single disagreement is a near-tie (top stage at 42.5% in both runs); the app picks the correct stage there, so its accuracy is 0.762 against the notebook's 0.760. Probability differences come from float32 CPU inference in the app against mixed-precision GPU inference on PNG-cached inputs in the notebook.
+148 of the 550 test images fail the app's image-quality check (123 for the blur threshold, 26 for poor illumination; one fails both), so the quality gate would flag about a quarter of real APTOS test photographs.

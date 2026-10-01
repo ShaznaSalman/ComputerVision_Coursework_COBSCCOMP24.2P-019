@@ -176,10 +176,11 @@ def generate_full_report_pdf(stage_name: str, confidence: float, probabilities: 
                              advisory_plan: str, ehr_text: str,
                              research_support: Optional[dict] = None,
                              original_image: Any = None, cam_image: Any = None,
-                             lesion_image: Any = None) -> str:
+                             lesion_image: Any = None, pred_context: Optional[dict] = None) -> str:
     """Create a formatted PDF containing the complete diagnostic report."""
     if not stage_name or not probabilities or not ehr_text:
         return None
+    from app.patient import patient_header_text
     probability_lines = "\n".join(
         f"{label}: {value * 100:.2f}%" for label, value in probabilities.items()
     )
@@ -195,6 +196,7 @@ def generate_full_report_pdf(stage_name: str, confidence: float, probabilities: 
     ehr_lines = ehr_text.splitlines()
     ehr_body = "\n".join(ehr_lines[2:]) if len(ehr_lines) > 2 else ehr_text
     report_body = (
+        patient_header_text(pred_context) + "\n\n"
         "DIAGNOSIS\n"
         f"Predicted stage: {stage_name}\n"
         f"Model confidence: {confidence * 100:.2f}%\n"
@@ -220,7 +222,9 @@ def generate_full_report_pdf(stage_name: str, confidence: float, probabilities: 
 
 def build_ehr_note(diag: Dict[str, Any], expl: Dict[str, Any], adv: Dict[str, Any],
                    consistency: Dict[str, Any], overlap: Dict[str, Any],
-                   flagged: bool, threshold: float, demo_preset: bool = False) -> str:
+                   flagged: bool, threshold: float, demo_preset: bool = False,
+                   header: str = "", red_flags: Optional[List[str]] = None,
+                   outcome: str = "") -> str:
     """Build the exportable clinical session (EHR) note for one analysis.
 
     When demo_preset is True the note states that the stage and confidence are fixed
@@ -228,18 +232,21 @@ def build_ehr_note(diag: Dict[str, Any], expl: Dict[str, Any], adv: Dict[str, An
     """
     stage = diag["stage"]
     clean_quad = expl['quadrant_desc'].replace('**', '').replace('`', '')
-    gate_label = 'OVERRIDE (FLAGGED)' if flagged else 'APPROVED'
+    gate_label = outcome or ('OVERRIDE (FLAGGED)' if flagged else 'APPROVED')
+    red_flag_line = f"Red-flag symptoms       : {'; '.join(red_flags)}\n" if red_flags else ""
     ehr_text = (
         "RETINATRACE AI | CLINICAL SESSION NOTE\n"
         "===========================================================\n"
-        "ASSESSMENT\n"
-        f"Date / time             : Diagnostic session active\n"
+        + (header + "\n\n" if header else "")
+        + "ASSESSMENT\n"
         f"Predicted DR stage      : Stage {stage} - {diag['stage_name']}\n"
         f"Model confidence        : {diag['confidence']*100:.2f}%\n"
         f"Evidence consistency    : {consistency.get('status', 'INSUFFICIENT EVIDENCE')}\n"
         f"Main retinal area       : {clean_quad}\n"
         "\nSAFETY REVIEW\n"
         f"Governance status       : {gate_label}\n"
+        + red_flag_line
+        +
         f"Safety threshold        : {threshold*100:.0f}%\n"
         f"Visual support          : IoU {overlap.get('iou', 0.0):.3f} | Vessel density {expl.get('vessel_density', 0.0):.2f}% | Affected areas {expl.get('affected_quadrants_count', 0)}/4\n"
         "\nCARE PLAN\n"
@@ -263,12 +270,14 @@ def build_ehr_note(diag: Dict[str, Any], expl: Dict[str, Any], adv: Dict[str, An
 def build_referral_ticket(triage_code: str, facility: str, wait_time: str, stage: int,
                           risk_pct: float, risk_label: str, age: float, diabetes_type: str,
                           hba1c: float, duration_years: float, systolic_bp: float,
-                          protocol: str) -> str:
+                          protocol: str, header: str = "", urgent_note: str = "") -> str:
     """Build the illustrative example referral summary text for the triage simulator."""
     referral_ticket = (
         "RETINATRACE AI | EXAMPLE REFERRAL SUMMARY (ILLUSTRATIVE)\n"
         "===========================================================\n"
-        "ROUTING\n"
+        + (header + "\n\n" if header else "")
+        + (urgent_note + "\n\n" if urgent_note else "")
+        + "ROUTING\n"
         f"Priority                : {triage_code}\n"
         f"Referral facility       : {facility}\n"
         f"Recommended timeframe  : {wait_time}\n"

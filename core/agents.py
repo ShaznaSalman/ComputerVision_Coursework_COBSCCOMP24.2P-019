@@ -1,6 +1,6 @@
 """Clinical decision pipeline agents."""
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 import cv2
 import numpy as np
@@ -136,6 +136,29 @@ class ExplainabilityAgent:
         }
 
 
+# Patient-reported red-flag symptoms (second Governance rule). Keys are stable identifiers; the
+# labels are what the app shows. Illustrative, not clinically validated.
+RED_FLAG_SYMPTOMS = {
+    "vision_loss": "Sudden loss or major drop in vision",
+    "curtain": "A curtain or shadow over part of the vision",
+    "floaters": "A sudden shower of new floaters or flashes of light",
+    "pain_redness": "Eye pain with redness",
+}
+RED_FLAG_WARNING = ("These symptoms can signal retinal detachment, vitreous haemorrhage or another emergency "
+                    "that a photograph cannot rule out.")
+URGENT_OUTCOME = "URGENT — seek same-day eye care"
+
+
+def normalise_red_flags(red_flags) -> List[str]:
+    """Return the ticked red-flag labels in a fixed order; accepts keys or labels, ignores anything else."""
+    if not red_flags:
+        return []
+    if isinstance(red_flags, str):
+        red_flags = [red_flags]
+    ticked = {str(flag).strip() for flag in red_flags}
+    return [label for key, label in RED_FLAG_SYMPTOMS.items() if key in ticked or label in ticked]
+
+
 class AdvisoryAgent:
     GUIDANCE = {
         0: ("Routine Screening", "No diabetic microvascular abnormalities observed. Recommend annual dilated retinal examination and continued glycemic management (HbA1c < 7.0%).", "12 Months"),
@@ -146,9 +169,58 @@ class AdvisoryAgent:
     }
     DISCLAIMER = "CLINICAL DISCLAIMER: RetinaTrace AI is an investigational decision-support tool. It does not replace independent clinical judgment or formal diagnostic verification by a licensed ophthalmologist."
 
+    # Plain-language texts for the Patient view (about a 12-year-old reading level).
+    # Illustrative, not clinically validated.
+    PATIENT_TEXT = {
+        "stage": {
+            0: ("No signs of diabetic eye damage were found in your photo. That is good news. "
+                "Keeping your blood sugar and blood pressure under control helps keep your eyes healthy."),
+            1: ("Your photo shows very small, early changes caused by diabetes. They do not usually hurt your sight yet. "
+                "Good control of your blood sugar and blood pressure can stop them getting worse."),
+            2: ("Your photo shows some damage to the tiny blood vessels at the back of your eye. "
+                "Your sight may still be fine, but an eye specialist needs to keep a close watch on it."),
+            3: ("Your photo shows a lot of damage to the blood vessels at the back of your eye. "
+                "This is serious. An eye specialist should see you soon to help protect your sight."),
+            4: ("Your photo shows signs of the most serious stage, where new, weak blood vessels can grow and bleed. "
+                "This can harm your sight quickly, so you need to see an eye specialist very soon."),
+        },
+        "next_step": {
+            "routine": "Next step: have another eye check in {followup}.",
+            "soon": "Next step: see an eye specialist within {followup}.",
+        },
+        "flag": {
+            "red_flag": ("You told us about symptoms that can be an emergency. Please get eye care today. "
+                         "Do not wait because of this result."),
+            "confidence": "The computer wasn't sure enough, so an eye specialist needs to look at your photo.",
+            "quality": ("The photo wasn't clear enough for the computer to read, so an eye specialist needs to "
+                        "look at it. You may need a new photo."),
+        },
+        "demo": "These are fixed demo values, not a result from your photo.",
+        "reminder": "This is a research prototype, not a medical device. Always follow your eye doctor's advice.",
+    }
+
     def process(self, stage: int) -> Dict[str, str]:
         urgency, plan, followup = self.GUIDANCE.get(stage, ("Unknown", "Manual ophthalmological review mandatory.", "Immediate"))
         return {"urgency": urgency, "plan": plan, "followup": followup, "disclaimer": self.DISCLAIMER}
+
+    def patient_summary(self, stage: int, reasons: Optional[List[str]] = None,
+                        demo_preset: bool = False) -> Dict[str, Any]:
+        """Plain-language result for the Patient view.
+
+        When a red flag, the confidence gate or the quality check fires, the summary says so first
+        and gives no stage advice.
+        """
+        texts = self.PATIENT_TEXT
+        fired = [r for r in ("red_flag", "confidence", "quality") if r in (reasons or [])]
+        if fired:
+            return {"flagged": True, "lines": [texts["flag"][r] for r in fired],
+                    "next_step": "", "reminder": texts["reminder"]}
+        followup = self.GUIDANCE[stage][2].lower()
+        kind = "soon" if stage >= 3 else "routine"
+        lines = [texts["stage"][stage]] + ([texts["demo"]] if demo_preset else [])
+        return {"flagged": False, "lines": lines,
+                "next_step": texts["next_step"][kind].format(followup=followup),
+                "reminder": texts["reminder"]}
 
 
 REASON_TEXT = {
@@ -157,18 +229,23 @@ REASON_TEXT = {
 }
 
 
-def governance_message(reasons, confidence: float, threshold: float) -> str:
+def governance_message(reasons, confidence: float, threshold: float, red_flags: Optional[List[str]] = None) -> str:
     """One sentence naming the real reason(s) a case was flagged, or confirming it passed."""
     if not reasons:
         return (f"Safety Verified: Model confidence ({confidence*100:.1f}%) satisfies the clinical safety "
                 f"threshold ({threshold*100:.0f}%) and the image-quality check passed.")
     parts = []
     for reason in reasons:
-        if reason == "confidence":
+        if reason == "red_flag":
+            parts.append("the patient reported red-flag symptoms (" + "; ".join(red_flags or []) + ")")
+        elif reason == "confidence":
             parts.append(f"model confidence ({confidence*100:.1f}%) is below the threshold ({threshold*100:.0f}%)")
         else:
             parts.append(REASON_TEXT[reason])
     joined = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
+    if "red_flag" in reasons:
+        return (f"{URGENT_OUTCOME}: flagged because {joined}. {RED_FLAG_WARNING} Automated treatment guidance "
+                "has been withheld to avoid acting on an uncertain result.")
     if "confidence" in reasons or "quality" in reasons:
         return (f"Flagged for human review because {joined}. Automated treatment guidance has been withheld "
                 "to avoid acting on an uncertain result.")
@@ -185,9 +262,11 @@ class GovernanceAgent:
         explanation: Dict[str, Any],
         advisory: Dict[str, str],
         qc: Optional[Dict[str, Any]] = None,
+        red_flags=None,
     ) -> Dict[str, Any]:
         confidence = diagnosis["confidence"]
         qc = qc or {"passed": True}
+        flags = normalise_red_flags(red_flags)
 
         # Feature 4: Prediction-Evidence Consistency Analysis
         consistency_analysis = evaluate_prediction_evidence_consistency(
@@ -199,28 +278,48 @@ class GovernanceAgent:
         )
 
         # The actual reason(s) for flagging, so every message states what really happened.
+        # Red flags only escalate: they never change the predicted stage in `diagnosis`.
         reasons = []
+        if flags:
+            reasons.append("red_flag")
         if confidence < self.threshold:
             reasons.append("confidence")
         if not qc.get("passed", True):
             reasons.append("quality")
         if consistency_analysis.get("status") == "POTENTIALLY INCONSISTENT":
             reasons.append("evidence")
-        # Advice is withheld when the result itself is not usable: low confidence or a failed quality check.
-        flagged = "confidence" in reasons or "quality" in reasons
-        message = governance_message(reasons, confidence, self.threshold)
+        urgent = bool(flags)
+        # Advice is withheld for red flags, low confidence or a failed quality check.
+        flagged = urgent or "confidence" in reasons or "quality" in reasons
+        message = governance_message(reasons, confidence, self.threshold, flags)
 
-        if flagged:
+        if urgent:
+            controlled_advisory = {"urgency": URGENT_OUTCOME, "plan": message,
+                                   "followup": "Same day — do not wait for a routine appointment",
+                                   "disclaimer": advisory["disclaimer"]}
+        elif flagged:
             controlled_advisory = {"urgency": "HUMAN SPECIALIST TRIAGE MANDATORY", "plan": message,
                                    "followup": "Withheld — Manual Slit-Lamp Examination Required Immediately",
                                    "disclaimer": advisory["disclaimer"]}
         else:
             controlled_advisory = advisory
 
+        if urgent:
+            outcome = URGENT_OUTCOME
+        elif flagged:
+            outcome = "FLAGGED FOR HUMAN REVIEW"
+        elif reasons:
+            outcome = "CLINICIAN REVIEW RECOMMENDED"
+        else:
+            outcome = "AUTOMATION APPROVED"
+
         return {
             "flagged": flagged,
             "flagged_for_review": bool(reasons),
             "flag_reasons": reasons,
+            "urgent": urgent,
+            "red_flags": flags,
+            "outcome": outcome,
             "confidence": confidence,
             "message": message,
             "diagnosis": diagnosis,
@@ -235,8 +334,9 @@ def run_pipeline(
     threshold: float = AppConfig.DEFAULT_CONFIDENCE_THRESHOLD,
     qc: Optional[Dict[str, Any]] = None,
     preset_stage: Optional[int] = None,
+    red_flags=None,
 ) -> Dict[str, Any]:
     diagnosis = DiagnosisAgent().process(preproc_img, preset_stage=preset_stage)
     explanation = ExplainabilityAgent().process(preproc_img, diagnosis)
     advisory = AdvisoryAgent().process(diagnosis["stage"])
-    return GovernanceAgent(threshold).evaluate(diagnosis, explanation, advisory, qc=qc)
+    return GovernanceAgent(threshold).evaluate(diagnosis, explanation, advisory, qc=qc, red_flags=red_flags)

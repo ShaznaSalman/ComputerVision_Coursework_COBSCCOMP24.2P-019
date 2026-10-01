@@ -261,6 +261,7 @@ ul.rt-banner-text { padding-left: 18px; }
 .dark .rt-banner .rt-banner-meta { color: #cbd5e1 !important; }
 .dark .rt-banner-note { background: #2a0606 !important; color: #fecaca !important; border-color: #ef4444 !important; }
 .rt-banner strong { color: inherit !important; }
+.rt-patient-card p { margin: 4px 0; line-height: 1.5; font-size: 14px; }
 
 /* Hero Diagnostic Card */
 .hero-card {

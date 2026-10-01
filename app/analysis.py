@@ -15,9 +15,10 @@ from core.advanced_cv import compile_retinal_biomarkers, compare_longitudinal_ex
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 # Modular pipeline implementations.
-from core.agents import run_pipeline
+from core.agents import AdvisoryAgent, RED_FLAG_WARNING, URGENT_OUTCOME, run_pipeline
 
 from app.reports import build_ehr_note
+from app.patient import EYE_DEFAULT, patient_header_text, patient_record
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -235,7 +236,10 @@ def build_governance_html(result: dict, threshold: float) -> str:
         )
     lines = []
     for reason in reasons:
-        if reason == "confidence":
+        if reason == "red_flag":
+            symptoms = "".join(f"<li>{flag}</li>" for flag in result.get("red_flags", []))
+            lines.append(f"Patient-reported red-flag symptoms:<ul class=\"rt-banner-text\">{symptoms}</ul>")
+        elif reason == "confidence":
             lines.append(f"Model confidence (<strong>{confidence*100:.1f}%</strong>) is below your threshold "
                          f"(<strong>{threshold*100:.0f}%</strong>).")
         elif reason == "quality":
@@ -248,6 +252,10 @@ def build_governance_html(result: dict, threshold: float) -> str:
     note = ("<strong>Patient safety:</strong> automated treatment guidance has been withheld to avoid acting on an "
             "uncertain result. The case is routed to an ophthalmologist for review.") if withheld else (
             "Guidance is shown, but a clinician should review the case.")
+    if result.get("urgent"):
+        title = f"🚨 {URGENT_OUTCOME}"
+        note = (f"<strong>{RED_FLAG_WARNING}</strong> Automated treatment guidance has been withheld "
+                "to avoid acting on an uncertain result. The predicted stage is unchanged.")
     reason_items = "".join(f"<li>{line}</li>" for line in lines)
     return (
         f'<div class="rt-banner rt-banner-{kind}">'
@@ -271,7 +279,9 @@ def _history_html(session_history: list) -> str:
             f'<div style="min-width:36px; height:36px; border-radius:50%; background:{sc}; '
             f'display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:14px;">{h["stage"]}</div>'
             f'<div style="flex:1;"><div style="font-weight:700; font-size:13px; color:#0f172a;">{h["stage_name"]}</div>'
-            f'<div style="font-size:11px; color:#475569;">{h["urgency"]} • Confidence: {h["confidence"]}</div></div>'
+            f'<div style="font-size:11px; color:#475569;">{h["urgency"]} • Confidence: {h["confidence"]}</div>'
+            f'<div style="font-size:11px; color:#475569;">ID: {h.get("patient_id", "Not provided")} • '
+            f'{h.get("eye", EYE_DEFAULT)} • {h.get("result_source", "")}</div></div>'
             f'<div style="font-size:11px; color:#475569;">{h["timestamp"]}</div>'
             f'</div>'
         )
@@ -285,16 +295,36 @@ def _history_html(session_history: list) -> str:
     )
 
 
+def build_patient_card_html(summary: dict) -> str:
+    """'What this means for you' card for the Patient view (plain language, no probabilities)."""
+    lines = "".join(f'<p class="rt-banner-text">{line}</p>' for line in summary["lines"])
+    next_step = f'<p class="rt-banner-title" style="margin-top:8px;">{summary["next_step"]}</p>' if summary["next_step"] else ""
+    kind = "alert" if summary["flagged"] else "ok"
+    return (
+        f'<div class="rt-banner rt-banner-{kind} rt-patient-card">'
+        '<div class="rt-banner-title">💬 What this means for you</div>'
+        f'{lines}{next_step}'
+        f'<div class="rt-banner-meta">{summary["reminder"]}</div>'
+        '</div>'
+    )
+
+
 def _blank_outputs(notice_html: str, session_history: list) -> tuple:
-    """All 30 outputs with no result: used for a missing or rejected image (history is kept)."""
+    """All 31 outputs with no result: used for a missing or rejected image (history is kept)."""
     empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
     return (notice_html, "", {}, empty_img, empty_img, empty_img, empty_img, "", empty_img, empty_img,
             "", "", [], "", "", "", "", "", None, session_history, {}, "", empty_img,
-            _history_html(session_history), "", 0.0, "", "", "", "")
+            _history_html(session_history), "", 0.0, "", "", "", "", "")
 
 
-def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history: list = None, preset_stage: Optional[int] = None):
-    """Primary analysis handler that executes the pipeline and populates modern UI widgets."""
+def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history: list = None,
+                   red_flags: Optional[list] = None, patient_id: str = "", eye: str = EYE_DEFAULT,
+                   preset_stage: Optional[int] = None):
+    """Primary analysis handler that executes the pipeline and populates modern UI widgets.
+
+    red_flags (patient-reported symptoms) only escalate the outcome to URGENT; they never change the
+    stage. They have no effect on images rejected by the validity gate, since no analysis runs.
+    """
     session_history = list(session_history or [])
     empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
     if img is None:
@@ -322,8 +352,10 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
 
     # Preset values come only from the preset demo buttons, which pass preset_stage explicitly.
     # Every uploaded image, including the files in app/samples/, goes through the real model.
-    result = run_pipeline(preproc, threshold=threshold, qc=qc, preset_stage=preset_stage)
+    result = run_pipeline(preproc, threshold=threshold, qc=qc, preset_stage=preset_stage, red_flags=red_flags)
     is_demo_preset = preset_stage is not None
+    record = patient_record(patient_id, eye, is_demo_preset)
+    record.update({"urgent": result["urgent"], "red_flags": result["red_flags"], "outcome": result["outcome"]})
 
 
     diag = result["diagnosis"]
@@ -430,7 +462,8 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
 
     # 6. Exportable Clinical EHR Note
     ehr_text = build_ehr_note(diag, expl, adv, consistency, overlap, result["flagged"], threshold,
-                              demo_preset=is_demo_preset)
+                              demo_preset=is_demo_preset, header=patient_header_text(record),
+                              red_flags=result["red_flags"], outcome=result["outcome"])
 
     # 7. Lesion Burden HTML metric card
     lesion_pct = expl.get("lesion_pct", 0.0)
@@ -619,7 +652,10 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
     # 10. Uncertainty Banner (never shows a reassuring card for a flagged case)
     conf_val = diag["confidence"]
     reasons = result.get("flag_reasons", [])
-    if "confidence" in reasons:
+    if result.get("urgent"):
+        unc = ("alert", "🚨", URGENT_OUTCOME,
+               "Red-flag symptoms reported: " + "; ".join(result["red_flags"]) + ". " + RED_FLAG_WARNING)
+    elif "confidence" in reasons:
         unc = ("alert", "🔴", "INSUFFICIENT CONFIDENCE",
                f"Confidence ({conf_val*100:.1f}%) is below the safety threshold ({threshold*100:.0f}%) — human triage required.")
     elif flagged:
@@ -652,6 +688,10 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
         "peak_quadrant": expl.get("peak_quadrant", "-"),
         "lesion_pct": expl.get("lesion_pct", 0.0),
         "demo_preset": is_demo_preset,
+        "threshold": threshold,
+        "flag_reasons": reasons,
+        "governance_message": result["message"],
+        **record,
     }
 
     # 13. Session history update
@@ -662,8 +702,13 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
         "stage_name": diag["stage_name"] + (" (demo preset)" if is_demo_preset else ""),
         "confidence": f"{conf_val*100:.1f}%",
         "urgency": adv["urgency"],
+        "patient_id": record["patient_id"],
+        "eye": record["eye"],
+        "result_source": record["result_source"],
     }
     session_history = session_history + [hist_entry]
+    patient_card_html = build_patient_card_html(
+        AdvisoryAgent().patient_summary(stage, reasons, demo_preset=is_demo_preset))
     session_history_html = _history_html(session_history)
 
     return (
@@ -696,11 +741,13 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
         adv["urgency"],                 # 25: _diag_urgency_state
         adv["followup"],                # 26: _diag_followup_state
         adv["plan"],                    # 27: _diag_plan_state
-        quality_html,                   # 28: quality_warning_view
+        quality_html,                   # 29: quality_warning_view
+        patient_card_html,              # 30: patient_card_view
     )
 
 
-def compare_longitudinal_images(previous: Optional[np.ndarray], current: Optional[np.ndarray]):
+def compare_longitudinal_images(previous: Optional[np.ndarray], current: Optional[np.ndarray],
+                                patient_id: str = "", eye: str = EYE_DEFAULT):
     """Compare two optional examinations without assuming patient identity."""
     empty_img = np.zeros((AppConfig.IMG_SIZE, AppConfig.IMG_SIZE, 3), dtype=np.uint8)
     if previous is None or current is None:
@@ -727,10 +774,14 @@ def compare_longitudinal_images(previous: Optional[np.ndarray], current: Optiona
     except (ValueError, KeyError, RuntimeError, cv2.error) as exc:
         return f"<div class='card warning-card'>Reliable comparison could not be established: {exc}</div>", empty_img
 
+    record = patient_record(patient_id, eye, demo_preset=False)
     registration = "Reliable spatial registration established." if comparison["registration_reliable"] else "Reliable spatial comparison could not be established. Metric changes are non-spatial visual comparisons."
     summary = (
         '<div class="card" style="border-left:4px solid #0284c7;">'
         '<h3 style="margin:0 0 8px 0;">LONGITUDINAL COMPARISON</h3>'
+        f'<div style="font-size:12px; margin-bottom:8px;">Patient ID: <strong>{record["patient_id"]}</strong> | '
+        f'Eye: <strong>{record["eye"]}</strong> | Date / time: {record["analysed_at"]} | '
+        f'Result source: {record["result_source"]}</div>'
         f'<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">'
         f'<div><strong>Previous</strong><br>Stage {comparison["prev_stage"]} ({previous_result["diagnosis"]["stage_name"]})<br>'
         f'Lesion burden: {comparison["prev_lesion"]:.2f}%<br>Vessel density: {comparison["prev_vessel"]:.2f}%<br>Quadrants: {comparison["prev_quads"]}/4</div>'

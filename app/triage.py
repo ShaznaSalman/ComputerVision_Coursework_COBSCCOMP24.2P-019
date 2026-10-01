@@ -10,7 +10,7 @@ from core.config import AppConfig
 from app.reports import build_referral_ticket
 
 
-def calculate_multimodal_risk(stage: int = 2, hba1c: float = 7.5, duration_years: float = 10.0, age: float = 55.0, systolic_bp: float = 135.0, diabetes_type: str = "Type 2") -> Tuple[str, str]:
+def calculate_multimodal_risk(stage: int = 2, hba1c: float = 7.5, duration_years: float = 10.0, age: float = 55.0, systolic_bp: float = 135.0, diabetes_type: str = "Type 2", header: str = "", urgent_note: str = "") -> Tuple[str, str]:
     """Illustrative 10-year progression risk and triage routing (UKPDS/WESDR-inspired, NOT validated).
 
     The stage baselines and multipliers are hand-set for demonstration; they were not fitted
@@ -169,13 +169,25 @@ def calculate_multimodal_risk(stage: int = 2, hba1c: float = 7.5, duration_years
     referral_ticket = build_referral_ticket(
         triage_code, facility, wait_time, stage, risk_pct, risk_label,
         age, diabetes_type, hba1c, duration_years, systolic_bp, protocol,
+        header=header, urgent_note=urgent_note,
     )
 
     return risk_card_html, referral_ticket
 
 
-def update_triage_routing(prob_dict, hba1c, duration, age, bp, d_type):
-    """Recompute the triage card from the current top-probability stage (defaults to stage 2)."""
+def update_triage_routing(prob_dict, hba1c, duration, age, bp, d_type, pred_context=None):
+    """Recompute the triage card from the current top-probability stage (defaults to stage 2).
+
+    pred_context (the current analysis) adds the patient header and, when red-flag symptoms were
+    reported, an URGENT note that overrides the illustrative routing.
+    """
+    from app.patient import patient_header_text
+    context = pred_context if isinstance(pred_context, dict) and pred_context.get("stage_name") else None
+    header = patient_header_text(context) if context else ""
+    urgent_note = ""
+    if context and context.get("urgent"):
+        urgent_note = (f"OUTCOME: {context.get('outcome', 'URGENT')}. Red-flag symptoms override the illustrative "
+                       "routing below; the patient should receive same-day eye care.")
     st = 2
     if isinstance(prob_dict, dict) and prob_dict:
         stage_map = {name: i for i, name in enumerate(AppConfig.CLASS_NAMES)}
@@ -184,4 +196,4 @@ def update_triage_routing(prob_dict, hba1c, duration, age, bp, d_type):
             st = stage_map.get(top_name, 2)
         except (KeyError, ValueError, TypeError):
             st = 2
-    return calculate_multimodal_risk(st, hba1c, duration, age, bp, d_type)
+    return calculate_multimodal_risk(st, hba1c, duration, age, bp, d_type, header=header, urgent_note=urgent_note)

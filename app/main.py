@@ -7,6 +7,8 @@ import gradio as gr
 
 from core.config import AppConfig
 from app.analysis import analyze_fundus, compare_longitudinal_images, create_sample_fundus
+from app.patient import EYE_CHOICES, EYE_DEFAULT, PATIENT_ID_PLACEHOLDER, VIEW_CHOICES, view_visibility
+from core.agents import RED_FLAG_SYMPTOMS
 from app.chatbot import respond_to_clinical_query
 from app.reports import (
     describe_reported_metrics,
@@ -76,6 +78,16 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
                     info="Predictions below this confidence trigger an active safety override and withhold automated guidance.",
                 )
                 btn_override_test = gr.Button("🧪 Simulate Safety Override (Set to 95%)", variant="secondary", size="sm")
+                red_flag_group = gr.CheckboxGroup(
+                    choices=list(RED_FLAG_SYMPTOMS.values()), value=[],
+                    label="Red-flag symptoms (patient-reported)",
+                    info="Any ticked symptom makes the outcome URGENT — seek same-day eye care. It never changes the "
+                         "predicted stage. Illustrative, not clinically validated.",
+                )
+                with gr.Row():
+                    patient_id_box = gr.Textbox(label="Patient ID / MRN", value="", placeholder=PATIENT_ID_PLACEHOLDER,
+                                                max_lines=1, scale=3)
+                    eye_dropdown = gr.Dropdown(choices=EYE_CHOICES, value=EYE_DEFAULT, label="Eye", scale=2)
                 gr.Markdown("**Optional patient context**")
                 patient_age = gr.Slider(minimum=18, maximum=90, value=55, step=1, label="Patient Age (years)")
                 diabetes_type = gr.Dropdown(
@@ -91,11 +103,14 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
             with gr.Tabs():
                 # Tab 1: Primary Diagnosis & 3-Layer Explainability
                 with gr.TabItem("🏥 Diagnostic Assessment & Explainability", elem_id="rg-tab-diag"):
+                    view_toggle = gr.Radio(VIEW_CHOICES, value="Clinician", label="View", elem_id="rt-view-toggle",
+                                           info="Patient view shows a plain-language summary (illustrative, not clinically validated).")
+                    patient_card_view = gr.HTML("", visible=False)
                     hero_diagnosis = gr.HTML()
                     uncertainty_banner_top = gr.HTML()
                     prob_distribution = gr.Label(label="5-Stage Disease Probability Distribution (Softmax)", num_top_classes=5)
 
-                    with gr.Accordion("🔬 Explainability & visual evidence", open=False):
+                    with gr.Accordion("🔬 Explainability & visual evidence", open=False) as explain_accordion:
                         gr.Markdown("Grad-CAM, U-Net, classical CV, and experimental research measurements")
                         with gr.Row():
                             with gr.Column(scale=5):
@@ -271,16 +286,18 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
         _diag_followup_state,
         _diag_plan_state,
         quality_warning_view,
+        patient_card_view,
     ]
+    analysis_inputs = [input_image, threshold_slider, session_history_state, red_flag_group, patient_id_box, eye_dropdown]
 
     # Main Analysis Event
     submit_btn.click(
         fn=analyze_fundus,
-        inputs=[input_image, threshold_slider, session_history_state],
+        inputs=analysis_inputs,
         outputs=analysis_outputs,
     ).then(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     ).then(
         fn=lambda img: img,
@@ -292,7 +309,7 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
         fn=generate_full_report_pdf,
         inputs=[_diag_stage_name_state, _diag_conf_state, prob_distribution,
             _diag_urgency_state, _diag_followup_state, _diag_plan_state, ehr_note_box,
-            research_support_state, input_image, overlay_cam_view, lesion_seg_view],
+            research_support_state, input_image, overlay_cam_view, lesion_seg_view, pred_context_state],
         outputs=[download_file],
     ).then(
         fn=lambda: gr.File(visible=True),
@@ -312,39 +329,39 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
 
     longitudinal_compare_btn.click(
         fn=compare_longitudinal_images,
-        inputs=[longitudinal_previous, longitudinal_current],
+        inputs=[longitudinal_previous, longitudinal_current, patient_id_box, eye_dropdown],
         outputs=[longitudinal_summary_view, longitudinal_diff_view],
     )
 
     # Interactive Multimodal Risk Recalculation Handlers
     btn_recalc_triage.click(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     )
     hba1c_level.release(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     )
     diabetes_duration.release(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     )
     systolic_bp.release(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     )
     patient_age.release(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     )
     diabetes_type.change(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     )
 
@@ -387,8 +404,10 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
             "",
             "",
             '<div style="color:#94a3b8; font-size:12px;">Upload an image to see quality assessment.</div>',
-            empty_img,
-            None,
+            "",
+            [],
+            "",
+            EYE_DEFAULT,
         )
 
     btn_clear.click(
@@ -428,17 +447,33 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
             _diag_followup_state,
             _diag_plan_state,
             quality_warning_view,
+            patient_card_view,
+            red_flag_group,
+            patient_id_box,
+            eye_dropdown,
         ]
+    )
+
+    # Clinician / Patient view: Patient view hides the technical panels and shows the plain-language card.
+    def apply_view(view):
+        shown = view_visibility(view)
+        return (gr.update(visible=shown["patient_card"]), gr.update(visible=shown["probabilities"]),
+                gr.update(visible=shown["explainability"]), gr.update(visible=shown["retrieval"]))
+
+    view_toggle.change(
+        fn=apply_view,
+        inputs=[view_toggle],
+        outputs=[patient_card_view, prob_distribution, explain_accordion, gallery_view],
     )
 
     # Live threshold adjustment re-evaluates active prediction upon release
     threshold_slider.release(
         fn=analyze_fundus,
-        inputs=[input_image, threshold_slider, session_history_state],
+        inputs=analysis_inputs,
         outputs=analysis_outputs,
     ).then(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     ).then(
         fn=lambda img: img,
@@ -451,12 +486,12 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
         fn=lambda: (create_sample_fundus(0), 0.70),
         outputs=[input_image, threshold_slider],
     ).then(
-        fn=lambda img, thr, hist: analyze_fundus(img, thr, hist, preset_stage=0),
-        inputs=[input_image, threshold_slider, session_history_state],
+        fn=lambda img, thr, hist, flags, pid, eye: analyze_fundus(img, thr, hist, flags, pid, eye, preset_stage=0),
+        inputs=analysis_inputs,
         outputs=analysis_outputs,
     ).then(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     ).then(
         fn=lambda img: img,
@@ -468,12 +503,12 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
         fn=lambda: (create_sample_fundus(2), 0.70),
         outputs=[input_image, threshold_slider],
     ).then(
-        fn=lambda img, thr, hist: analyze_fundus(img, thr, hist, preset_stage=2),
-        inputs=[input_image, threshold_slider, session_history_state],
+        fn=lambda img, thr, hist, flags, pid, eye: analyze_fundus(img, thr, hist, flags, pid, eye, preset_stage=2),
+        inputs=analysis_inputs,
         outputs=analysis_outputs,
     ).then(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     ).then(
         fn=lambda img: img,
@@ -485,12 +520,12 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
         fn=lambda: (create_sample_fundus(4), 0.70),
         outputs=[input_image, threshold_slider],
     ).then(
-        fn=lambda img, thr, hist: analyze_fundus(img, thr, hist, preset_stage=4),
-        inputs=[input_image, threshold_slider, session_history_state],
+        fn=lambda img, thr, hist, flags, pid, eye: analyze_fundus(img, thr, hist, flags, pid, eye, preset_stage=4),
+        inputs=analysis_inputs,
         outputs=analysis_outputs,
     ).then(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     ).then(
         fn=lambda img: img,
@@ -504,11 +539,11 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
         outputs=[threshold_slider],
     ).then(
         fn=analyze_fundus,
-        inputs=[input_image, threshold_slider, session_history_state],
+        inputs=analysis_inputs,
         outputs=analysis_outputs,
     ).then(
         fn=update_triage_routing,
-        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type],
+        inputs=[prob_distribution, hba1c_level, diabetes_duration, patient_age, systolic_bp, diabetes_type, pred_context_state],
         outputs=[triage_risk_card, referral_ticket_view],
     ).then(
         fn=lambda img: img,

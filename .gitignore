@@ -64,3 +64,6 @@ AUDIT_REPORT.md
 
 # Report drafts and plan stay local (never pushed)
 report/
+
+# Local video demo images (APTOS test images, never committed)
+/video_demo_images/

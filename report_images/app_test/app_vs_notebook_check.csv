@@ -1,0 +1,14 @@
+metric,app,notebook,note
+images,550,550,550 test-split images from report_images/test_predictions.npz
+app prediction equals notebook y_pred_argmax,549/550,,
+largest absolute probability difference vs notebook softmax,0.006609,,app float32 on CPU vs notebook mixed-precision GPU and PNG-cached inputs
+mean absolute probability difference (max per image),0.000873,,
+accuracy vs y_true,0.762,0.760,notebook value = argmax accuracy in the report (0.760)
+stage 0 No DR: correct / total (recall),268/271 (0.989),268/271 (0.989),
+stage 1 Mild: correct / total (recall),39/56 (0.696),39/56 (0.696),
+stage 2 Moderate: correct / total (recall),83/150 (0.553),82/150 (0.547),
+stage 3 Severe: correct / total (recall),17/29 (0.586),17/29 (0.586),
+stage 4 Proliferative DR: correct / total (recall),12/44 (0.273),12/44 (0.273),
+images passing the validity gate,550/550,,
+images passing the image-quality check,402/550,,
+disagreement 91e8af9ceee9,app 2 (0.425),notebook 1 (0.425),true 2
