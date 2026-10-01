@@ -168,7 +168,7 @@ def _build_legacy_unet():
         model.load_weights(AppConfig.UNET_WEIGHTS_PATH)
     except Exception as exc:
         raise RuntimeError(f"Failed to load required U-Net checkpoint '{AppConfig.UNET_WEIGHTS_PATH}'.") from exc
-    print(f"[U-Net] Auxiliary lesion segmentation weights loaded successfully from {AppConfig.UNET_WEIGHTS_PATH}.")
+    print(f"[U-Net] Auxiliary pseudo-mask U-Net weights loaded successfully from {AppConfig.UNET_WEIGHTS_PATH}.")
     return model
 
 
@@ -180,7 +180,7 @@ def build_deep_clinical_unet(input_shape: tuple = (AppConfig.IMG_SIZE, AppConfig
     - Double-convolution blocks with Batch Normalization and ReLU activations
     - Latent Bottleneck: 512 filters with Spatial Dropout (rate=0.40)
     - 4-Stage Transposed Convolution Decoder with matching skip connections
-    - Sigmoid 1x1 output layer for pixel-level binary lesion segmentation
+    - Sigmoid 1x1 output layer for a binary pseudo-mask (demonstration, not lesion segmentation)
     """
     def double_conv_block(x, filters, name_prefix):
         x = layers.Conv2D(filters, (3, 3), padding="same", name=f"{name_prefix}_conv1")(x)

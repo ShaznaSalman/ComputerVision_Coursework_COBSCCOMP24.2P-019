@@ -63,7 +63,7 @@ def analyze_attention_lesion_agreement(
         cam_resized = np.zeros((h, w), dtype=np.float32)
         cam_binary = np.zeros((h, w), dtype=bool)
 
-    # U-Net lesion mask
+    # U-Net pseudo-mask output
     if raw_unet_mask is not None and stage > 0:
         if raw_unet_mask.shape != (h, w):
             raw_unet_mask = cv2.resize(raw_unet_mask, (w, h))
@@ -84,14 +84,14 @@ def analyze_attention_lesion_agreement(
     # Qualitative interpretation
     if stage == 0 or lesion_area == 0:
         interpretation = (
-            "No significant retinal lesions segmented by U-Net (Stage 0 / normal parenchyma). "
+            "No candidate regions marked by the U-Net pseudo-mask demo (Stage 0 / normal parenchyma). "
             "Model attention is distributed over normal structural landmarks."
         )
         agreement_level = "Baseline (Normal Retinal Parenchyma)"
     elif lesion_in_cam_pct >= 65.0 or dice >= 0.50:
         interpretation = (
             "Substantial spatial agreement: The classifier's high-attention regions "
-            "show strong overlap with independently segmented retinal microvascular lesions."
+            "show strong overlap with the U-Net pseudo-mask candidate regions (demo, not segmentation)."
         )
         agreement_level = "High Spatial Agreement"
     elif lesion_in_cam_pct >= 30.0 or dice >= 0.25:
@@ -102,7 +102,7 @@ def analyze_attention_lesion_agreement(
         agreement_level = "Moderate Spatial Agreement"
     else:
         interpretation = (
-            "Low spatial agreement: Classifier attention diverges from segmented lesion candidates. "
+            "Low spatial agreement: Classifier attention diverges from the U-Net pseudo-mask candidates. "
             "May reflect subtle diffuse retinopathy features, retinal background texture, or non-lesion cues. "
             "Secondary clinical review recommended."
         )
@@ -119,7 +119,7 @@ def analyze_attention_lesion_agreement(
     overlay[overlap_mask] = [230, 255, 50]
     combined_vis = cv2.addWeighted(base, 0.40, overlay, 0.60, 0)
 
-    # Lesion mask visualization
+    # U-Net pseudo-mask visualization
     lesion_vis = base.copy()
     lesion_vis[lesion_binary] = [0, 255, 100]
     lesion_vis = cv2.addWeighted(base, 0.50, lesion_vis, 0.50, 0)
@@ -279,7 +279,7 @@ def compile_retinal_biomarkers(
     biomarkers.append({
         "name": "Lesion Area Burden",
         "value": f"{lesion_pct:.2f}%",
-        "tooltip": "Percentage of visible retinal parenchyma occupied by segmented lesion candidates (microaneurysms/exudates).",
+        "tooltip": "Percentage of visible retinal parenchyma marked by the U-Net pseudo-mask demo (not validated lesion segmentation).",
         "category": "Pathology Burden",
         "status": "No candidate area" if lesion_pct == 0.0 else "Measured visual-support value",
     })
@@ -439,7 +439,7 @@ def evaluate_prediction_evidence_consistency(
     elif stage in (2, 3, 4):  # Moderate, Severe, Proliferative
         if lesion_pct < 0.20:
             reasons.append(
-                f"High-stage prediction ({stage_name}, {confidence*100:.1f}%) has minimal independently segmented lesion burden ({lesion_pct:.2f}%). "
+                f"High-stage prediction ({stage_name}, {confidence*100:.1f}%) has a minimal U-Net pseudo-mask area ({lesion_pct:.2f}%). "
                 "Classifier may rely on subtle diffuse textures or vessel attenuation."
             )
             inconsistencies += 2
@@ -452,7 +452,7 @@ def evaluate_prediction_evidence_consistency(
         # Overlap check
         dice = overlap_data.get("dice", 0.0)
         if dice >= 0.35 or overlap_data.get("lesion_in_cam_pct", 0.0) >= 50.0:
-            reasons.append("Grad-CAM attention map exhibits substantial spatial concordance with segmented lesions.")
+            reasons.append("Grad-CAM attention map overlaps substantially with the U-Net pseudo-mask regions.")
         else:
             reasons.append("Grad-CAM attention partially diverges from U-Net lesion clusters.")
 
@@ -474,7 +474,7 @@ def evaluate_prediction_evidence_consistency(
         status_color = "#e11d48"
         status_bg = "#fff1f2"
         icon = "🟠"
-        explanation = "Potential divergence between classifier confidence and independently segmented lesion evidence. Manual slit-lamp ophthalmic review strongly recommended."
+        explanation = "Potential divergence between classifier confidence and the U-Net pseudo-mask evidence. Manual slit-lamp ophthalmic review strongly recommended."
 
     full_reason = f"{explanation} Details: {' '.join(reasons)}"
 

@@ -215,7 +215,7 @@ def generate_full_report_pdf(stage_name: str, confidence: float, probabilities: 
     report_images = [
         ("Uploaded fundus image", original_image),
         ("Grad-CAM attention visual", cam_image),
-        ("U-Net lesion visual", lesion_image),
+        ("U-Net pseudo-mask demo (not segmentation)", lesion_image),
     ]
     return generate_document_pdf("RetinaTrace Full Diagnostic Report", report_body, report_images)
 

@@ -25,7 +25,7 @@ The Severe sample is predicted Proliferative DR (53.4%): an honest model error, 
 | 05_upload_stage2_moderate.png | Uploaded app/samples/stage2_moderate.jpg (true grade 2: Moderate) and ran the analysis | Stage 2: Moderate, 70.1% (model prediction; correct); 5.6 s | PASS |
 | 06_upload_stage3_severe.png | Uploaded app/samples/stage3_severe.jpg (true grade 3: Severe) and ran the analysis | Stage 4: Proliferative DR, 53.4% (model prediction; WRONG (honest model error)); 5.6 s | PASS |
 | 07_upload_stage4_proliferative.png | Uploaded app/samples/stage4_proliferative.jpg (true grade 4: Proliferative DR) and ran the analysis | Stage 4: Proliferative DR, 53.6% (model prediction; correct); 5.3 s | PASS |
-| 08_explainability_open.png | Opened 'Explainability & visual evidence' after the last upload | Grad-CAM overlay, U-Net demo panel, vessel and optic-disc overlays | PASS |
+| 08_explainability_open.png | Retaken: uploaded video_demo_images/2_moderate/2_81.8_891392c9683c.png (true grade 2: Moderate), ran the analysis and opened 'Explainability & visual evidence' | Stage 2: Moderate, 81.8% (model prediction); Grad-CAM overlay, 'Layer 3: U-Net pseudo-mask demo (not segmentation)' panel, vessel and optic-disc overlays | PASS |
 | 09_preset_normal.png | Clicked 'Normal — preset demo' | Stage 0: No DR, 93.8%, labelled as preset = True; heading shows 'PRESET DEMOS' = True | PASS |
 | 10_preset_moderate.png | Clicked 'Moderate — preset demo' | Stage 2: Moderate, 88.5%, labelled as preset = True; heading shows 'PRESET DEMOS' = True | PASS |
 | 11_preset_proliferative.png | Clicked 'Proliferative — preset demo' | Stage 4: Proliferative DR, 92.1%, labelled as preset = True; heading shows 'PRESET DEMOS' = True | PASS |

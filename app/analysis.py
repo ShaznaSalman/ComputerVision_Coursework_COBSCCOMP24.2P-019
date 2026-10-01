@@ -478,7 +478,7 @@ def analyze_fundus(img: Optional[np.ndarray], threshold: float, session_history:
 
     lesion_burden_html = (
         f'<div style="margin-top:8px; padding:10px 14px; background:#f8fafc; border-radius:8px; border-left:4px solid {burden_color};">'
-        f'<div style="font-size:11px; font-weight:700; text-transform:uppercase; color:#64748b; margin-bottom:4px;">Retinal Lesion Area Burden (U-Net Segmentation)</div>'
+        f'<div style="font-size:11px; font-weight:700; text-transform:uppercase; color:#64748b; margin-bottom:4px;">U-Net Pseudo-Mask Area (demo, not segmentation)</div>'
         f'<div style="display:flex; align-items:baseline; gap:10px;">'
         f'<span style="font-size:28px; font-weight:800; color:{burden_color};">{lesion_pct:.2f}%</span>'
         f'<span style="font-size:13px; color:#475569;">of visible parenchyma</span></div>'

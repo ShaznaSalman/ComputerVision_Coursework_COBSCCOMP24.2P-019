@@ -120,16 +120,15 @@ _CLINICAL_KB: List[Dict[str, Any]] = [
     {
         "keys": ["unet", "u-net", "segmentation", "lesion", "layer 3", "mask"],
         "reply": (
-            "**Auxiliary U-Net — Layer 3 Pixel-Level Lesion Segmentation**\n\n"
-            "The U-Net predicts a pixel-level lesion probability map, which is visualized "
-            "with highlighted candidate regions.\n\n"
-            "In the notebook training workflow, manual pixel masks were unavailable, so "
-            "pseudo-masks were generated from the green channel, "
-            "Top-Hat and Black-Hat morphology, and Grad-CAM saliency above 0.35. These are "
-            "synthetic training targets, not manual ground truth.\n\n"
-            "The notebook trains the U-Net with a **Hybrid Soft Dice + BCE Loss**. In the "
-            "deployed app, the loaded U-Net mask is additionally filtered at 0.35 and combined "
-            "with a Grad-CAM threshold of 0.30. The result is visual support, not an independent diagnosis."
+            "**Auxiliary U-Net — Layer 3 pseudo-mask demonstration**\n\n"
+            "This U-Net is **not lesion segmentation**. APTOS 2019 has no manual lesion masks, so "
+            "it was trained on heuristic pseudo-masks: green-channel top-hat and black-hat "
+            "morphology, kept only inside the Grad-CAM region (saliency above 0.35). These are "
+            "synthetic targets, not manual ground truth.\n\n"
+            "The notebook trained it with a **Hybrid Soft Dice + BCE Loss**, and it reached a Dice of "
+            "only **0.0031** on those pseudo-masks, so it did not learn even its synthetic targets. "
+            "In the app its output is further filtered at 0.35 and combined with a Grad-CAM threshold "
+            "of 0.30, and it is shown only as a pipeline demonstration, not as evidence of lesions."
         ),
     },
     {
@@ -223,7 +222,7 @@ _CHATBOT_FALLBACK = (
     "I don't have a specific answer for that query in my clinical knowledge base. "
     "For questions about diabetic retinopathy management, please consult the "
     "**AAO Preferred Practice Pattern (Flaxel et al., 2020)** or a qualified ophthalmologist.\n\n"
-    "You can ask me about: DR stages (0–4), Grad-CAM, the U-Net segmentation, "
+    "You can ask me about: DR stages (0–4), Grad-CAM, the U-Net pseudo-mask demo, "
     "the Governance Agent, Case-Based Reasoning, the preprocessing pipeline, "
     "Quadratic Weighted Kappa, referral guidelines, or the training dataset."
 )
@@ -239,8 +238,8 @@ _SIMPLE_CHAT_REPLIES = {
         "prediction. It helps the user see where the model was looking."
     ),
     "unet": (
-        "U-Net is the part of RetinaTrace that highlights possible lesion areas pixel by pixel. "
-        "It helps show where abnormalities may be present, but the highlighted areas still need clinical confirmation."
+        "U-Net is a demonstration layer in RetinaTrace. It was trained on heuristic pseudo-masks, "
+        "not on real lesion outlines, so it is not lesion segmentation and its highlighted areas are not evidence of lesions."
     ),
     "efficientnet": (
         "EfficientNetB3 is the image-classification model used by RetinaTrace. It examines the "
@@ -352,7 +351,7 @@ class ChatKnowledgeAgent:
         if intent == "greeting":
             return "Hello. I am the **RetinaTrace Clinical Knowledge Assistant**. Ask me about diabetic retinopathy stages, this model, or clinical guidelines."
         if intent == "help":
-            return "I can explain **DR stages 0–4**, Grad-CAM, U-Net lesion segmentation, the Governance Agent, referral guidance, preprocessing, and the current prediction."
+            return "I can explain **DR stages 0–4**, Grad-CAM, the U-Net pseudo-mask demo, the Governance Agent, referral guidance, preprocessing, and the current prediction."
         if intent == "thanks":
             return "You are welcome. Ask another question whenever you are ready."
         if intent == "definition":
@@ -385,8 +384,8 @@ class ChatKnowledgeAgent:
             if topic == "lesions":
                 return (
                     f"**Lesions in the current analysis**\n\n"
-                    f"The U-Net identified lesion candidates in **{pred_context.get('lesion_pct', 0.0):.1f}%** of the retinal area. "
-                    "These candidates may include microaneurysms or exudate-like regions and should be clinically confirmed."
+                    f"The U-Net pseudo-mask demo marked **{pred_context.get('lesion_pct', 0.0):.1f}%** of the retinal area. "
+                    "It was trained on heuristic pseudo-masks and is not lesion segmentation, so these regions are not confirmed lesions."
                 )
             if topic == "confidence":
                 return f"The current **{stage_name}** prediction has a model confidence of **{conf*100:.1f}%**."

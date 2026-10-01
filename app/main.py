@@ -117,8 +117,8 @@ with gr.Blocks(title="RetinaTrace — DR Research Prototype") as demo:
                                 gr.Markdown("**Layer 2: Regional Attention (Grad-CAM)**")
                                 overlay_cam_view = gr.Image(label="Grad-CAM Saliency Overlay", type="numpy", height=200)
                             with gr.Column(scale=5):
-                                gr.Markdown("**Layer 3: Lesion Segmentation (U-Net)**")
-                                lesion_seg_view = gr.Image(label="Segmented Lesions (U-Net)", type="numpy", height=200)
+                                gr.Markdown("**Layer 3: U-Net pseudo-mask demo (not segmentation)**")
+                                lesion_seg_view = gr.Image(label="U-Net pseudo-mask output (demo)", type="numpy", height=200)
                         with gr.Row():
                             with gr.Column(scale=5):
                                 gr.Markdown("**Classical CV Vessel Analysis**")
