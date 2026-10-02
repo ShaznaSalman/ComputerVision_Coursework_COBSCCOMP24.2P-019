@@ -1,17 +1,3 @@
----
-title: RetinaTrace AI - Diabetic Retinopathy Research Prototype
-emoji: 👁️
-colorFrom: green
-colorTo: blue
-sdk: gradio
-sdk_version: "6.27.0"
-python_version: "3.11"
-app_file: app.py
-pinned: false
-license: other
-short_description: Coursework prototype for diabetic-retinopathy image analysis
----
-
 **Live demo:** https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/ (research prototype, not for clinical use)
 
 # Diabetic Retinopathy Stage Detection: Coursework Research Prototype
