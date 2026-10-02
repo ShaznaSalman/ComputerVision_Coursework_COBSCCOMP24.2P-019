@@ -12,6 +12,8 @@ license: other
 short_description: Coursework prototype for diabetic-retinopathy image analysis
 ---
 
+**Live demo:** https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/ (research prototype, not for clinical use)
+
 # Diabetic Retinopathy Stage Detection: Coursework Research Prototype
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -86,8 +88,8 @@ ComputerVision_Coursework_COBSCCOMP24.2P-019/
 ├── report_images/                        # Figures and metrics copied from a run (add after a training run)
 ├── requirements.txt                      # Local / training dependencies
 ├── requirements-deploy.txt               # Same, with tensorflow-cpu (used by the Dockerfile)
-├── Dockerfile, .dockerignore             # Container image for hosting (not yet deployed)
-├── render.yaml, HF_SPACE_README.md       # Render blueprint and Hugging Face Space README
+├── Dockerfile, .dockerignore             # Container image used for the Render deployment
+├── render.yaml, HF_SPACE_README.md       # Render blueprint (live) and an alternative Space setup (not used)
 └── README.md
 ```
 
@@ -104,7 +106,7 @@ To align with clean-architecture principles and deployment requirements:
    - `core/explainability.py` & `core/advanced_cv.py`: Mathematical Grad-CAM formulation, U-Net inference, and Case-Based Reasoning (CBR) embedding similarity.
    - `core/agents.py`: Decoupled 4-agent clinical governance architecture with typed error recovery.
 2. **Presentation Layer (`app/` package + root `app.py`):**
-   - **Deployment Architecture:** Hugging Face Spaces looks for a top-level `app_file: app.py`, so the root `app.py` is kept as a few-line entry point that imports `app.main` and launches it; `python app.py` still works.
+   - **Deployment Architecture:** the root `app.py` is a few-line entry point that imports `app.main` and launches it; `python app.py` is also the Docker command used on Render.
    - **Module split:** `app/main.py` only builds the layout and wires events; analysis, chatbot, reports, triage and styling each live in their own module.
    - **Separation of Concerns:** the `app/` package contains *no* raw neural network layer definitions or image-processing mathematics; it delegates domain processing to `core/`.
 3. **Automated Unit Testing (`tests/`):**
@@ -163,7 +165,7 @@ All core innovations in this project are directly grounded in and adapted from p
 ## 🌟 Bonus Features Implemented
 
 * **Bonus C: Interactive Gradio UI**: Complete clinical web dashboard featuring image drag-and-drop, adjustable governance threshold sliders, live Grad-CAM heatmaps, and case retrieval galleries; runs locally at `http://localhost:7860` (set `PORT` or `GRADIO_SERVER_PORT` to change the port).
-* **Hosting readiness (Docker; Render or Hugging Face Spaces — not yet deployed)**: a `Dockerfile` (python:3.11-slim, CPU-only TensorFlow from `requirements-deploy.txt`), `.dockerignore`, a Render blueprint (`render.yaml`) and a Space README (`HF_SPACE_README.md`). The app listens on `0.0.0.0` and takes its port from `PORT`, then `GRADIO_SERVER_PORT`, then 7860, with public sharing disabled. It peaks at about 1.5 GB of RAM, so it needs a host with at least 2 GB (Render's free 512 MB plan is too small). See Option 3 below.
+* **Cloud hosting (Render, Docker)**: live at https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/, built on Render from the repository's `Dockerfile` (python:3.11-slim, CPU-only TensorFlow from `requirements-deploy.txt`) on a Standard 2 GB instance. The app listens on `0.0.0.0` and takes its port from `PORT`, then `GRADIO_SERVER_PORT`, then 7860, with public sharing disabled. See Option 3 below.
 * **Bonus E: Multi-Stage Classification Verification**: The network strictly performs 5-class ordinal disease staging across all ICDR grades (`No DR`, `Mild`, `Moderate`, `Severe`, `Proliferative DR`), rejecting binary (DR present/absent) simplification.
 * **Red-flag symptoms (second governance rule) — illustrative, not clinically validated**: four patient-reported symptoms (sudden loss of vision; a curtain or shadow; a sudden shower of floaters or flashes; eye pain with redness) turn any result into *URGENT — seek same-day eye care*, withhold the automated plan and list the symptoms. They never change the predicted stage and do nothing for images rejected as non-fundus.
 * **Patient ID / MRN and eye — illustrative, not clinically validated**: optional, sanitised ID (letters, digits, `-`, `_`, max 40 characters; blank = *Not provided*) and eye (OD / OS / not specified) printed with the date/time and result source at the top of all three PDFs, in the history and in the longitudinal comparison. Do not enter real patient data.
@@ -211,7 +213,9 @@ python app.py
 python -m pytest tests -q
 ```
 
-### Option 3: Docker (prepared for Render or Hugging Face Spaces; not yet deployed)
+### Option 3: Cloud hosting (Render, Docker)
+
+The prototype is deployed on Render at https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/, built from this repository's `Dockerfile` (`render.yaml`: Docker runtime, Standard 2 GB instance, Singapore region, auto-deploy off). To run the same image locally:
 
 ```bash
 # Build the image (CPU-only TensorFlow; copies the code, the two app weight files,
@@ -225,10 +229,10 @@ docker run --rm -p 7860:7860 retinatrace
 docker run --rm -e PORT=8080 -p 8080:8080 retinatrace
 ```
 
-**Memory:** the app peaks at about 1.5 GB while it loads the models and analyses an image, so give the container or host at least 2 GB of RAM. Render's free 512 MB plan is too small.
+**Memory:** the app peaks at about 1.6 GB (EfficientNetB3 at 300 px, Grad-CAM, the retrieval library and the U-Net), so the container or host needs at least 2 GB of RAM; Render's free 512 MB plan is too small. The first request after a redeploy takes about 30 s while the models load.
 
-* **Render:** `render.yaml` defines a Docker web service with health check `/` on a 2 GB plan.
-* **Hugging Face Spaces:** create a Docker Space and follow `HF_SPACE_README.md` (YAML header with `sdk: docker`, `app_port: 7860`; the weight files are over 10 MB, so push them with Git LFS).
+* **Render:** `render.yaml` defines the Docker web service (health check `/`, Standard plan) used for the live deployment.
+* Hugging Face Spaces now requires a paid plan for Docker/Gradio Spaces; `HF_SPACE_README.md` is kept as an alternative setup.
 
 ---
 

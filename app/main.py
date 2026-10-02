@@ -575,7 +575,7 @@ def launch() -> None:
     """Launch the RetinaTrace interface.
 
     The port comes from PORT (set by Render and similar hosts), then GRADIO_SERVER_PORT
-    (Gradio / Hugging Face Spaces), then 7860. The app listens on 0.0.0.0 unless
+    (Gradio), then 7860. The app listens on 0.0.0.0 unless
     GRADIO_SERVER_NAME says otherwise. No public share link is created.
     """
     port = os.environ.get("PORT") or os.environ.get("GRADIO_SERVER_PORT") or "7860"

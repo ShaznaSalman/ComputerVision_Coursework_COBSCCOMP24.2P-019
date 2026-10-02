@@ -1,7 +1,8 @@
 # RetinaTrace AI: Gradio prototype for five-stage DR grading (research use only).
 # Build: docker build -t retinatrace .
 # Run:   docker run --rm -p 7860:7860 retinatrace   then open http://localhost:7860
-# Memory: the app peaks at about 1.5 GB while it loads the models and analyses an image,
+# Deployed on Render (https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/) from this file.
+# Memory: the app peaks at about 1.6 GB while it loads the models and analyses an image,
 # so the host needs at least 2 GB of RAM.
 FROM python:3.11-slim
 
@@ -16,7 +17,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     GRADIO_ANALYTICS_ENABLED=False \
     MPLCONFIGDIR=/tmp/matplotlib
 
-# Hugging Face Spaces runs containers as user 1000; use the same user everywhere.
+# Run as an unprivileged user (uid 1000) on Render and locally.
 RUN useradd --create-home --uid 1000 appuser
 WORKDIR /home/appuser/app
 

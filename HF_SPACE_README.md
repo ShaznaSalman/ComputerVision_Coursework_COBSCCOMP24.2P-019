@@ -13,7 +13,9 @@ short_description: Research prototype for five-stage diabetic retinopathy gradin
 
 Research prototype for five-stage diabetic retinopathy grading from fundus photographs
 (EfficientNetB3, Grad-CAM, similar-case retrieval and a safety gate). It is not a medical
-device and must not be used for clinical decisions. **Status: prepared for hosting; not yet deployed.**
+device and must not be used for clinical decisions.
+
+**Status: alternative setup, not used.** Hugging Face Spaces requires a paid plan for Docker Spaces. The live deployment is on Render: https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/
 
 The Space is built from the repository's `Dockerfile`. The YAML header above tells Hugging Face
 to use the Docker SDK and to route traffic to port 7860.
@@ -21,7 +23,7 @@ to use the Docker SDK and to route traffic to port 7860.
 ## Steps to deploy
 
 1. Create a new Space on Hugging Face and choose **Docker** as the SDK (blank template).
-   Pick hardware with at least 2 GB of RAM; the app peaks at about 1.5 GB.
+   Pick hardware with at least 2 GB of RAM; the app peaks at about 1.6 GB.
 2. Clone the Space and copy in the files the Dockerfile uses: `Dockerfile`, `.dockerignore`,
    `requirements-deploy.txt`, `app.py`, `core/`, `app/`, `embeddings.npz`,
    `checkpoints/final_model.weights.h5`, `checkpoints/unet_pseudomask.weights.h5` and
