@@ -75,7 +75,7 @@ ComputerVision_Coursework_COBSCCOMP24.2P-019/
 ├── requirements.txt                      # Local / training dependencies
 ├── requirements-deploy.txt               # Same, with tensorflow-cpu (used by the Dockerfile)
 ├── Dockerfile, .dockerignore             # Container image used for the Render deployment
-├── render.yaml, HF_SPACE_README.md       # Render blueprint (live) and an alternative Space setup (not used)
+├── render.yaml                           # Render blueprint used for the live deployment
 └── README.md
 ```
 
@@ -218,7 +218,6 @@ docker run --rm -e PORT=8080 -p 8080:8080 retinatrace
 **Memory:** the app peaks at about 1.6 GB (EfficientNetB3 at 300 px, Grad-CAM, the retrieval library and the U-Net), so the container or host needs at least 2 GB of RAM; Render's free 512 MB plan is too small. The first request after a redeploy takes about 30 s while the models load.
 
 * **Render:** `render.yaml` defines the Docker web service (health check `/`, Standard plan) used for the live deployment.
-* Hugging Face Spaces now requires a paid plan for Docker/Gradio Spaces; `HF_SPACE_README.md` is kept as an alternative setup.
 
 ---
 
