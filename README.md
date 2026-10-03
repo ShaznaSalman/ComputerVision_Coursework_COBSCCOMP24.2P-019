@@ -1,5 +1,11 @@
 **Live demo:** https://retinatrace-cv-coursework-cobsccomp24-2p.onrender.com/ (research prototype, not for clinical use)
 
+**Video demonstration:** [watch on SharePoint](https://nibm-my.sharepoint.com/:v:/g/personal/cobsccomp242p-019_student_nibm_lk/IQD8l--DRScaSK1FB12fTQC2AS-IiPD5F9YZrm4XsEA3oCM?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=zZKLc5)
+
+**Executed Kaggle notebook:** https://www.kaggle.com/code/islamicspiritual/diabetic-retinopathy-kagglerun (the run that produced every reported result; a copy is in `kaggle test runs/`)
+
+**Report:** `COBSCCOMP24.2P-019_M.S.F.Shazna_ComputerVision.pdf` (submitted separately; not stored in this repository)
+
 # Diabetic Retinopathy Stage Detection: Coursework Research Prototype
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
